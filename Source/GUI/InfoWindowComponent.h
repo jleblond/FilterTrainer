@@ -16,9 +16,9 @@
 class InfoWindowComponent : public Component
 {
 public:
-    InfoWindowComponent()
+    InfoWindowComponent(int basicwindowwidth, int basicwindowheight)
     {
-        setSize (600,600);
+        setSize (basicwindowwidth, basicwindowheight);
     }
     
     ~InfoWindowComponent()

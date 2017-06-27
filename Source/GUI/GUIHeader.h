@@ -34,7 +34,8 @@ public:
     
     ~GUIHeader()
     {
-        
+//        delete bwindow;
+//        bwindow=nullptr;
     }
     
     void paint(Graphics& g)override
@@ -70,28 +71,24 @@ public:
     
     void buttonClicked(Button* button) override
     {
-//        if(bwindow!=nullptr){
-//            delete bwindow;
-//            bwindow=nullptr;
-//        }
-        
-        BasicWindow* bwindow=new BasicWindow("Information");
-    
+       // if ()
+       //     bwindow->closeButtonPressed();
         
         if(button== &menu1)
         {
             std::cout<<"menu1"<<std::endl;
+             new BasicWindow("Info", 1);
             
         }
         else if(button == &menu2)
         {
             std::cout<<"menu2"<<std::endl;
-            
+             new BasicWindow("About", 2);
         }
         else if(button == &menu3)
         {
             std::cout<<"menu3"<<std::endl;
-           
+             new BasicWindow("Stats", 3);
         }
 
         
@@ -100,6 +97,8 @@ public:
     
 
 private:
+  //  BasicWindow *bwindow=nullptr;
+    
     String str_subtitle="FILTER [prototype]";
     String str_title="Inner Ear";
     

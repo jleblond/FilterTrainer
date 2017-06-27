@@ -16,10 +16,11 @@
 class AboutWindowComponent : public Component
 {
 public:
-    AboutWindowComponent()
+    AboutWindowComponent(int basicwindowwidth, int basicwindowheight)
     {
-        
+        setSize (basicwindowwidth, basicwindowheight);
     }
+    
     
     ~AboutWindowComponent()
     {

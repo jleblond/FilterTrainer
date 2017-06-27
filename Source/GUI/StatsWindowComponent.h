@@ -16,10 +16,11 @@
 class StatsWindowComponent : public Component
 {
 public:
-    StatsWindowComponent()
+    StatsWindowComponent(int basicwindowwidth, int basicwindowheight)
     {
-        
+        setSize (basicwindowwidth, basicwindowheight);
     }
+    
     
     ~StatsWindowComponent()
     {
