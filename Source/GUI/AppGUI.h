@@ -19,7 +19,7 @@
 
 //APP dimensions
 const int HEIGHT=700;
-const int WIDTH=800;
+const int WIDTH=900;
 
 class AppGUI : public Component
 {
