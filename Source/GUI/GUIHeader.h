@@ -11,19 +11,24 @@
 #pragma once
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "GUIBasicWindow.h"
 
-class GUIHeader : public Component
+
+class GUIHeader : public Component, public Button::Listener
 {
 public:
     GUIHeader()
     {
         menu1.setButtonText(str_menu1);
+        menu1.addListener(this);
         addAndMakeVisible(menu1);
         
         menu2.setButtonText(str_menu2);
+        menu2.addListener(this);
         addAndMakeVisible(menu2);
         
         menu3.setButtonText(str_menu3);
+        menu3.addListener(this);
         addAndMakeVisible(menu3);
     }
     
@@ -62,6 +67,37 @@ public:
         //        std::cout<<"elheight: "<<elementheight<<std::endl;
         //        std::cout<<"elwidth: "<<elementwidth<<std::endl;
     }
+    
+    void buttonClicked(Button* button) override
+    {
+//        if(bwindow!=nullptr){
+//            delete bwindow;
+//            bwindow=nullptr;
+//        }
+        
+        BasicWindow* bwindow=new BasicWindow("Information");
+    
+        
+        if(button== &menu1)
+        {
+            std::cout<<"menu1"<<std::endl;
+            
+        }
+        else if(button == &menu2)
+        {
+            std::cout<<"menu2"<<std::endl;
+            
+        }
+        else if(button == &menu3)
+        {
+            std::cout<<"menu3"<<std::endl;
+           
+        }
+
+        
+        
+    }
+    
 
 private:
     String str_subtitle="FILTER [prototype]";

@@ -6,6 +6,7 @@
   ==============================================================================
 */
 
+#pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "GUI/AppGUI.h"
 
