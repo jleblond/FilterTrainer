@@ -51,8 +51,8 @@ public:
         
         gheader.setBounds (area.removeFromTop( headerHeight*getHeight() ));
         gstats.setBounds(area.removeFromBottom( footerHeight*getHeight() ));
-        gexcontrols.setBounds (area.removeFromRight( sidebarWidth*getWidth() ));
-        gplayer.setBounds(area.removeFromLeft( (WIDTH-sidebarWidth)*getWidth() ));
+        gexcontrols.setBounds (area.removeFromLeft( sidebarWidth*getWidth() ));
+        gplayer.setBounds(area.removeFromRight( (WIDTH-sidebarWidth)*getWidth() ));
     }
 
 private:
