@@ -103,6 +103,9 @@ public:
     {
         if(slider == &dBAmpSlider)
             dBAmpSlider_value=dBAmpSlider.getValue();
+        
+        if(slider == &volumeSlider)
+            volume=volumeSlider.getValue();
     }
     
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override
@@ -124,5 +127,7 @@ private:
     int dBAmpSlider_value=3;
     bool amplification_value=false;
     bool attenuation_value=false;
+    
+    int volume=0;
 
 };

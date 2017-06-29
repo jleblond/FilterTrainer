@@ -12,25 +12,34 @@
 
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "../MainComponent.cpp"
 
 class GUIPlayer : public Component
 {
 public:
     GUIPlayer()
     {
-        
+        addAndMakeVisible(component);
     }
     
     ~GUIPlayer()
     {
-        
+        delete component;
     }
     
     void paint(Graphics& g)override
     {
-        g.fillAll(Colours::gold);
+        
         
     }
+    
+    void resized() override
+    {
+        component->setBounds (0, 0, getWidth(), getHeight());
+    }
+    
+private:
+    MainContentComponent* component=new MainContentComponent();
     
     
 };

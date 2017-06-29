@@ -99,8 +99,8 @@ public:
 private:
   //  BasicWindow *bwindow=nullptr;
     
-    String str_subtitle="FILTER [prototype]";
-    String str_title="Inner Ear";
+    String str_title="FILTER [prototype]";
+    String str_subtitle="Inner Ear";
     
     TextButton menu1;
     String str_menu1="INFO";

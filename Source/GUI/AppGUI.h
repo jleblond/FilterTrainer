@@ -26,6 +26,8 @@ class AppGUI : public Component
 public:
     AppGUI()
     {
+        setSize (WIDTH, HEIGHT);
+        
         addAndMakeVisible (gheader);
         addAndMakeVisible (gplayer);
         addAndMakeVisible (gexcontrols);

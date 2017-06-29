@@ -8,7 +8,7 @@
 
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "GUI/AppGUI.h"
+
 
 //==============================================================================
 /*
@@ -21,8 +21,7 @@ public:
     //==============================================================================
     MainContentComponent()
     {
-        addAndMakeVisible(gui);
-        setSize (WIDTH, HEIGHT);
+    
 
         // specify the number of input and output channels that we want to open
         setAudioChannels (2, 2);
@@ -67,10 +66,9 @@ public:
     //==============================================================================
     void paint (Graphics& g) override
     {
-        // (Our component is opaque, so we must completely fill the background with a solid colour)
-        g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 
-        // You can add your drawing code here!
+        g.fillAll(Colours::gold);
     }
 
     void resized() override
@@ -78,19 +76,16 @@ public:
         // This is called when the MainContentComponent is resized.
         // If you add any child components, this is where you should
         // update their positions.
-        
-        gui.setBounds (0, 0, getWidth(), getHeight());
+     
     }
 
 
 private:
-    AppGUI gui;
+    
+    
     //==============================================================================
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };
 
-
-// (This function is called by the app startup code to create our main component)
-Component* createMainContentComponent()     { return new MainContentComponent(); }
