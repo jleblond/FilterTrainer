@@ -11,7 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "GUI/AppGUI.h"
 
-Component* createMainContentComponent();
+//Component* createMainContentComponent();
 
 //==============================================================================
 class AudioAppTestApplication  : public JUCEApplication

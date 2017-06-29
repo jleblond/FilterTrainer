@@ -1,91 +1,170 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-  ==============================================================================
-*/
 
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
-//==============================================================================
-/*
-    This component lives inside our window, and this is where you should put all
-    your controls and content.
-*/
-class MainContentComponent   : public AudioAppComponent
+class MainContentComponent   : public AudioAppComponent,
+public ChangeListener,
+public Button::Listener
 {
 public:
-    //==============================================================================
     MainContentComponent()
+    :   state (Stopped)
     {
-    
-
-        // specify the number of input and output channels that we want to open
-        setAudioChannels (2, 2);
+        addAndMakeVisible (&openButton);
+        openButton.setButtonText ("Open...");
+        openButton.addListener (this);
+        
+        addAndMakeVisible (&playButton);
+        playButton.setButtonText ("Play");
+        playButton.addListener (this);
+        playButton.setColour (TextButton::buttonColourId, Colours::green);
+        playButton.setEnabled (false);
+        
+        addAndMakeVisible (&stopButton);
+        stopButton.setButtonText ("Stop");
+        stopButton.addListener (this);
+        stopButton.setColour (TextButton::buttonColourId, Colours::red);
+        stopButton.setEnabled (false);
+        
+       // setSize (300, 200);
+        
+        formatManager.registerBasicFormats();
+        transportSource.addChangeListener (this);
+        
+        setAudioChannels (0, 2);
     }
-
+    
     ~MainContentComponent()
     {
         shutdownAudio();
     }
-
-    //==============================================================================
+    
     void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override
     {
-        // This function will be called when the audio device is started, or when
-        // its settings (i.e. sample rate, block size, etc) are changed.
-
-        // You can use this function to initialise any resources you might need,
-        // but be careful - it will be called on the audio thread, not the GUI thread.
-
-        // For more details, see the help for AudioProcessor::prepareToPlay()
+        transportSource.prepareToPlay (samplesPerBlockExpected, sampleRate);
     }
-
+    
     void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override
     {
-        // Your audio-processing code goes here!
-
-        // For more details, see the help for AudioProcessor::getNextAudioBlock()
-
-        // Right now we are not producing any data, in which case we need to clear the buffer
-        // (to prevent the output of random noise)
-        bufferToFill.clearActiveBufferRegion();
+        if (readerSource == nullptr)
+        {
+            bufferToFill.clearActiveBufferRegion();
+            return;
+        }
+        
+        transportSource.getNextAudioBlock (bufferToFill);
     }
-
+    
     void releaseResources() override
     {
-        // This will be called when the audio device stops, or when it is being
-        // restarted due to a setting change.
-
-        // For more details, see the help for AudioProcessor::releaseResources()
+        transportSource.releaseResources();
     }
-
-    //==============================================================================
-    void paint (Graphics& g) override
-    {
-        //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
-        g.fillAll(Colours::gold);
-    }
-
+    
     void resized() override
     {
-        // This is called when the MainContentComponent is resized.
-        // If you add any child components, this is where you should
-        // update their positions.
-     
+        openButton.setBounds (10, 10, getWidth() - 20, 20);
+        playButton.setBounds (10, 40, getWidth() - 20, 20);
+        stopButton.setBounds (10, 70, getWidth() - 20, 20);
     }
-
-
+    
+    void changeListenerCallback (ChangeBroadcaster* source) override
+    {
+        if (source == &transportSource)
+        {
+            if (transportSource.isPlaying())
+                changeState (Playing);
+            else
+                changeState (Stopped);
+        }
+    }
+    
+    void buttonClicked (Button* button) override
+    {
+        if (button == &openButton)  openButtonClicked();
+        if (button == &playButton)  playButtonClicked();
+        if (button == &stopButton)  stopButtonClicked();
+    }
+    
 private:
+    enum TransportState
+    {
+        Stopped,
+        Starting,
+        Playing,
+        Stopping
+    };
     
+    void changeState (TransportState newState)
+    {
+        if (state != newState)
+        {
+            state = newState;
+            
+            switch (state)
+            {
+                case Stopped:
+                    stopButton.setEnabled (false);
+                    playButton.setEnabled (true);
+                    transportSource.setPosition (0.0);
+                    break;
+                    
+                case Starting:
+                    playButton.setEnabled (false);
+                    transportSource.start();
+                    break;
+                    
+                case Playing:
+                    stopButton.setEnabled (true);
+                    break;
+                    
+                case Stopping:
+                    transportSource.stop();
+                    break;
+            }
+        }
+    }
     
-    //==============================================================================
-
-
+    void openButtonClicked()
+    {
+        FileChooser chooser ("Select a Wave file to play...",
+                             File::nonexistent,
+                             "*.wav");
+        
+        if (chooser.browseForFileToOpen())
+        {
+            File file (chooser.getResult());
+            AudioFormatReader* reader = formatManager.createReaderFor (file);
+            
+            if (reader != nullptr)
+            {
+                ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
+                transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
+                playButton.setEnabled (true);
+                readerSource = newSource.release();
+            }
+        }
+    }
+    
+    void playButtonClicked()
+    {
+        changeState (Starting);
+    }
+    
+    void stopButtonClicked()
+    {
+        changeState (Stopping);
+    }
+    
+    //==========================================================================
+    TextButton openButton;
+    TextButton playButton;
+    TextButton stopButton;
+    
+    AudioFormatManager formatManager;
+    ScopedPointer<AudioFormatReaderSource> readerSource;
+    AudioTransportSource transportSource;
+    TransportState state;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };
-
