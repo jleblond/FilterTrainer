@@ -63,7 +63,7 @@ public:
     void paint(Graphics& g) override
     {
         //sidebar
-       g.fillAll(Colours::green);
+       g.fillAll(Colours::darkred);
     }
     
     void resized() override

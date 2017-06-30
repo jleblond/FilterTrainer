@@ -1,7 +1,8 @@
 
+#pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "ExerciseGenerator.h"
 
 class MainContentComponent   : public AudioAppComponent,
 public ChangeListener,
@@ -28,14 +29,18 @@ public:
         stopButton.setColour (TextButton::buttonColourId, Colours::red);
         stopButton.setEnabled (false);
         
+        addAndMakeVisible (&filterButton);
+        filterButton.setButtonText ("Filter is off");
+        filterButton.addListener (this);
+        filterButton.setColour (TextButton::buttonColourId, Colours::blue);
+        //filterButton.setEnabled (false);
+        
         addAndMakeVisible (&loopingToggle);
         loopingToggle.setButtonText ("Loop");
         loopingToggle.addListener (this);
         
         addAndMakeVisible (&currentPositionLabel);
         currentPositionLabel.setText ("Stopped", dontSendNotification);
-        
-       // setSize (300, 200);
         
         formatManager.registerBasicFormats();
         transportSource.addChangeListener (this);
@@ -63,7 +68,23 @@ public:
             return;
         }
         
-        transportSource.getNextAudioBlock (bufferToFill);
+        
+       // Exercise* currentexercise=ExerciseGenerator::listexercises.back();
+       
+        
+        IIRFilterAudioSource(&transportSource, false);
+//        IIRCoefficients iircoeff=IIRCoefficients::makePeakFilter(<#double sampleRate#>, <#double centreFrequency#>, 1.4, float gainFactor)
+        //
+        
+        if(filteron)
+        {
+            //transportSource.getNextAudioBlock (bufferToFill); //temporary
+        }
+        else
+        {
+            transportSource.getNextAudioBlock (bufferToFill);
+        }
+        
     }
     
     void releaseResources() override
@@ -73,12 +94,13 @@ public:
     
     void resized() override
     {
-        openButton.setBounds (10, 10, getWidth() - 20, 20);
-        playButton.setBounds (10, 40, getWidth() - 20, 20);
-        stopButton.setBounds (10, 70, getWidth() - 20, 20);
+        openButton.setBounds   (10, 10, getWidth() - 20, 20);
+        playButton.setBounds   (10, 40, getWidth() - 20, 20);
+        stopButton.setBounds   (10, 70, getWidth() - 20, 20);
+        filterButton.setBounds (10, 100, getWidth() - 20, 20);
         
-        loopingToggle.setBounds(10, 100, getWidth() - 20, 20);
-        currentPositionLabel.setBounds (10, 130, getWidth() - 20, 20);
+        loopingToggle.setBounds(10, 130, getWidth() - 20, 20);
+        currentPositionLabel.setBounds (10+0.3*getWidth(), 130, getWidth() - 20, 20);
     }
     
     void changeListenerCallback (ChangeBroadcaster* source) override
@@ -99,6 +121,7 @@ public:
         if (button == &openButton)  openButtonClicked();
         if (button == &playButton)  playButtonClicked();
         if (button == &stopButton)  stopButtonClicked();
+        if (button == &filterButton) filterButtonClicked();
         if (button == &loopingToggle)   loopButtonChanged();
     }
     
@@ -106,15 +129,9 @@ public:
     {
         if (transportSource.isPlaying())
         {
-            const RelativeTime position (transportSource.getCurrentPosition());
+            String positionStr = currentTime ( transportSource.getCurrentPosition() );
             
-            const int minutes = ((int) position.inMinutes()) % 60;
-            const int seconds = ((int) position.inSeconds()) % 60;
-            const int millis  = ((int) position.inMilliseconds()) % 1000;
-            
-            const String positionString (String::formatted ("%02d:%02d:%03d", minutes, seconds, millis));
-            
-            currentPositionLabel.setText (positionString, dontSendNotification);
+            currentPositionLabel.setText (positionStr, dontSendNotification);
         }
         else if(state == Paused)
         {
@@ -124,6 +141,20 @@ public:
         {
             currentPositionLabel.setText ("Stopped", dontSendNotification);
         }
+    }
+    
+    String currentTime(double currentposition)
+    {   //does not check for transportSource.isPlaying - caller function's responsability
+        //very often currentposition = transportSource.getCurrentPosition()
+        const RelativeTime position (currentposition);
+        
+        const int minutes = ((int) position.inMinutes()) % 60;
+        const int seconds = ((int) position.inSeconds()) % 60;
+        const int millis  = ((int) position.inMilliseconds()) % 1000;
+        
+        const String positionString (String::formatted ("%02d:%02d:%03d", minutes, seconds, millis));
+        
+        return positionString;
     }
     
     void updateLoopState (bool shouldLoop)
@@ -172,7 +203,7 @@ private:
                     break;
                     
                 case Pausing:
-                    pausedtime = currentPositionLabel.getText();
+                    pausedtime = currentTime ( transportSource.getCurrentPosition() );
                     transportSource.stop();
                     break;
                     
@@ -230,6 +261,16 @@ private:
         else
             changeState (Stopping);
     }
+    
+    void filterButtonClicked()
+    {
+        filteron = !filteron;
+        
+        if(filteron)
+            filterButton.setButtonText ("Filter is on");
+        else
+            filterButton.setButtonText ("Filter is off");
+    }
 
     void loopButtonChanged()
     {
@@ -240,10 +281,12 @@ private:
     TextButton openButton;
     TextButton playButton;
     TextButton stopButton;
+    TextButton filterButton;
     ToggleButton loopingToggle;
     Label currentPositionLabel;
     
     String pausedtime;
+    bool filteron = false;
     
     AudioFormatManager formatManager;
     ScopedPointer<AudioFormatReaderSource> readerSource;

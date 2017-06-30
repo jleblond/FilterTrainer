@@ -29,7 +29,7 @@ public:
     
     void paint(Graphics& g)override
     {
-        
+        g.fillAll (juce::Colours::grey);
         
     }
     
