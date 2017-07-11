@@ -40,6 +40,9 @@ void ExerciseGenerator::createExercise(int freqrange, int absfreqboost, bool amp
     int freqboost=configExerciseFreqBoost(absfreqboost, amplification, attenuation);
     ExerciseGenerator::listexercises.push_back(new Exercise(centerfreq, freqboost));
     
+    centreFrequency=static_cast<double>(centerfreq);
+    gainFactor=static_cast<float>(freqboost);
+    
 }
 
 int ExerciseGenerator::configExerciseFreqBoost(int freqboost, bool amplification, bool attenuation)

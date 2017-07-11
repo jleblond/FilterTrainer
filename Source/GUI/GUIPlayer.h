@@ -12,7 +12,7 @@
 
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include "../MainComponent.cpp"
+#include "../MainComponent.h"
 
 class GUIPlayer : public Component
 {

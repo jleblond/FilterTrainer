@@ -20,13 +20,13 @@ class Exercise
 public:
    // static std::vector<Exercise*> listexercises;
     
-    Exercise(){};
     Exercise(float cfreq, int freqchange) : centerfreq(cfreq), freqboost(freqchange)
     {
         //listexercises.push_back(this);
         
         std::cout<<"EXERCISE"<<std::endl;
         std::cout<<"centerfreq:"<<centerfreq<<" freqboost:"<<freqboost<<std::endl;
+        
     }
     
     

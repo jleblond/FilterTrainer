@@ -13,7 +13,7 @@
 #include "Exercise.h"
 #include <vector>
 
-
+#include "global.h"
 
 class ExerciseGenerator
 {

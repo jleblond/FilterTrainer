@@ -13,6 +13,7 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../ExerciseGenerator.h"
 
+
 class GUIExControls : public Component,
                     public Button::Listener, public Slider::Listener, public ComboBox::Listener
 {
