@@ -11,12 +11,16 @@
 #include "global.h"
 
 
+//Playback settings
+String g_pausedTime;
+bool g_filterOn = false;
+
 
 //Filter settings
-double centreFrequency=20000;
-double Q=1.4;
-float gainFactor=6;
+double g_centreFrequency = 20000;
+double g_Q = 1.4;
+float g_gainFactor = 6;
 
 
 //General settings
-float mainVolume = 1.0f;
+float g_mainVolume = 1.0f;

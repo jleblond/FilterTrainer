@@ -8,6 +8,7 @@
 
 #define IIRFILTERON 1
 
+
 #pragma once
 #include <assert.h> 
 
@@ -84,14 +85,10 @@ private:
     ToggleButton loopingToggle;
     Label currentPositionLabel;
     
-    String pausedtime;
-    bool filteron = false;
     
-    double sampleRate = 0;
+    double mSampleRate = 0;
+    float mLastGain = 1.0f;
     
-    // Main volume
-    float lastgain = 1.0f;
-    //float gain = 1.0f;
     
     AudioFormatManager formatManager;
     ScopedPointer<AudioFormatReaderSource> readerSource;

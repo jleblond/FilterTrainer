@@ -30,10 +30,10 @@ private:
     float configExerciseFreq(int range);
     
     //rnd in configExerciseFreq according to fixed size
-    std::vector<float> allrange {31.25, 62.5, 125, 250, 500, 1000, 2000, 4000, 8000, 16000};
-    std::vector<float> highrange {1000, 2000, 4000, 8000, 16000};
-    std::vector<float> midrange {250, 500, 1000, 2000, 4000};
-    std::vector<float> lowrange {31.25, 62.5, 125, 250, 500};
+    std::vector<float> mAllRange {31.25, 62.5, 125, 250, 500, 1000, 2000, 4000, 8000, 16000};
+    std::vector<float> mHighRange {1000, 2000, 4000, 8000, 16000};
+    std::vector<float> mMidRange {250, 500, 1000, 2000, 4000};
+    std::vector<float> mLowRange {31.25, 62.5, 125, 250, 500};
     
     
 };

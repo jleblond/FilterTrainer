@@ -20,12 +20,12 @@ class Exercise
 public:
    // static std::vector<Exercise*> listexercises;
     
-    Exercise(float cfreq, int freqchange) : centerfreq(cfreq), freqboost(freqchange)
+    Exercise(float cfreq, int freqchange) : mCenterFreq(cfreq), mFreqBoost(freqchange)
     {
         //listexercises.push_back(this);
         
         std::cout<<"EXERCISE"<<std::endl;
-        std::cout<<"centerfreq:"<<centerfreq<<" freqboost:"<<freqboost<<std::endl;
+        std::cout<<"centerfreq:"<<mCenterFreq<<" freqboost:"<<mFreqBoost<<std::endl;
         
     }
     
@@ -36,29 +36,29 @@ public:
     
     void AnswerExercise(float answer)
     {
-        this->centerfreq_answered=answer;
+        this->mCenterFreqAnswered=answer;
         
-        if( freqboost!=0 && centerfreq!=0 && centerfreq_answered!=0 ) //checks if Exercise parameters were set properly
+        if( mFreqBoost!=0 && mCenterFreq!=0 && mCenterFreqAnswered!=0 ) //checks if Exercise parameters were set properly
         {
-            if( centerfreq == centerfreq_answered )
+            if( mCenterFreq == mCenterFreqAnswered )
             {
-                correctanswer=true;
-                answerdistance=1; //arbitrary value to distinguish from default 0
+                mCorrectAnswer=true;
+                mAnswerDistance=1; //arbitrary value to distinguish from default 0
             }
-            else if( SameSign(centerfreq, centerfreq_answered) )
+            else if( SameSign(mCenterFreq, mCenterFreqAnswered) )
             {
                 //coeff * [2^(exponent)] = result
-                float coeff=std::min(centerfreq, centerfreq_answered);
-                float result=std::max(centerfreq, centerfreq_answered);
+                float coeff=std::min(mCenterFreq, mCenterFreqAnswered);
+                float result=std::max(mCenterFreq, mCenterFreqAnswered);
                 
                 //n = [ 2^exponent ]
                 float n= result/coeff;
-                answerdistance=log2(n);
+                mAnswerDistance=log2(n);
             }
             else
             {
                 //not the same sign, arbitrary distance value
-                answerdistance=12;
+                mAnswerDistance=12;
             }
             
         }
@@ -71,12 +71,12 @@ public:
     
     
 protected:
-    int freqboost=0;
-    float centerfreq=0;
+    int mFreqBoost = 0;
+    float mCenterFreq = 0;
     
-    float centerfreq_answered=0;
-    bool correctanswer=false;
-    int answerdistance=0;
+    float mCenterFreqAnswered = 0;
+    bool mCorrectAnswer = false;
+    int mAnswerDistance = 0;
     
 };
 

@@ -55,14 +55,14 @@ MainContentComponent::~MainContentComponent()
 
 void MainContentComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
-    this->sampleRate=sampleRate;
+    this->mSampleRate=sampleRate;
     
     transportSource.prepareToPlay (samplesPerBlockExpected, sampleRate);
  
     peakfilter.reset();
-    peakfilter.changeParam(sampleRate, centreFrequency, Q, gainFactor);
+    peakfilter.changeParam(sampleRate, g_centreFrequency, g_Q, g_gainFactor);
     
-    bandshelf.setup(2, this->sampleRate, centreFrequency, centreFrequency/Q, gainFactor, 1);
+    bandshelf.setup(2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1);
     
     std::cout<< " prepare to play " <<std::endl;
     
@@ -84,7 +84,7 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
 
     
     // Filter processing
-    if(filteron)
+    if(g_filterOn)
     {
 #if IIRFILTERON
         peakfilter.process( *bufferToFill.buffer );
@@ -97,8 +97,8 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
     
     // Apply gain to buffer
     bufferToFill.buffer->applyGainRamp( bufferToFill.startSample, bufferToFill.numSamples,
-                                       lastgain, mainVolume);
-    lastgain = mainVolume;
+                                       mLastGain, g_mainVolume);
+    mLastGain = g_mainVolume;
     
 }
 
@@ -151,7 +151,7 @@ void MainContentComponent::timerCallback()
     }
     else if(state == Paused)
     {
-        currentPositionLabel.setText (pausedtime, dontSendNotification);
+        currentPositionLabel.setText (g_pausedTime, dontSendNotification);
     }
     else
     {
@@ -208,7 +208,7 @@ void MainContentComponent::changeState (TransportState newState)
                 break;
                 
             case Pausing:
-                pausedtime = currentTime ( transportSource.getCurrentPosition() );
+                g_pausedTime = currentTime ( transportSource.getCurrentPosition() );
                 transportSource.stop();
                 break;
                 
@@ -256,13 +256,13 @@ void MainContentComponent::playButtonClicked()
     else if (state == Playing)
         changeState (Pausing);
     
-    std::cout<<"centrefreq "<<centreFrequency<<std::endl;
-    std::cout<<"gain "<<gainFactor<<std::endl;
+    std::cout<<"centrefreq "<<g_centreFrequency<<std::endl;
+    std::cout<<"gain "<<g_gainFactor<<std::endl;
     
-    peakfilter.updateCoeff(centreFrequency, Q, gainFactor );
+    peakfilter.updateCoeff(g_centreFrequency, g_Q, g_gainFactor );
     
-    assert(this->sampleRate != 0);
-    bandshelf.setup(2, this->sampleRate, centreFrequency, centreFrequency/Q, gainFactor, 1);
+    assert(this->mSampleRate != 0);
+    bandshelf.setup(2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1);
     
 }
 
@@ -279,9 +279,9 @@ void MainContentComponent::stopButtonClicked()
 
 void MainContentComponent::filterButtonClicked()
 {
-    filteron = !filteron;
+    g_filterOn = !g_filterOn;
     
-    if(filteron)
+    if(g_filterOn)
         filterButton.setButtonText ("Filter is on");
     else
         filterButton.setButtonText ("Filter is off");

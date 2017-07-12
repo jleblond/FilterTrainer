@@ -12,22 +12,16 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
-//extern TextButton openButton;
-//extern TextButton playButton;
-//extern TextButton stopButton;
-//extern TextButton filterButton;
-//extern ToggleButton loopingToggle;
-//extern Label currentPositionLabel;
-
-//extern String pausedtime;
-//extern bool filteron;
+//Playback settings
+extern String g_pausedTime;
+extern bool g_filterOn;
 
 
 //Filter settings
-extern double centreFrequency;
-extern double Q;
-extern float gainFactor;
+extern double g_centreFrequency;
+extern double g_Q;
+extern float g_gainFactor;
 
 
 //General settings
-extern float mainVolume;
+extern float g_mainVolume;

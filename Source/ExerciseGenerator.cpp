@@ -40,8 +40,8 @@ void ExerciseGenerator::createExercise(int freqrange, int absfreqboost, bool amp
     int freqboost=configExerciseFreqBoost(absfreqboost, amplification, attenuation);
     ExerciseGenerator::listexercises.push_back(new Exercise(centerfreq, freqboost));
     
-    centreFrequency=static_cast<double>(centerfreq);
-    gainFactor=static_cast<float>(freqboost);
+    g_centreFrequency=static_cast<double>(centerfreq);
+    g_gainFactor=static_cast<float>(freqboost);
     
 }
 
@@ -73,14 +73,14 @@ float ExerciseGenerator::configExerciseFreq(int range)
     int rndchoice = rand() % 5;
     
     if(range==2)
-        return highrange[rndchoice];
+        return mHighRange[rndchoice];
     else if(range==3)
-        return midrange[rndchoice];
+        return mMidRange[rndchoice];
     else if(range==4)
-        return lowrange[rndchoice];
+        return mLowRange[rndchoice];
     else //including range==1
     {
-        rndchoice = rand() % (allrange.size());
-        return allrange[rndchoice];
+        rndchoice = rand() % (mAllRange.size());
+        return mAllRange[rndchoice];
     }
 }
