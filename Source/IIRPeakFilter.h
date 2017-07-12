@@ -34,14 +34,17 @@ public:
     void changeParam( double sampleRate, double centreFreq, double Q, float gainFactor )
     {
         mSampleRate = sampleRate;
-       // mCoefficients = IIRCoefficients::makePeakFilter(mSampleRate, centreFreq, Q, gainFactor);
         
         updateCoeff(centreFreq, Q, gainFactor);
     };
     
     void updateCoeff( double centreFreq, double Q, float gainFactor )
     {
-        mCoefficients = IIRCoefficients::makePeakFilter(mSampleRate, centreFreq, Q, gainFactor);
+        //Formula to transpose values
+        float gain = gainFactor/10 * 0.8 + 1;
+        
+        mCoefficients = IIRCoefficients::makePeakFilter(mSampleRate, centreFreq, Q, gain);
+        
         for (int i = 0; i < mNumChans; i++) {
             mIIRFilter.getReference(i).setCoefficients(mCoefficients);
         }
