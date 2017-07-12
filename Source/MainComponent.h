@@ -13,14 +13,15 @@
 #include <assert.h> 
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "../DspFilters/DspFilters/Dsp.h"
 
 #include "IIRPeakFilter.h"
 #include "ExerciseGenerator.h"
 
-#include "global.h"
+#include "GUI/AudioThumbnailComponent.h"
+#include "GUI/PositionOverlay.h"
 
-#include "../DspFilters/DspFilters/Dsp.h"
+#include "global.h"
 
 
 class MainContentComponent   : public AudioAppComponent,
@@ -74,6 +75,8 @@ private:
     
     void filterButtonClicked();
     
+    void transportSourceChanged();
+    
     void loopButtonChanged();
     
     //==========================================================================
@@ -97,6 +100,10 @@ private:
     
     IIRPeakFilter peakfilter;
     Dsp::SimpleFilter <Dsp::ChebyshevI::BandShelf <2>, 2> bandshelf;
+    
+    AudioThumbnailCache thumbnailCache;
+    AudioThumbnailComponent thumbnailComp;
+    PositionOverlay positionOverlay;
 
     
     //LookAndFeel_V3 lookAndFeel;

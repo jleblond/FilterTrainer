@@ -5,10 +5,12 @@
 
 
 
-
-
 MainContentComponent::MainContentComponent()
-:   state (Stopped), peakfilter(2)
+    :   state (Stopped),
+        peakfilter(2),
+        thumbnailCache (5),
+        thumbnailComp (512, formatManager, thumbnailCache),
+        positionOverlay (transportSource)
 {
     addAndMakeVisible (&openButton);
     openButton.setButtonText ("Open...");
@@ -29,8 +31,9 @@ MainContentComponent::MainContentComponent()
     addAndMakeVisible (&filterButton);
     filterButton.setButtonText ("Filter is off");
     filterButton.addListener (this);
-    filterButton.setColour (TextButton::buttonColourId, Colours::blue);
-    //filterButton.setEnabled (false);
+    filterButton.setColour (TextButton::buttonColourId,
+                            getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    filterButton.setEnabled (false);
     
     addAndMakeVisible (&loopingToggle);
     loopingToggle.setButtonText ("Loop");
@@ -39,19 +42,24 @@ MainContentComponent::MainContentComponent()
     addAndMakeVisible (&currentPositionLabel);
     currentPositionLabel.setText ("Stopped", dontSendNotification);
     
+    addAndMakeVisible (&thumbnailComp);
+    addAndMakeVisible (&positionOverlay);
+    
     formatManager.registerBasicFormats();
     transportSource.addChangeListener (this);
     
     setAudioChannels (0, 2);
     
-    startTimer(20);
+    startTimer(20);  //to remove?
     
 }
+
 
 MainContentComponent::~MainContentComponent()
 {
     shutdownAudio();
 }
+
 
 void MainContentComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
@@ -64,9 +72,8 @@ void MainContentComponent::prepareToPlay (int samplesPerBlockExpected, double sa
     
     bandshelf.setup(2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1);
     
-    std::cout<< " prepare to play " <<std::endl;
-    
 }
+
 
 void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
 {
@@ -102,35 +109,41 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
     
 }
 
+
 void MainContentComponent::releaseResources() 
 {
     transportSource.releaseResources();
    
 }
 
+
 void MainContentComponent::resized()
 {
     openButton.setBounds   (10, 10, getWidth() - 20, 20);
-    playButton.setBounds   (10, 40, getWidth() - 20, 20);
-    stopButton.setBounds   (10, 70, getWidth() - 20, 20);
-    filterButton.setBounds (10, 100, getWidth() - 20, 20);
     
-    loopingToggle.setBounds(10, 130, getWidth() - 20, 20);
-    currentPositionLabel.setBounds (10+0.3*getWidth(), 130, getWidth() - 20, 20);
+    const Rectangle<int> thumbnailBounds (10, 40, getWidth() - 20, getHeight() - 120);
+    thumbnailComp.setBounds (thumbnailBounds);
+    positionOverlay.setBounds (thumbnailBounds);
+    
+    
+    playButton.setBounds   (10, 350, 80, 30);
+    stopButton.setBounds   (100, 350, 80, 30);
+    loopingToggle.setBounds(190, 350, 100, 30);
+    
+    currentPositionLabel.setBounds (300, 350, 100, 30);
+    
+    filterButton.setBounds (410, 350, 80, 30);
 }
+
 
 void MainContentComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
     if (source == &transportSource)
     {
-        if (transportSource.isPlaying())
-            changeState (Playing);
-        else if ((state == Stopping) || (state == Playing))
-            changeState (Stopped);
-        else if (Pausing == state)
-            changeState (Paused);
+        transportSourceChanged();
     }
 }
+
 
 void MainContentComponent::buttonClicked (Button* button)
 {
@@ -140,6 +153,7 @@ void MainContentComponent::buttonClicked (Button* button)
     if (button == &filterButton) filterButtonClicked();
     if (button == &loopingToggle)   loopButtonChanged();
 }
+
 
 void MainContentComponent::timerCallback()
 {
@@ -159,6 +173,7 @@ void MainContentComponent::timerCallback()
     }
 }
 
+
 String MainContentComponent::currentTime(double currentposition)
 {   //does not check for transportSource.isPlaying - caller function's responsability
     //very often currentposition = transportSource.getCurrentPosition()
@@ -172,6 +187,7 @@ String MainContentComponent::currentTime(double currentposition)
     
     return positionString;
 }
+
 
 void MainContentComponent::updateLoopState (bool shouldLoop)
 {
@@ -190,7 +206,6 @@ void MainContentComponent::changeState (TransportState newState)
         {
             case Stopped:
                 playButton.setButtonText ("Play");
-                stopButton.setButtonText ("Stop");
                 stopButton.setEnabled (false);
                 openButton.setEnabled (true);
                 transportSource.setPosition (0.0);
@@ -202,7 +217,6 @@ void MainContentComponent::changeState (TransportState newState)
                 
             case Playing:
                 playButton.setButtonText ("Pause");
-                stopButton.setButtonText ("Stop");
                 stopButton.setEnabled (true);
                 openButton.setEnabled (false);
                 break;
@@ -214,7 +228,6 @@ void MainContentComponent::changeState (TransportState newState)
                 
             case Paused:
                 playButton.setButtonText ("Resume");
-                stopButton.setButtonText ("Return to Zero");
                 openButton.setEnabled (false);
                 break;
                 
@@ -224,6 +237,7 @@ void MainContentComponent::changeState (TransportState newState)
         }
     }
 }
+
 
 void MainContentComponent::openButtonClicked()
 {
@@ -242,10 +256,13 @@ void MainContentComponent::openButtonClicked()
             transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
             
             playButton.setEnabled (true);
+            filterButton.setEnabled (true);
+            thumbnailComp.setFile (file);
             readerSource = newSource.release();
         }
     }
 }
+
 
 void MainContentComponent::playButtonClicked()
 {
@@ -277,15 +294,35 @@ void MainContentComponent::stopButtonClicked()
         changeState (Stopping);
 }
 
+
 void MainContentComponent::filterButtonClicked()
 {
     g_filterOn = !g_filterOn;
     
     if(g_filterOn)
+    {
         filterButton.setButtonText ("Filter is on");
+        filterButton.setColour(TextButton::buttonColourId, Colours::blue);
+    }
     else
+    {
         filterButton.setButtonText ("Filter is off");
+        filterButton.setColour(TextButton::buttonColourId,
+                               getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
+    }
 }
+
+
+void MainContentComponent::transportSourceChanged()
+{
+    if (transportSource.isPlaying())
+        changeState (Playing);
+    else if ((state == Stopping) || (state == Playing))
+        changeState (Stopped);
+    else if (Pausing == state)
+        changeState (Paused);
+}
+
 
 void MainContentComponent::loopButtonChanged()
 {

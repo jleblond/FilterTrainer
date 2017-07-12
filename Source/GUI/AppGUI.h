@@ -17,6 +17,7 @@
 #include "GUIPlayer.h"
 #include "GUIStats.h"
 
+
 //APP dimensions
 const int HEIGHT=700;
 const int WIDTH=900;
