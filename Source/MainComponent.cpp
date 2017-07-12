@@ -55,27 +55,50 @@ MainContentComponent::~MainContentComponent()
 
 void MainContentComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
+    this->sampleRate=sampleRate;
+    
     transportSource.prepareToPlay (samplesPerBlockExpected, sampleRate);
  
     peakfilter.reset();
     peakfilter.changeParam(sampleRate, centreFrequency, Q, gainFactor);
     
+    bandshelf.setup(2, this->sampleRate, centreFrequency, centreFrequency/Q, gainFactor, 1);
+    
+    std::cout<< " prepare to play " <<std::endl;
     
 }
 
 void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
 {
     
+    // Clear buffer
     if (readerSource == nullptr)
     {
         bufferToFill.clearActiveBufferRegion();
         return;
     }
 
+    
+    //Regular audio playback
     transportSource.getNextAudioBlock (bufferToFill);
 
+    
+    // Filter processing
     if(filteron)
+    {
+#if IIRFILTERON
         peakfilter.process( *bufferToFill.buffer );
+#else
+        bandshelf.process( (*bufferToFill.buffer).getNumSamples(),
+                           (*bufferToFill.buffer).getArrayOfWritePointers() );
+#endif
+    }
+    
+    
+    // Apply gain to buffer
+    bufferToFill.buffer->applyGainRamp( bufferToFill.startSample, bufferToFill.numSamples,
+                                       lastgain, mainVolume);
+    lastgain = mainVolume;
     
 }
 
@@ -233,10 +256,14 @@ void MainContentComponent::playButtonClicked()
     else if (state == Playing)
         changeState (Pausing);
     
+    std::cout<<"centrefreq "<<centreFrequency<<std::endl;
+    std::cout<<"gain "<<gainFactor<<std::endl;
+    
     peakfilter.updateCoeff(centreFrequency, Q, gainFactor );
     
-     std::cout<<"centrefreq "<<centreFrequency<<std::endl;
-     std::cout<<"gain "<<gainFactor<<std::endl;
+    assert(this->sampleRate != 0);
+    bandshelf.setup(2, this->sampleRate, centreFrequency, centreFrequency/Q, gainFactor, 1);
+    
 }
 
 

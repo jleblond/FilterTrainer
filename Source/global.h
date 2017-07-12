@@ -22,8 +22,12 @@
 //extern String pausedtime;
 //extern bool filteron;
 
+
+//Filter settings
 extern double centreFrequency;
 extern double Q;
 extern float gainFactor;
 
 
+//General settings
+extern float mainVolume;

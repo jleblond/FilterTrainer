@@ -12,6 +12,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../ExerciseGenerator.h"
+#include "../global.h"
 
 
 class GUIExControls : public Component,
@@ -34,6 +35,7 @@ public:
         dBAmpSlider.setTextValueSuffix("dB");
         dBAmpSlider.setSliderStyle(juce::Slider::LinearVertical);
         dBAmpSlider.setTextBoxIsEditable(false);
+        dBAmpSlider.setValue(6);
         dBAmpSlider.addListener(this);
         
         amplify.setButtonText("+");
@@ -46,9 +48,10 @@ public:
         addAndMakeVisible(attenuate);
         
         addAndMakeVisible(volumeSlider);
-        volumeSlider.setRange(1, 10, 1); //temporary range
+        volumeSlider.setRange(0, 10, 1);
         volumeSlider.setSliderStyle(juce::Slider::LinearVertical);
         volumeSlider.setTextBoxIsEditable(false);
+        volumeSlider.setValue(10);
         volumeSlider.addListener(this);
         
         question.setButtonText("NEW QUESTION");
@@ -103,10 +106,10 @@ public:
     void sliderValueChanged (Slider* slider) override
     {
         if(slider == &dBAmpSlider)
-            dBAmpSlider_value=dBAmpSlider.getValue();
+            dBAmpSlider_value = dBAmpSlider.getValue();
         
         if(slider == &volumeSlider)
-            volume=volumeSlider.getValue();
+            mainVolume = volumeSlider.getValue() /10;
     }
     
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override
@@ -129,6 +132,6 @@ private:
     bool amplification_value=false;
     bool attenuation_value=false;
     
-    int volume=0;
+    //int volume=0;
 
 };

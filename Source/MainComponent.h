@@ -6,13 +6,20 @@
   ==============================================================================
 */
 
+#define IIRFILTERON 1
+
 #pragma once
+#include <assert.h> 
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "ExerciseGenerator.h"
-#include "global.h"
-#include "IIRPeakFilter.h"
 
+
+#include "IIRPeakFilter.h"
+#include "ExerciseGenerator.h"
+
+#include "global.h"
+
+#include "../DspFilters/DspFilters/Dsp.h"
 
 
 class MainContentComponent   : public AudioAppComponent,
@@ -80,13 +87,20 @@ private:
     String pausedtime;
     bool filteron = false;
     
+    double sampleRate = 0;
+    
+    // Main volume
+    float lastgain = 1.0f;
+    //float gain = 1.0f;
+    
     AudioFormatManager formatManager;
     ScopedPointer<AudioFormatReaderSource> readerSource;
     AudioTransportSource transportSource;
+    TransportState state;
     
     IIRPeakFilter peakfilter;
-    
-    TransportState state;
+    Dsp::SimpleFilter <Dsp::ChebyshevI::BandShelf <2>, 2> bandshelf;
+
     
     //LookAndFeel_V3 lookAndFeel;
     
