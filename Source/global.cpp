@@ -19,10 +19,11 @@ float g_mainVolume = 1.0f;
 String g_pausedTime;
 bool g_filterOn = false;
 bool g_loopOn = false;
+bool g_loopOnRecentClick = false;
+double g_minLoopDuration = 0.2;
 double g_loopStartPos = 0 ;
 double g_loopEndPos = 0;
-double g_lastLoopStartPos = 0;
-double g_lastLoopEndPos = 0;
+
 
 //Filter settings
 double g_centreFrequency = 20000;

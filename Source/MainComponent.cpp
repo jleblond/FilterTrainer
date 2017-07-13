@@ -114,6 +114,16 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
     mLastGain = g_mainVolume;
     
     
+    if(g_loopOn && !g_loopOnRecentClick )
+    {
+        looping();
+    }
+    
+    
+}
+
+void MainContentComponent::looping()
+{
     //Loop Pre-Conditions
     if(g_loopStartPos < 0)
         g_loopStartPos = 0;
@@ -130,14 +140,13 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
     //Loop
     if( transportSource.getCurrentPosition() >= g_loopEndPos  )
     {
-            if( std::abs( g_loopEndPos - g_loopStartPos ) >= 0.1 )
-                transportSource.setPosition(g_loopStartPos);
+        if( std::abs( g_loopEndPos - g_loopStartPos ) >= g_minLoopDuration )
+            transportSource.setPosition(g_loopStartPos);
     }
-    
+
 }
 
-
-void MainContentComponent::releaseResources() 
+void MainContentComponent::releaseResources()
 {
     transportSource.releaseResources();
    
@@ -156,11 +165,8 @@ void MainContentComponent::resized()
     playButton.setBounds   (10, 350, 80, 30);
     stopButton.setBounds   (100, 350, 80, 30);
     loopingButton.setBounds (190 , 350, 80, 30);
-    loopingToggle.setBounds(280, 350, 100, 30);
-    
-    currentPositionLabel.setBounds (400, 350, 100, 30);
-    
-    filterButton.setBounds (500, 350, 80, 30);
+    currentPositionLabel.setBounds (300, 350, 100, 30);
+    filterButton.setBounds (400, 350, 80, 30);
 }
 
 
@@ -200,6 +206,11 @@ void MainContentComponent::timerCallback()
     {
         currentPositionLabel.setText ("Stopped", dontSendNotification);
     }
+    
+    if( g_loopOn && g_loopOnRecentClick )
+        updateLoopState(true);
+    else
+        updateLoopState(false);
 }
 
 
@@ -217,7 +228,7 @@ String MainContentComponent::currentTime(double currentposition)
     return positionString;
 }
 
-
+//TransportSource loop for the whole file
 void MainContentComponent::updateLoopState (bool shouldLoop)
 {
     if (readerSource != nullptr)
@@ -310,7 +321,6 @@ void MainContentComponent::openButtonClicked()
 
 void MainContentComponent::playButtonClicked()
 {
-    updateLoopState (loopingToggle.getToggleState());
     
     if ((state == Stopped) || (state == Paused))
         changeState (Starting);
@@ -322,7 +332,6 @@ void MainContentComponent::playButtonClicked()
 
 void MainContentComponent::stopButtonClicked()
 {
-    updateLoopState (loopingToggle.getToggleState());
     
     if (state == Paused)
         changeState (Stopped);
@@ -364,26 +373,19 @@ void MainContentComponent::loopButtonChanged()
 {
     
     g_loopOn = !g_loopOn;
-    updateLoopState (g_loopOn);
     
     if(g_loopOn)
     {
-        g_lastLoopStartPos = g_loopStartPos;
-        g_lastLoopEndPos = g_loopEndPos;
+        //LoopButton was just clicked
+        g_loopOnRecentClick = true;
         
         loopingButton.setColour (TextButton::buttonColourId, Colours::orange );
-        g_loopStartPos = 0;
-        g_loopEndPos = 0; //or  transportSource.getLengthInSeconds() ...?
         
     }
     else
     {
-        g_loopStartPos = g_lastLoopStartPos;
-        g_loopEndPos = g_lastLoopEndPos;
-        
         loopingButton.setColour (TextButton::buttonColourId,
                                  getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-        
     }
 
 }

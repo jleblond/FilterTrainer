@@ -48,7 +48,7 @@ public:
         addAndMakeVisible(attenuate);
         
         addAndMakeVisible(volumeSlider);
-        volumeSlider.setRange(0, 10, 1);
+        volumeSlider.setRange(0, 10, 0.1);
         volumeSlider.setSliderStyle(juce::Slider::LinearVertical);
         volumeSlider.setTextBoxIsEditable(false);
         volumeSlider.setValue(10);

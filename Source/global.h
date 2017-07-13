@@ -20,11 +20,11 @@ extern float g_mainVolume;
 extern String g_pausedTime;
 extern bool g_filterOn;
 extern bool g_loopOn;
-    //audio positions in s (or ms?)
-    extern double g_loopStartPos;
-    extern double g_loopEndPos;
-    extern double g_lastLoopStartPos;
-    extern double g_lastLoopEndPos;
+extern bool g_loopOnRecentClick;
+extern double g_minLoopDuration;
+//audio positions in s
+extern double g_loopStartPos;
+extern double g_loopEndPos;
 
 //Filter settings
 extern double g_centreFrequency;

@@ -36,17 +36,35 @@ public:
             g.setColour (Colours::black);
             g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
             
-            //Loop button pressed
-            const float drawStartPosition = (g_loopStartPos / duration) * getWidth();
-            const float drawEndPosition = (g_loopEndPos / duration) * getWidth();
             
+            //Loop button pressed - draw rectangle
             if(g_loopOn)
-                paintRectangle(g, 0.0f, getWidth() );
-            else
-                paintRectangle(g, drawStartPosition, drawEndPosition);
+            {
+                const float drawStartPosition = (g_loopStartPos / duration) * getWidth();
+                const float drawEndPosition = (g_loopEndPos / duration) * getWidth();
+            
+                //Draw loop rectangle for whole file vs region
+                if(g_loopOnRecentClick)
+                {
+                    g_loopStartPos = 0;
+                    g_loopEndPos = 0;
+                    
+                    paintRectangle(g, 0.0f, getWidth() );
+                }
+                else
+                {
+                    paintRectangle(g, drawStartPosition, drawEndPosition);
+                }
+  
+                
+            }
+            
+            
 
         }
+        
     }
+    
     
     void paintRectangle (Graphics& g, float startPos, float endPos)
     {
@@ -69,27 +87,34 @@ public:
         {
             const double clickPosition = event.position.x;
             const double audioPosition = (clickPosition / getWidth()) * duration;
-            
-            g_loopStartPos = audioPosition;
 
             if( audioPosition < duration )
                 transportSource.setPosition (audioPosition);
             
+           // if( g_loopOn )
+                g_loopStartPos = audioPosition;
+            
+            mMouseDownXPosition = audioPosition;
         }
 
     }
     
     void mouseDrag (const MouseEvent& event) override
     {
-            const double duration = transportSource.getLengthInSeconds();
+        const double duration = transportSource.getLengthInSeconds();
         
+        if( g_loopOn )
+        {
             mLastMouseXPosition = event.position.x;
             double lastAudioPosition = (mLastMouseXPosition / getWidth()) * duration;
+            
+            g_loopStartPos = mMouseDownXPosition;
             
             if( lastAudioPosition < duration )
                 g_loopEndPos = lastAudioPosition;
         
             
+            // IF - then Inverse StartPos and EndPos
             if( g_loopEndPos < g_loopStartPos )
             {
                 double temp = g_loopStartPos;
@@ -97,6 +122,13 @@ public:
                 g_loopStartPos = g_loopEndPos;
                 g_loopEndPos = temp;
             }
+            
+            //LoopDuration is long enough to switch to loop region mode
+            if( std::abs( g_loopEndPos - g_loopStartPos ) >= g_minLoopDuration )
+                g_loopOnRecentClick = false;
+            
+        }
+        
 
     }
     
@@ -110,6 +142,7 @@ private:
     AudioTransportSource& transportSource;
 
     double mLastMouseXPosition;
+    double mMouseDownXPosition;
 
     
    // JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PositionOverlay)
