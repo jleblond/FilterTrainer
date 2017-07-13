@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "../global.h"
 #include <cmath>        // std::abs
 
 class PositionOverlay : public Component,
@@ -27,18 +28,11 @@ public:
     {
         const double duration = transportSource.getLengthInSeconds();
         
-        if (duration > 0.0)
-        {
-            //Current position bar
-            const double audioPosition = transportSource.getCurrentPosition();
-            const float drawPosition = (audioPosition / duration) * getWidth();
-            
-            g.setColour (Colours::black);
-            g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
-            
+            if( duration > 0.0 )
+                paintLine(g, duration);
             
             //Loop button pressed - draw rectangle
-            if(g_loopOn)
+            if( duration > 0.0 && g_loopOn )
             {
                 const float drawStartPosition = (g_loopStartPos / duration) * getWidth();
                 const float drawEndPosition = (g_loopEndPos / duration) * getWidth();
@@ -54,15 +48,26 @@ public:
                 else
                 {
                     paintRectangle(g, drawStartPosition, drawEndPosition);
+                    
+                    //Loop selection is smaller than required min loop duration, toggle off loop button
+                    if( std::abs(g_loopEndPos - g_loopStartPos) < g_minLoopDuration )
+                        g_loopingButton.triggerClick();
                 }
   
                 
             }
-            
-            
 
-        }
         
+    }
+    
+    //Current position bar
+    void paintLine (Graphics& g, double duration)
+    {
+        const double audioPosition = transportSource.getCurrentPosition();
+        const float drawPosition = (audioPosition / duration) * getWidth();
+        
+        g.setColour (Colours::black);
+        g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
     }
     
     
@@ -75,6 +80,12 @@ public:
         g.setOpacity (0.5f);
         g.drawRect( rect, 1.0f );
         g.fillRect(rect);
+    }
+    
+    
+    void resized() override
+    {
+        
     }
     
     
@@ -114,7 +125,7 @@ public:
                 g_loopEndPos = lastAudioPosition;
         
             
-            // IF - then Inverse StartPos and EndPos
+            // Ensures StartPos < EndPos
             if( g_loopEndPos < g_loopStartPos )
             {
                 double temp = g_loopStartPos;

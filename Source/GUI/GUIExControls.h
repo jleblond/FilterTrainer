@@ -125,9 +125,4 @@ private:
     TextButton amplify;
     TextButton attenuate;
     
-//    int freqrange_value=0;
-//    int dBAmpSlider_value=3;
-//    bool amplification_value=false;
-//    bool attenuation_value=false;
-
 };

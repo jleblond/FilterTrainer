@@ -14,6 +14,12 @@
 
 //Buttons
 extern TextButton g_questionButton;
+extern TextButton g_openButton;
+extern TextButton g_playButton;
+extern TextButton g_stopButton;
+extern TextButton g_filterButton;
+extern TextButton g_loopingButton;
+extern TextButton g_loopingToggle; //kept for state (check?)
 
 //Playback settings
 extern float g_mainVolume;

@@ -6,7 +6,15 @@
   ==============================================================================
 */
 
+
+
+
 #define IIRFILTERON 1
+//SELECT FILTER CLASS
+//0: using Dsp::ChebyshevI::BandShelf
+//              from DspFilters - "A Collection of Useful C++ Classes for Digital Signal Processing"
+//1: using IIRPeakFilter custom class
+//              based on JUCE::IIRFilter class
 
 
 #pragma once
@@ -87,15 +95,8 @@ private:
     void loopButtonChanged();
     
     //==========================================================================
-    
-    TextButton openButton;
-    TextButton playButton;
-    TextButton stopButton;
-    TextButton filterButton;
-    TextButton loopingButton;
-    TextButton loopingToggle; //kept for state (check?)
+
     Label currentPositionLabel;
-    
     
     double mSampleRate = 0;
     float mLastGain = 1.0f;

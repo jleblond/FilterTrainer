@@ -13,6 +13,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../MainComponent.h"
+#include "TransportBar.h"
 
 class GUIPlayer : public Component
 {
@@ -20,6 +21,7 @@ public:
     GUIPlayer()
     {
         addAndMakeVisible(component);
+        addAndMakeVisible(transport);
     }
     
     ~GUIPlayer()
@@ -35,11 +37,15 @@ public:
     
     void resized() override
     {
-        component->setBounds (0, 0, getWidth(), getHeight());
+        Rectangle<int> area (getLocalBounds());
+
+        component->setBounds ( area.removeFromTop(0.8*getHeight()) );
+        transport.setBounds( area.removeFromTop(0.2*getHeight())  );
     }
     
 private:
     MainContentComponent* component=new MainContentComponent();
+    TransportBar transport;
     
     
 };

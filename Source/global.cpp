@@ -13,6 +13,12 @@
 
 //Buttons
 TextButton g_questionButton;
+TextButton g_openButton;
+TextButton g_playButton;
+TextButton g_stopButton;
+TextButton g_filterButton;
+TextButton g_loopingButton;
+TextButton g_loopingToggle; //kept for state (check?)
 
 //Playback settings
 float g_mainVolume = 1.0f;

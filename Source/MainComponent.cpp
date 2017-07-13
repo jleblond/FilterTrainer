@@ -15,38 +15,39 @@ MainContentComponent::MainContentComponent()
     
     g_questionButton.addListener(this);
     
-    addAndMakeVisible (&openButton);
-    openButton.setButtonText ("Open...");
-    openButton.addListener (this);
+    addAndMakeVisible (g_openButton);
+    g_openButton.setButtonText ("Open...");
+    g_openButton.addListener (this);
     
-    addAndMakeVisible (&playButton);
-    playButton.setButtonText ("Play");
-    playButton.addListener (this);
-    playButton.setColour (TextButton::buttonColourId, Colours::green);
-    playButton.setEnabled (false);
+   // addAndMakeVisible (g_playButton);
+   // g_playButton.setButtonText ("Play");
+    g_playButton.addListener (this);
+   // g_playButton.setColour (TextButton::buttonColourId, Colours::green);
+   // g_playButton.setEnabled (false);
     
-    addAndMakeVisible (&stopButton);
-    stopButton.setButtonText ("Stop");
-    stopButton.addListener (this);
-    stopButton.setColour (TextButton::buttonColourId, Colours::red);
-    stopButton.setEnabled (false);
+   // addAndMakeVisible (g_stopButton);
+  //  g_stopButton.setButtonText ("Stop");
+    g_stopButton.addListener (this);
+  //  g_stopButton.setColour (TextButton::buttonColourId, Colours::red);
+  //  g_stopButton.setEnabled (false);
     
-    addAndMakeVisible (&loopingButton);
-    loopingButton.setButtonText ("Looping");
-    loopingButton.addListener (this);
-    loopingButton.setColour (TextButton::buttonColourId,
-                            getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    loopingButton.setEnabled (false);
+  //  addAndMakeVisible (g_loopingButton);
+  //  g_loopingButton.setButtonText ("Looping");
+    g_loopingButton.addListener (this);
+ //   g_loopingButton.setColour (TextButton::buttonColourId,
+  //                          getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+  //  g_loopingButton.setEnabled (false);
     
-    addAndMakeVisible (&filterButton);
-    filterButton.setButtonText ("Filter is off");
-    filterButton.addListener (this);
-    filterButton.setColour (TextButton::buttonColourId,
-                            getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    filterButton.setEnabled (false);
+  //  addAndMakeVisible (g_filterButton);
+  //  g_filterButton.setButtonText ("Filter is off");
+    g_filterButton.addListener (this);
+ //   g_filterButton.setColour (TextButton::buttonColourId,
+  //                          getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+ //   g_filterButton.setEnabled (false);
     
     addAndMakeVisible (&currentPositionLabel);
     currentPositionLabel.setText ("Stopped", dontSendNotification);
+    currentPositionLabel.setJustificationType(Justification::right);
     
     addAndMakeVisible (&thumbnailComp);
     addAndMakeVisible (&positionOverlay);
@@ -115,9 +116,7 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
     
     
     if(g_loopOn && !g_loopOnRecentClick )
-    {
         looping();
-    }
     
     
 }
@@ -155,18 +154,15 @@ void MainContentComponent::releaseResources()
 
 void MainContentComponent::resized()
 {
-    openButton.setBounds   (10, 10, getWidth() - 20, 20);
+    g_openButton.setBounds   (10, 10, getWidth()/3, 25);
     
-    const Rectangle<int> thumbnailBounds (10, 40, getWidth() - 20, getHeight() - 120);
+    currentPositionLabel.setBounds (-10 + getWidth() - 100 , 10, 100, 35);
+    
+    const Rectangle<int> thumbnailBounds (10, 40, getWidth() - 20, getHeight() - 50);
+    
     thumbnailComp.setBounds (thumbnailBounds);
     positionOverlay.setBounds (thumbnailBounds);
-    
-    
-    playButton.setBounds   (10, 350, 80, 30);
-    stopButton.setBounds   (100, 350, 80, 30);
-    loopingButton.setBounds (190 , 350, 80, 30);
-    currentPositionLabel.setBounds (300, 350, 100, 30);
-    filterButton.setBounds (400, 350, 80, 30);
+
 }
 
 
@@ -181,11 +177,11 @@ void MainContentComponent::changeListenerCallback (ChangeBroadcaster* source)
 
 void MainContentComponent::buttonClicked (Button* button)
 {
-    if (button == &openButton)  openButtonClicked();
-    if (button == &playButton)  playButtonClicked();
-    if (button == &stopButton)  stopButtonClicked();
-    if (button == &loopingButton) loopButtonChanged();
-    if (button == &filterButton) filterButtonClicked();
+    if (button == &g_openButton)  openButtonClicked();
+    if (button == &g_playButton)  playButtonClicked();
+    if (button == &g_stopButton)  stopButtonClicked();
+    if (button == &g_loopingButton) loopButtonChanged();
+    if (button == &g_filterButton) filterButtonClicked();
     if (button == &g_questionButton) questionButtonChanged();
 }
 
@@ -245,9 +241,9 @@ void MainContentComponent::changeState (TransportState newState)
         switch (state)
         {
             case Stopped:
-                playButton.setButtonText ("Play");
-                stopButton.setEnabled (false);
-                openButton.setEnabled (true);
+                g_playButton.setButtonText ("Play");
+                g_stopButton.setEnabled (false);
+                g_openButton.setEnabled (true);
                 transportSource.setPosition (0.0);
                 break;
                 
@@ -256,9 +252,9 @@ void MainContentComponent::changeState (TransportState newState)
                 break;
                 
             case Playing:
-                playButton.setButtonText ("Pause");
-                stopButton.setEnabled (true);
-                openButton.setEnabled (false);
+                g_playButton.setButtonText ("Pause");
+                g_stopButton.setEnabled (true);
+                g_openButton.setEnabled (false);
                 break;
                 
             case Pausing:
@@ -267,8 +263,8 @@ void MainContentComponent::changeState (TransportState newState)
                 break;
                 
             case Paused:
-                playButton.setButtonText ("Resume");
-                openButton.setEnabled (false);
+                g_playButton.setButtonText ("Resume");
+                g_openButton.setEnabled (false);
                 break;
                 
             case Stopping:
@@ -308,9 +304,9 @@ void MainContentComponent::openButtonClicked()
             transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
            // g_loopEndPos = transportSource.getLengthInSeconds();
             
-            playButton.setEnabled (true);
-            filterButton.setEnabled (true);
-            loopingButton.setEnabled (true);
+            g_playButton.setEnabled (true);
+            g_filterButton.setEnabled (true);
+            g_loopingButton.setEnabled (true);
             
             thumbnailComp.setFile (file);
             readerSource = newSource.release();
@@ -346,13 +342,13 @@ void MainContentComponent::filterButtonClicked()
     
     if(g_filterOn)
     {
-        filterButton.setButtonText ("Filter is on");
-        filterButton.setColour(TextButton::buttonColourId, Colours::blue);
+        g_filterButton.setButtonText ("Filter is on");
+        g_filterButton.setColour(TextButton::buttonColourId, Colours::blue);
     }
     else
     {
-        filterButton.setButtonText ("Filter is off");
-        filterButton.setColour(TextButton::buttonColourId,
+        g_filterButton.setButtonText ("Filter is off");
+        g_filterButton.setColour(TextButton::buttonColourId,
                                getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
     }
 }
@@ -379,12 +375,12 @@ void MainContentComponent::loopButtonChanged()
         //LoopButton was just clicked
         g_loopOnRecentClick = true;
         
-        loopingButton.setColour (TextButton::buttonColourId, Colours::orange );
+        g_loopingButton.setColour (TextButton::buttonColourId, Colours::orange );
         
     }
     else
     {
-        loopingButton.setColour (TextButton::buttonColourId,
+        g_loopingButton.setColour (TextButton::buttonColourId,
                                  getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     }
 
