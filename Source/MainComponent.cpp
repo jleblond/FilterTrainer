@@ -12,6 +12,9 @@ MainContentComponent::MainContentComponent()
         thumbnailComp (512, formatManager, thumbnailCache),
         positionOverlay (transportSource)
 {
+    
+    g_questionButton.addListener(this);
+    
     addAndMakeVisible (&openButton);
     openButton.setButtonText ("Open...");
     openButton.addListener (this);
@@ -28,6 +31,13 @@ MainContentComponent::MainContentComponent()
     stopButton.setColour (TextButton::buttonColourId, Colours::red);
     stopButton.setEnabled (false);
     
+    addAndMakeVisible (&loopingButton);
+    loopingButton.setButtonText ("Looping");
+    loopingButton.addListener (this);
+    loopingButton.setColour (TextButton::buttonColourId,
+                            getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    loopingButton.setEnabled (false);
+    
     addAndMakeVisible (&filterButton);
     filterButton.setButtonText ("Filter is off");
     filterButton.addListener (this);
@@ -36,7 +46,7 @@ MainContentComponent::MainContentComponent()
     filterButton.setEnabled (false);
     
     addAndMakeVisible (&loopingToggle);
-    loopingToggle.setButtonText ("Loop");
+    loopingToggle.setButtonText ("Set Loop");
     loopingToggle.addListener (this);
     
     addAndMakeVisible (&currentPositionLabel);
@@ -128,11 +138,12 @@ void MainContentComponent::resized()
     
     playButton.setBounds   (10, 350, 80, 30);
     stopButton.setBounds   (100, 350, 80, 30);
-    loopingToggle.setBounds(190, 350, 100, 30);
+    loopingButton.setBounds (190 , 350, 80, 30);
+    loopingToggle.setBounds(280, 350, 100, 30);
     
-    currentPositionLabel.setBounds (300, 350, 100, 30);
+    currentPositionLabel.setBounds (400, 350, 100, 30);
     
-    filterButton.setBounds (410, 350, 80, 30);
+    filterButton.setBounds (500, 350, 80, 30);
 }
 
 
@@ -150,8 +161,10 @@ void MainContentComponent::buttonClicked (Button* button)
     if (button == &openButton)  openButtonClicked();
     if (button == &playButton)  playButtonClicked();
     if (button == &stopButton)  stopButtonClicked();
+    if (button == &loopingButton) loopingButtonClicked();
     if (button == &filterButton) filterButtonClicked();
     if (button == &loopingToggle)   loopButtonChanged();
+    if (button == &g_questionButton) questionButtonChanged();
 }
 
 
@@ -239,6 +252,21 @@ void MainContentComponent::changeState (TransportState newState)
 }
 
 
+void MainContentComponent::questionButtonChanged()
+{
+    ExerciseGenerator::Instance().createExercise(g_freqRangeValue, g_filterGainValue, g_gainAmplification, g_gainAttenuation);
+    
+    // std::cout<<"maincontentcomponent listener  -  centrefreq: "<<g_centreFrequency;
+    // std::cout<<" gain: "<<g_gainFactor<<std::endl;
+    
+    peakfilter.updateCoeff(g_centreFrequency, g_Q, g_gainFactor );
+    
+    assert(this->mSampleRate != 0);
+    bandshelf.setup(2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1);
+
+}
+
+
 void MainContentComponent::openButtonClicked()
 {
     FileChooser chooser ("Select a Wave file to play...",
@@ -254,9 +282,12 @@ void MainContentComponent::openButtonClicked()
         {
             ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
             transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
+            g_loopEndPos = transportSource.getLengthInSeconds();
             
             playButton.setEnabled (true);
             filterButton.setEnabled (true);
+            loopingButton.setEnabled (true);
+            
             thumbnailComp.setFile (file);
             readerSource = newSource.release();
         }
@@ -272,14 +303,6 @@ void MainContentComponent::playButtonClicked()
         changeState (Starting);
     else if (state == Playing)
         changeState (Pausing);
-    
-    std::cout<<"centrefreq "<<g_centreFrequency<<std::endl;
-    std::cout<<"gain "<<g_gainFactor<<std::endl;
-    
-    peakfilter.updateCoeff(g_centreFrequency, g_Q, g_gainFactor );
-    
-    assert(this->mSampleRate != 0);
-    bandshelf.setup(2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1);
     
 }
 
@@ -309,6 +332,23 @@ void MainContentComponent::filterButtonClicked()
         filterButton.setButtonText ("Filter is off");
         filterButton.setColour(TextButton::buttonColourId,
                                getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
+    }
+}
+
+void MainContentComponent::loopingButtonClicked()
+{
+    g_loopOn = !g_loopOn;
+    
+    if(g_loopOn)
+    {
+        loopingButton.setColour (TextButton::buttonColourId, Colours::orange );
+
+    }
+    else
+    {
+        loopingButton.setColour (TextButton::buttonColourId,
+                                 getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+
     }
 }
 

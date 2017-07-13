@@ -18,6 +18,7 @@
 #include "IIRPeakFilter.h"
 #include "ExerciseGenerator.h"
 
+
 #include "GUI/AudioThumbnailComponent.h"
 #include "GUI/PositionOverlay.h"
 
@@ -67,6 +68,8 @@ private:
     
     void changeState (TransportState newState);
     
+    void questionButtonChanged();
+    
     void openButtonClicked();
     
     void playButtonClicked();
@@ -74,6 +77,8 @@ private:
     void stopButtonClicked();
     
     void filterButtonClicked();
+    
+    void loopingButtonClicked();
     
     void transportSourceChanged();
     
@@ -85,6 +90,7 @@ private:
     TextButton playButton;
     TextButton stopButton;
     TextButton filterButton;
+    TextButton loopingButton;
     ToggleButton loopingToggle;
     Label currentPositionLabel;
     

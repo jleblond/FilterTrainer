@@ -54,9 +54,9 @@ public:
         volumeSlider.setValue(10);
         volumeSlider.addListener(this);
         
-        question.setButtonText("NEW QUESTION");
-        question.addListener(this);
-        addAndMakeVisible(question);
+        g_questionButton.setButtonText("NEW QUESTION");
+        g_questionButton.addListener(this);
+        addAndMakeVisible(g_questionButton);
     }
     
     ~GUIExControls()
@@ -80,25 +80,24 @@ public:
         
         volumeSlider.setBounds (0.6*getWidth(), 0.45*getHeight(), 30, 135);
         
-        question.setBounds (0.5*getWidth(), 0.85*getHeight(), 120, 40);
+        g_questionButton.setBounds (0.5*getWidth(), 0.85*getHeight(), 120, 40);
     }
     
     void buttonClicked(Button* button) override
     {
         if(button == &amplify)
-            amplification_value = !amplification_value;
+            g_gainAmplification = !g_gainAmplification;
             
         if(button == &attenuate)
-            attenuation_value = !attenuation_value;
+            g_gainAttenuation = !g_gainAttenuation;
         
-        if(button == &question)
+        if(button == &g_questionButton)
         {
-            std::cout<<"NEW QUESTION BUTTON"<<std::endl;
-            std::cout<<"freqrange_value:"<<freqrange_value<<" dBAmpSlider_value:"<<dBAmpSlider_value<<
-            " amplification_value:"<<amplification_value<<" attenuation_value:"<<attenuation_value<<
+            std::cout<<"GUIExControls"<<std::endl;
+            std::cout<<"freqrange_value:"<<g_freqRangeValue<<" dBAmpSlider_value:"<<g_filterGainValue<<
+            " amplification_value:"<<g_gainAmplification<<" attenuation_value:"<<g_gainAttenuation<<
             std::endl;
             
-          ExerciseGenerator::Instance().createExercise(freqrange_value, dBAmpSlider_value, amplification_value, attenuation_value);
         }
         
     }
@@ -106,7 +105,7 @@ public:
     void sliderValueChanged (Slider* slider) override
     {
         if(slider == &dBAmpSlider)
-            dBAmpSlider_value = dBAmpSlider.getValue();
+            g_filterGainValue = dBAmpSlider.getValue();
         
         if(slider == &volumeSlider)
             g_mainVolume = volumeSlider.getValue() /10;
@@ -115,7 +114,7 @@ public:
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override
     {
         if(comboBoxThatHasChanged == freqrange)
-            freqrange_value=freqrange->getSelectedId();
+            g_freqRangeValue=freqrange->getSelectedId();
     }
     
     
@@ -125,11 +124,10 @@ private:
     ComboBox* freqrange=new ComboBox("Frequency Range");
     TextButton amplify;
     TextButton attenuate;
-    TextButton question;
     
-    int freqrange_value=0;
-    int dBAmpSlider_value=3;
-    bool amplification_value=false;
-    bool attenuation_value=false;
+//    int freqrange_value=0;
+//    int dBAmpSlider_value=3;
+//    bool amplification_value=false;
+//    bool attenuation_value=false;
 
 };

@@ -24,7 +24,7 @@ public:
     {
         //listexercises.push_back(this);
         
-        std::cout<<"EXERCISE"<<std::endl;
+        std::cout<<"EXERCISE.h"<<std::endl;
         std::cout<<"centerfreq:"<<mCenterFreq<<" freqboost:"<<mFreqBoost<<std::endl;
         
     }
