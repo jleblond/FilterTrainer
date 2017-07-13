@@ -21,6 +21,8 @@ bool g_filterOn = false;
 bool g_loopOn = false;
 double g_loopStartPos = 0 ;
 double g_loopEndPos = 0;
+double g_lastLoopStartPos = 0;
+double g_lastLoopEndPos = 0;
 
 //Filter settings
 double g_centreFrequency = 20000;

@@ -91,7 +91,7 @@ private:
     TextButton stopButton;
     TextButton filterButton;
     TextButton loopingButton;
-    ToggleButton loopingToggle;
+    TextButton loopingToggle; //kept for state (check?)
     Label currentPositionLabel;
     
     

@@ -29,31 +29,34 @@ public:
         
         if (duration > 0.0)
         {
+            //Current position bar
+            const double audioPosition = transportSource.getCurrentPosition();
+            const float drawPosition = (audioPosition / duration) * getWidth();
             
-            if (g_loopOn)
-            {
-                const float drawStartPosition = (g_loopStartPos / duration) * getWidth();
-                const float drawEndPosition = (g_loopEndPos / duration) * getWidth();
-                
-                Rectangle<float> rect( drawStartPosition, 0.0f,
-                               ( std::abs(drawEndPosition - drawStartPosition) ), (float) getHeight() );
-                
-                g.setColour (Colours::black);
-                g.setOpacity (0.7f);
-                g.drawRect( rect, 1.0f );
-                g.fillRect(rect);
-                
-            }
+            g.setColour (Colours::black);
+            g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
+            
+            //Loop button pressed
+            const float drawStartPosition = (g_loopStartPos / duration) * getWidth();
+            const float drawEndPosition = (g_loopEndPos / duration) * getWidth();
+            
+            if(g_loopOn)
+                paintRectangle(g, 0.0f, getWidth() );
             else
-            {
-                const double audioPosition = transportSource.getCurrentPosition();
-                const float drawPosition = (audioPosition / duration) * getWidth();
-                
-                g.setColour (Colours::green);
-                g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
-            }
-            
+                paintRectangle(g, drawStartPosition, drawEndPosition);
+
         }
+    }
+    
+    void paintRectangle (Graphics& g, float startPos, float endPos)
+    {
+        Rectangle<float> rect( startPos, 0.0f,
+                              ( std::abs(endPos - startPos) ), (float) getHeight() );
+        
+        g.setColour (Colours::darkgrey);
+        g.setOpacity (0.5f);
+        g.drawRect( rect, 1.0f );
+        g.fillRect(rect);
     }
     
     
@@ -67,16 +70,10 @@ public:
             const double clickPosition = event.position.x;
             const double audioPosition = (clickPosition / getWidth()) * duration;
             
-            transportSource.setPosition (audioPosition);
+            g_loopStartPos = audioPosition;
 
-            
-            if (g_loopOn)
-            {
-                g_loopStartPos = audioPosition;
-                std::cout<<"loopstartpos "<<g_loopStartPos<<std::endl;
-               // mouseDrag (event);
-            }
-
+            if( audioPosition < duration )
+                transportSource.setPosition (audioPosition);
             
         }
 
@@ -84,16 +81,14 @@ public:
     
     void mouseDrag (const MouseEvent& event) override
     {
-        if (g_loopOn)
-        {
             const double duration = transportSource.getLengthInSeconds();
-            
-            //lastMousePosition = event.position;
+        
             mLastMouseXPosition = event.position.x;
             double lastAudioPosition = (mLastMouseXPosition / getWidth()) * duration;
             
-            g_loopEndPos = lastAudioPosition;
-            std::cout<<"g_loopEndPos "<<g_loopEndPos<<std::endl;
+            if( lastAudioPosition < duration )
+                g_loopEndPos = lastAudioPosition;
+        
             
             if( g_loopEndPos < g_loopStartPos )
             {
@@ -102,13 +97,6 @@ public:
                 g_loopStartPos = g_loopEndPos;
                 g_loopEndPos = temp;
             }
-
-        }
-
-    }
-    
-    void mouseUp (const MouseEvent& event) override
-    {
 
     }
     
@@ -120,9 +108,9 @@ private:
     }
     
     AudioTransportSource& transportSource;
-    //double mClickMouseXPosition;
+
     double mLastMouseXPosition;
-    //Point<float> lastMousePosition;
+
     
    // JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PositionOverlay)
 };

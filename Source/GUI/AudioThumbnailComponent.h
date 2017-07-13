@@ -53,7 +53,10 @@ public:
         
         g.setColour (Colours::red);
         thumbnail.drawChannels (g, getLocalBounds(), 0.0, thumbnail.getTotalLength(), 0.9f);
+        
     }
+    
+    
     
     void changeListenerCallback (ChangeBroadcaster* source) override
     {

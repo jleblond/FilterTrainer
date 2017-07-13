@@ -23,6 +23,8 @@ extern bool g_loopOn;
     //audio positions in s (or ms?)
     extern double g_loopStartPos;
     extern double g_loopEndPos;
+    extern double g_lastLoopStartPos;
+    extern double g_lastLoopEndPos;
 
 //Filter settings
 extern double g_centreFrequency;

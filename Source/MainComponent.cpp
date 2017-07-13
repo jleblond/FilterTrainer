@@ -45,10 +45,6 @@ MainContentComponent::MainContentComponent()
                             getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     filterButton.setEnabled (false);
     
-    addAndMakeVisible (&loopingToggle);
-    loopingToggle.setButtonText ("Set Loop");
-    loopingToggle.addListener (this);
-    
     addAndMakeVisible (&currentPositionLabel);
     currentPositionLabel.setText ("Stopped", dontSendNotification);
     
@@ -60,7 +56,7 @@ MainContentComponent::MainContentComponent()
     
     setAudioChannels (0, 2);
     
-    startTimer(20);  //to remove?
+    startTimer(20);
     
 }
 
@@ -117,6 +113,27 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
                                        mLastGain, g_mainVolume);
     mLastGain = g_mainVolume;
     
+    
+    //Loop Pre-Conditions
+    if(g_loopStartPos < 0)
+        g_loopStartPos = 0;
+    
+    if(g_loopEndPos < 0)
+        g_loopEndPos = 0;
+    
+    if(g_loopStartPos > transportSource.getLengthInSeconds() - 1)
+        g_loopStartPos = transportSource.getLengthInSeconds() - 1;
+    
+    if(g_loopEndPos > transportSource.getLengthInSeconds() - 1 )
+        g_loopEndPos = transportSource.getLengthInSeconds() - 1;
+    
+    //Loop
+    if( transportSource.getCurrentPosition() >= g_loopEndPos  )
+    {
+            if( std::abs( g_loopEndPos - g_loopStartPos ) >= 0.1 )
+                transportSource.setPosition(g_loopStartPos);
+    }
+    
 }
 
 
@@ -161,9 +178,8 @@ void MainContentComponent::buttonClicked (Button* button)
     if (button == &openButton)  openButtonClicked();
     if (button == &playButton)  playButtonClicked();
     if (button == &stopButton)  stopButtonClicked();
-    if (button == &loopingButton) loopingButtonClicked();
+    if (button == &loopingButton) loopButtonChanged();
     if (button == &filterButton) filterButtonClicked();
-    if (button == &loopingToggle)   loopButtonChanged();
     if (button == &g_questionButton) questionButtonChanged();
 }
 
@@ -256,9 +272,6 @@ void MainContentComponent::questionButtonChanged()
 {
     ExerciseGenerator::Instance().createExercise(g_freqRangeValue, g_filterGainValue, g_gainAmplification, g_gainAttenuation);
     
-    // std::cout<<"maincontentcomponent listener  -  centrefreq: "<<g_centreFrequency;
-    // std::cout<<" gain: "<<g_gainFactor<<std::endl;
-    
     peakfilter.updateCoeff(g_centreFrequency, g_Q, g_gainFactor );
     
     assert(this->mSampleRate != 0);
@@ -282,7 +295,7 @@ void MainContentComponent::openButtonClicked()
         {
             ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
             transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
-            g_loopEndPos = transportSource.getLengthInSeconds();
+           // g_loopEndPos = transportSource.getLengthInSeconds();
             
             playButton.setEnabled (true);
             filterButton.setEnabled (true);
@@ -335,23 +348,6 @@ void MainContentComponent::filterButtonClicked()
     }
 }
 
-void MainContentComponent::loopingButtonClicked()
-{
-    g_loopOn = !g_loopOn;
-    
-    if(g_loopOn)
-    {
-        loopingButton.setColour (TextButton::buttonColourId, Colours::orange );
-
-    }
-    else
-    {
-        loopingButton.setColour (TextButton::buttonColourId,
-                                 getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
-    }
-}
-
 
 void MainContentComponent::transportSourceChanged()
 {
@@ -366,5 +362,28 @@ void MainContentComponent::transportSourceChanged()
 
 void MainContentComponent::loopButtonChanged()
 {
-    updateLoopState (loopingToggle.getToggleState());
+    
+    g_loopOn = !g_loopOn;
+    updateLoopState (g_loopOn);
+    
+    if(g_loopOn)
+    {
+        g_lastLoopStartPos = g_loopStartPos;
+        g_lastLoopEndPos = g_loopEndPos;
+        
+        loopingButton.setColour (TextButton::buttonColourId, Colours::orange );
+        g_loopStartPos = 0;
+        g_loopEndPos = 0; //or  transportSource.getLengthInSeconds() ...?
+        
+    }
+    else
+    {
+        g_loopStartPos = g_lastLoopStartPos;
+        g_loopEndPos = g_lastLoopEndPos;
+        
+        loopingButton.setColour (TextButton::buttonColourId,
+                                 getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        
+    }
+
 }
