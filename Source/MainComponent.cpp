@@ -12,45 +12,30 @@ MainContentComponent::MainContentComponent()
         thumbnailComp (512, formatManager, thumbnailCache),
         positionOverlay (transportSource)
 {
-    
+    //GUIExControls.h g_questionButton Listener
     g_questionButton.addListener(this);
     
+    //Open Button Listener
     addAndMakeVisible (g_openButton);
     g_openButton.setButtonText ("Open...");
     g_openButton.addListener (this);
-    
-   // addAndMakeVisible (g_playButton);
-   // g_playButton.setButtonText ("Play");
-    g_playButton.addListener (this);
-   // g_playButton.setColour (TextButton::buttonColourId, Colours::green);
-   // g_playButton.setEnabled (false);
-    
-   // addAndMakeVisible (g_stopButton);
-  //  g_stopButton.setButtonText ("Stop");
-    g_stopButton.addListener (this);
-  //  g_stopButton.setColour (TextButton::buttonColourId, Colours::red);
-  //  g_stopButton.setEnabled (false);
-    
-  //  addAndMakeVisible (g_loopingButton);
-  //  g_loopingButton.setButtonText ("Looping");
-    g_loopingButton.addListener (this);
- //   g_loopingButton.setColour (TextButton::buttonColourId,
-  //                          getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-  //  g_loopingButton.setEnabled (false);
-    
-  //  addAndMakeVisible (g_filterButton);
-  //  g_filterButton.setButtonText ("Filter is off");
-    g_filterButton.addListener (this);
- //   g_filterButton.setColour (TextButton::buttonColourId,
-  //                          getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
- //   g_filterButton.setEnabled (false);
-    
+    //CurrentPosition Label Listener
     addAndMakeVisible (&currentPositionLabel);
     currentPositionLabel.setText ("Stopped", dontSendNotification);
     currentPositionLabel.setJustificationType(Justification::right);
     
+    
     addAndMakeVisible (&thumbnailComp);
     addAndMakeVisible (&positionOverlay);
+    
+
+    //TransportBar.h buttons Listeners
+    g_playButton.addListener (this);
+    g_stopButton.addListener (this);
+    g_loopingButton.addListener (this);
+    g_filterButton.addListener (this);
+ 
+    
     
     formatManager.registerBasicFormats();
     transportSource.addChangeListener (this);
@@ -78,13 +63,11 @@ void MainContentComponent::prepareToPlay (int samplesPerBlockExpected, double sa
     peakfilter.changeParam(sampleRate, g_centreFrequency, g_Q, g_gainFactor);
     
     bandshelf.setup(2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1);
-    
 }
 
 
 void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
 {
-    
     // Clear buffer
     if (readerSource == nullptr)
     {
@@ -118,7 +101,6 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
     if(g_loopOn && !g_loopOnRecentClick )
         looping();
     
-    
 }
 
 void MainContentComponent::looping()
@@ -148,7 +130,6 @@ void MainContentComponent::looping()
 void MainContentComponent::releaseResources()
 {
     transportSource.releaseResources();
-   
 }
 
 
@@ -162,7 +143,6 @@ void MainContentComponent::resized()
     
     thumbnailComp.setBounds (thumbnailBounds);
     positionOverlay.setBounds (thumbnailBounds);
-
 }
 
 
@@ -270,7 +250,7 @@ void MainContentComponent::changeState (TransportState newState)
             case Stopping:
                 transportSource.stop();
                 break;
-        }
+        }//switch
     }
 }
 
@@ -302,7 +282,6 @@ void MainContentComponent::openButtonClicked()
         {
             ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
             transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
-           // g_loopEndPos = transportSource.getLengthInSeconds();
             
             g_playButton.setEnabled (true);
             g_filterButton.setEnabled (true);

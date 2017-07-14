@@ -102,8 +102,7 @@ public:
             if( audioPosition < duration )
                 transportSource.setPosition (audioPosition);
             
-           // if( g_loopOn )
-                g_loopStartPos = audioPosition;
+            g_loopStartPos = audioPosition;
             
             mMouseDownXPosition = audioPosition;
         }
@@ -114,8 +113,7 @@ public:
     {
         const double duration = transportSource.getLengthInSeconds();
         
-        if( g_loopOn )
-        {
+
             mLastMouseXPosition = event.position.x;
             double lastAudioPosition = (mLastMouseXPosition / getWidth()) * duration;
             
@@ -134,13 +132,18 @@ public:
                 g_loopEndPos = temp;
             }
             
-            //LoopDuration is long enough to switch to loop region mode
+            //LoopDuration is long enough to loop
             if( std::abs( g_loopEndPos - g_loopStartPos ) >= g_minLoopDuration )
+            {
+                
+                //LoopButton is off
+                if( !g_loopOn )
+                    g_loopingButton.triggerClick();
+                
+                
                 g_loopOnRecentClick = false;
-            
-        }
-        
-
+            }
+     
     }
     
     
