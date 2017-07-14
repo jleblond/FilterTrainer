@@ -41,18 +41,10 @@ public:
         amplify.setButtonText("+");
         amplify.addListener(this);
         addAndMakeVisible(amplify);
-        //amplify.triggerClick();
         
         attenuate.setButtonText("-");
         attenuate.addListener(this);
         addAndMakeVisible(attenuate);
-        
-        addAndMakeVisible(volumeSlider);
-        volumeSlider.setRange(0, 10, 0.1);
-        volumeSlider.setSliderStyle(juce::Slider::LinearVertical);
-        volumeSlider.setTextBoxIsEditable(false);
-        volumeSlider.setValue(10);
-        volumeSlider.addListener(this);
         
         g_questionButton.setButtonText("NEW QUESTION");
         g_questionButton.addListener(this);
@@ -67,20 +59,21 @@ public:
     void paint(Graphics& g) override
     {
         //sidebar
-       g.fillAll(Colours::darkred);
+       //g.fillAll(Colours::darkred);
+       // g.fillAll(Colour::Colour(191, 92, 0) ); //dark red
+        g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     }
     
     void resized() override
     {
-        freqrange->setBounds (0.4*getWidth(), 0.2*getHeight(), 80, 40);
         
-        dBAmpSlider.setBounds (0.3*getWidth(), 0.45*getHeight(), 30, 135);
-        amplify.setBounds (0.25*getWidth(), 0.8*getHeight(), 30, 30);
-        attenuate.setBounds (0.35*getWidth(), 0.8*getHeight(), 30, 30);
+        dBAmpSlider.setBounds (0.2*getWidth(), 0.25*getHeight(), 30, 135);
+        amplify.setBounds (0.15*getWidth(), 0.6*getHeight(), 30, 30);
+        attenuate.setBounds (0.27*getWidth(), 0.6*getHeight(), 30, 30);
         
-        volumeSlider.setBounds (0.6*getWidth(), 0.45*getHeight(), 30, 135);
+        freqrange->setBounds (0.5*getWidth(), 0.4*getHeight(), 100, 30);
         
-        g_questionButton.setBounds (0.5*getWidth(), 0.85*getHeight(), 120, 40);
+        g_questionButton.setBounds (0.3*getWidth(), 0.75*getHeight(), 120, 40);
     }
     
     void buttonClicked(Button* button) override

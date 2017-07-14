@@ -77,7 +77,7 @@ public:
                               ( std::abs(endPos - startPos) ), (float) getHeight() );
         
         g.setColour (Colours::darkgrey);
-        g.setOpacity (0.5f);
+        g.setOpacity (0.6f);
         g.drawRect( rect, 1.0f );
         g.fillRect(rect);
     }

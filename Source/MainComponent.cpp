@@ -135,7 +135,7 @@ void MainContentComponent::releaseResources()
 
 void MainContentComponent::resized()
 {
-    g_openButton.setBounds   (10, 10, getWidth()/3, 25);
+    g_openButton.setBounds (10, 15, getWidth()/3, 20);
     
     currentPositionLabel.setBounds (-10 + getWidth() - 100 , 10, 100, 35);
     
