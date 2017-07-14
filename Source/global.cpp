@@ -10,6 +10,9 @@
 
 #include "global.h"
 
+double g_srcDurationInSec = 0;
+double g_currAudioPosition = 0;
+float g_currDrawPosition = 0;
 
 //Buttons
 TextButton g_questionButton;
@@ -19,6 +22,10 @@ TextButton g_stopButton;
 TextButton g_filterButton;
 TextButton g_loopingButton;
 TextButton g_loopingToggle; //kept for state (check?)
+TextButton g_ZoomInButton;
+TextButton g_ZoomOutButton;
+
+double g_scaleZoomWaveform = 1;
 
 //Playback settings
 float g_mainVolume = 1.0f;

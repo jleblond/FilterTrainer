@@ -11,6 +11,9 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 
+extern double g_srcDurationInSec;
+extern double g_currAudioPosition;
+extern float g_currDrawPosition;
 
 //Buttons
 extern TextButton g_questionButton;
@@ -20,6 +23,10 @@ extern TextButton g_stopButton;
 extern TextButton g_filterButton;
 extern TextButton g_loopingButton;
 extern TextButton g_loopingToggle; //kept for state (check?)
+extern TextButton g_ZoomInButton;
+extern TextButton g_ZoomOutButton;
+
+extern double g_scaleZoomWaveform;
 
 //Playback settings
 extern float g_mainVolume;

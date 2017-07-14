@@ -1,6 +1,4 @@
 
-
-
 #include "MainComponent.h"
 
 
@@ -9,26 +7,32 @@ MainContentComponent::MainContentComponent()
     :   state (Stopped),
         peakfilter(2),
         thumbnailCache (5),
-        thumbnailComp (512, formatManager, thumbnailCache),
-        positionOverlay (transportSource)
+        waveform(512, formatManager, thumbnailCache, transportSource)
+
 {
     //GUIExControls.h g_questionButton Listener
     g_questionButton.addListener(this);
     
-    //Open Button Listener
+    //Open Button
     addAndMakeVisible (g_openButton);
     g_openButton.setButtonText ("Open...");
     g_openButton.addListener (this);
-    //CurrentPosition Label Listener
+    
+    //Zoom IN & Zoom OUT
+    addAndMakeVisible (g_ZoomInButton);
+    g_ZoomInButton.setButtonText ("+");
+    
+    addAndMakeVisible (g_ZoomOutButton);
+    g_ZoomOutButton.setButtonText ("-");
+    
+    //CurrentPosition
     addAndMakeVisible (&currentPositionLabel);
     currentPositionLabel.setText ("Stopped", dontSendNotification);
     currentPositionLabel.setJustificationType(Justification::right);
     
+    //Waveform
+    addAndMakeVisible(&waveform);
     
-    addAndMakeVisible (&thumbnailComp);
-    addAndMakeVisible (&positionOverlay);
-    
-
     //TransportBar.h buttons Listeners
     g_playButton.addListener (this);
     g_stopButton.addListener (this);
@@ -135,15 +139,18 @@ void MainContentComponent::releaseResources()
 
 void MainContentComponent::resized()
 {
-    g_openButton.setBounds (10, 15, getWidth()/3, 20);
+    g_openButton.setBounds (10, 15, getWidth()/4, 25);
     
-    currentPositionLabel.setBounds (-10 + getWidth() - 100 , 10, 100, 35);
+    currentPositionLabel.setBounds (-10 + getWidth()/2 , 10, 100, 35);
     
-    const Rectangle<int> thumbnailBounds (10, 40, getWidth() - 20, getHeight() - 50);
+    g_ZoomInButton.setBounds (-10 + getWidth() - 65 , 10, 30, 30);
+    g_ZoomOutButton.setBounds (-10 + getWidth() - 30 , 10, 30, 30);
     
-    thumbnailComp.setBounds (thumbnailBounds);
-    positionOverlay.setBounds (thumbnailBounds);
+    const Rectangle<int> thumbnailBounds (10, 50, getWidth() - 20, getHeight() - 50);
+    waveform.setBounds (thumbnailBounds);
+
 }
+
 
 
 void MainContentComponent::changeListenerCallback (ChangeBroadcaster* source)
@@ -168,11 +175,16 @@ void MainContentComponent::buttonClicked (Button* button)
 
 void MainContentComponent::timerCallback()
 {
+    g_currAudioPosition = transportSource.getCurrentPosition();
+    g_currDrawPosition = (g_currAudioPosition / g_srcDurationInSec ) * waveform.getThumbnailWidth();
+    
+    
     if (transportSource.isPlaying())
     {
         String positionStr = currentTime ( transportSource.getCurrentPosition() );
         
         currentPositionLabel.setText (positionStr, dontSendNotification);
+        
     }
     else if(state == Paused)
     {
@@ -282,13 +294,18 @@ void MainContentComponent::openButtonClicked()
         {
             ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
             transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
+            g_srcDurationInSec = transportSource.getLengthInSeconds();
             
             g_playButton.setEnabled (true);
             g_filterButton.setEnabled (true);
             g_loopingButton.setEnabled (true);
+            g_ZoomInButton.setEnabled(true);
             
-            thumbnailComp.setFile (file);
+            waveform.setWaveformDisplay(file);
+            
             readerSource = newSource.release();
+            
+            
         }
     }
 }

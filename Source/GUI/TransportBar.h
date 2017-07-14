@@ -59,7 +59,7 @@ public:
 
 
 private:
-    int mTransportHeight = 0;
+    int mTransportHeight = 10;
     
     
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TransportBar)

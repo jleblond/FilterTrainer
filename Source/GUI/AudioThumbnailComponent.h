@@ -12,7 +12,7 @@
 
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "PositionOverlay.h"
 
 
 class AudioThumbnailComponent : public Component,
@@ -21,10 +21,28 @@ private ChangeListener
 public:
     AudioThumbnailComponent (int sourceSamplesPerThumbnailSample,
                               AudioFormatManager& formatManager,
-                              AudioThumbnailCache& cache)
-    : thumbnail (sourceSamplesPerThumbnailSample, formatManager, cache)
+                              AudioThumbnailCache& cache,
+                              AudioTransportSource& transportSourceToUse
+                             )
+    : thumbnail (sourceSamplesPerThumbnailSample, formatManager, cache),
+      positionOverlay (transportSourceToUse)
     {
         thumbnail.addChangeListener (this);
+        
+        addAndMakeVisible (&positionOverlay);
+        
+//        mPositionOverlayWidth = positionOverlay.getWidth();
+//        mPositionOverlayHeight = positionOverlay.getHeight();
+
+    }
+    
+    void resized() override
+    {
+        positionOverlay.setBounds ( 0, 0, getWidth(), getHeight() );
+        
+//        positionOverlay.setSize( g_scaleZoomWaveform *  positionOverlay.getWidth(),
+//                                positionOverlay.getHeight() );
+        
     }
     
     void setFile (const File& file)
@@ -71,6 +89,12 @@ private:
     }
     
     AudioThumbnail thumbnail;
+    
+    PositionOverlay positionOverlay;
+    
+//    double mPositionOverlayWidth;
+//    double mPositionOverlayHeight;
+
     
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioThumbnailComponent)
 };

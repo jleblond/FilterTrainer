@@ -26,16 +26,15 @@ public:
     
     void paint (Graphics& g) override
     {
-        const double duration = transportSource.getLengthInSeconds();
         
-            if( duration > 0.0 )
-                paintLine(g, duration);
+            if( g_srcDurationInSec > 0.0 )
+                paintLine(g, g_srcDurationInSec);
             
             //Loop button pressed - draw rectangle
-            if( duration > 0.0 && g_loopOn )
+            if( g_srcDurationInSec > 0.0 && g_loopOn )
             {
-                const float drawStartPosition = (g_loopStartPos / duration) * getWidth();
-                const float drawEndPosition = (g_loopEndPos / duration) * getWidth();
+                const float drawStartPosition = (g_loopStartPos / g_srcDurationInSec) * getWidth();
+                const float drawEndPosition = (g_loopEndPos / g_srcDurationInSec) * getWidth();
             
                 //Draw loop rectangle for whole file vs region
                 if(g_loopOnRecentClick)
@@ -63,11 +62,8 @@ public:
     //Current position bar
     void paintLine (Graphics& g, double duration)
     {
-        const double audioPosition = transportSource.getCurrentPosition();
-        const float drawPosition = (audioPosition / duration) * getWidth();
-        
         g.setColour (Colours::black);
-        g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
+        g.drawLine (g_currDrawPosition, 0.0f, g_currDrawPosition, (float) getHeight(), 2.0f);
     }
     
     
@@ -91,35 +87,35 @@ public:
     
     void mouseDown (const MouseEvent& event) override
     {
-        
-        const double duration = transportSource.getLengthInSeconds();
-        
-        if (duration > 0.0)
+    
+        if (g_srcDurationInSec > 0.0)
         {
             const double clickPosition = event.position.x;
-            const double audioPosition = (clickPosition / getWidth()) * duration;
+            const double audioPosition = (clickPosition / getWidth()) * g_srcDurationInSec;
 
-            if( audioPosition < duration )
+            if( audioPosition < g_srcDurationInSec )
+            {
                 transportSource.setPosition (audioPosition);
             
-            g_loopStartPos = audioPosition;
+                g_loopStartPos = audioPosition;
             
-            mMouseDownXPosition = audioPosition;
+                mMouseDownXPosition = audioPosition;
+            }
+            
+            
         }
 
     }
     
     void mouseDrag (const MouseEvent& event) override
     {
-        const double duration = transportSource.getLengthInSeconds();
         
-
             mLastMouseXPosition = event.position.x;
-            double lastAudioPosition = (mLastMouseXPosition / getWidth()) * duration;
+            double lastAudioPosition = (mLastMouseXPosition / getWidth()) * g_srcDurationInSec;
             
             g_loopStartPos = mMouseDownXPosition;
             
-            if( lastAudioPosition < duration )
+            if( lastAudioPosition < g_srcDurationInSec )
                 g_loopEndPos = lastAudioPosition;
         
             

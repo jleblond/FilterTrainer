@@ -46,6 +46,6 @@ public:
 private:
     MainContentComponent* component=new MainContentComponent();
     TransportBar transport;
-    
+
     
 };

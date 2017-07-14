@@ -28,7 +28,7 @@
 
 
 #include "GUI/AudioThumbnailComponent.h"
-#include "GUI/PositionOverlay.h"
+#include "GUI/WaveformDisplay.h"
 
 #include "global.h"
 
@@ -57,7 +57,6 @@ public:
     
     void buttonClicked (Button* button) override;
 
-    
     void timerCallback() override;
     
     String currentTime(double currentposition);
@@ -101,7 +100,6 @@ private:
     double mSampleRate = 0;
     float mLastGain = 1.0f;
     
-    
     AudioFormatManager formatManager;
     ScopedPointer<AudioFormatReaderSource> readerSource;
     AudioTransportSource transportSource;
@@ -111,9 +109,8 @@ private:
     Dsp::SimpleFilter <Dsp::ChebyshevI::BandShelf <2>, 2> bandshelf;
     
     AudioThumbnailCache thumbnailCache;
-    AudioThumbnailComponent thumbnailComp;
-    PositionOverlay positionOverlay;
 
+    WaveformDisplay waveform;
     
     //LookAndFeel_V3 lookAndFeel;
     
