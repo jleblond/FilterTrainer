@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="f5NIlT" name="AudioAppTest" displaySplashScreen="1" reportAppUsage="1"
+              splashScreenColour="Dark" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.AudioAppTest" includeBinaryInAppConfig="1"
+              jucerVersion="5.0.2">
+  <MAINGROUP id="Ou4Fp1" name="AudioAppTest">
+    <GROUP id="{2FBB8473-082C-4AAA-4C05-36CACAAC1C17}" name="DspFilters">
+      <GROUP id="{18A016FB-0364-B53D-1DAD-7F0D62CB3CE6}" name="DspFilters">
+        <FILE id="QT0Fqc" name="Bessel.h" compile="0" resource="0" file="DspFilters/DspFilters/Bessel.h"/>
+        <FILE id="rCKuCF" name="Biquad.h" compile="0" resource="0" file="DspFilters/DspFilters/Biquad.h"/>
+        <FILE id="gEg35R" name="Butterworth.h" compile="0" resource="0" file="DspFilters/DspFilters/Butterworth.h"/>
+        <FILE id="vvs1hW" name="Cascade.h" compile="0" resource="0" file="DspFilters/DspFilters/Cascade.h"/>
+        <FILE id="VPtvAb" name="ChebyshevI.h" compile="0" resource="0" file="DspFilters/DspFilters/ChebyshevI.h"/>
+        <FILE id="Wx71uG" name="ChebyshevII.h" compile="0" resource="0" file="DspFilters/DspFilters/ChebyshevII.h"/>
+        <FILE id="gYLMaS" name="Common.h" compile="0" resource="0" file="DspFilters/DspFilters/Common.h"/>
+        <FILE id="SdkgeS" name="Custom.h" compile="0" resource="0" file="DspFilters/DspFilters/Custom.h"/>
+        <FILE id="It7v9t" name="Design.h" compile="0" resource="0" file="DspFilters/DspFilters/Design.h"/>
+        <FILE id="T63bkx" name="Dsp.h" compile="0" resource="0" file="DspFilters/DspFilters/Dsp.h"/>
+        <FILE id="btoYGc" name="Elliptic.h" compile="0" resource="0" file="DspFilters/DspFilters/Elliptic.h"/>
+        <FILE id="bdGOf7" name="Filter.h" compile="0" resource="0" file="DspFilters/DspFilters/Filter.h"/>
+        <FILE id="kRINff" name="Layout.h" compile="0" resource="0" file="DspFilters/DspFilters/Layout.h"/>
+        <FILE id="rFpjvi" name="Legendre.h" compile="0" resource="0" file="DspFilters/DspFilters/Legendre.h"/>
+        <FILE id="tXlIbM" name="MathSupplement.h" compile="0" resource="0"
+              file="DspFilters/DspFilters/MathSupplement.h"/>
+        <FILE id="MZx5CX" name="Params.h" compile="0" resource="0" file="DspFilters/DspFilters/Params.h"/>
+        <FILE id="aU9CuO" name="PoleFilter.h" compile="0" resource="0" file="DspFilters/DspFilters/PoleFilter.h"/>
+        <FILE id="oIo0LV" name="RBJ.h" compile="0" resource="0" file="DspFilters/DspFilters/RBJ.h"/>
+        <FILE id="AKpoCs" name="RootFinder.h" compile="0" resource="0" file="DspFilters/DspFilters/RootFinder.h"/>
+        <FILE id="WVGSzd" name="SmoothedFilter.h" compile="0" resource="0"
+              file="DspFilters/DspFilters/SmoothedFilter.h"/>
+        <FILE id="t9TTEv" name="State.h" compile="0" resource="0" file="DspFilters/DspFilters/State.h"/>
+        <FILE id="vjzBCR" name="Types.h" compile="0" resource="0" file="DspFilters/DspFilters/Types.h"/>
+        <FILE id="WmBREV" name="Utilities.h" compile="0" resource="0" file="DspFilters/DspFilters/Utilities.h"/>
+      </GROUP>
+      <FILE id="L9QT09" name="Bessel.cpp" compile="1" resource="0" file="DspFilters/Bessel.cpp"/>
+      <FILE id="gWfVRu" name="Biquad.cpp" compile="1" resource="0" file="DspFilters/Biquad.cpp"/>
+      <FILE id="gwSjPY" name="Butterworth.cpp" compile="1" resource="0" file="DspFilters/Butterworth.cpp"/>
+      <FILE id="jXKDlV" name="Cascade.cpp" compile="1" resource="0" file="DspFilters/Cascade.cpp"/>
+      <FILE id="O4adgG" name="ChebyshevI.cpp" compile="1" resource="0" file="DspFilters/ChebyshevI.cpp"/>
+      <FILE id="zV6k21" name="ChebyshevII.cpp" compile="1" resource="0" file="DspFilters/ChebyshevII.cpp"/>
+      <FILE id="LQWdbI" name="Custom.cpp" compile="1" resource="0" file="DspFilters/Custom.cpp"/>
+      <FILE id="NSV34I" name="Design.cpp" compile="1" resource="0" file="DspFilters/Design.cpp"/>
+      <FILE id="NxdnEk" name="Documentation.cpp" compile="1" resource="0"
+            file="DspFilters/Documentation.cpp"/>
+      <FILE id="Daliqm" name="Elliptic.cpp" compile="1" resource="0" file="DspFilters/Elliptic.cpp"/>
+      <FILE id="SDhVpQ" name="Filter.cpp" compile="1" resource="0" file="DspFilters/Filter.cpp"/>
+      <FILE id="Ktzksk" name="Legendre.cpp" compile="1" resource="0" file="DspFilters/Legendre.cpp"/>
+      <FILE id="jmOKXA" name="Param.cpp" compile="1" resource="0" file="DspFilters/Param.cpp"/>
+      <FILE id="mjs2G7" name="PoleFilter.cpp" compile="1" resource="0" file="DspFilters/PoleFilter.cpp"/>
+      <FILE id="wUnhS7" name="RBJ.cpp" compile="1" resource="0" file="DspFilters/RBJ.cpp"/>
+      <FILE id="CmylHC" name="RootFinder.cpp" compile="1" resource="0" file="DspFilters/RootFinder.cpp"/>
+      <FILE id="OSSNX1" name="State.cpp" compile="1" resource="0" file="DspFilters/State.cpp"/>
+    </GROUP>
+    <GROUP id="{53684AA2-C230-7CEC-6389-C510283A28EF}" name="Source">
+      <FILE id="ZurAL4" name="IIRPeakFilter.h" compile="0" resource="0" file="Source/IIRPeakFilter.h"/>
+      <FILE id="gEvuvw" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="lWgoRO" name="global.cpp" compile="1" resource="0" file="Source/global.cpp"/>
+      <FILE id="DmV0Pf" name="global.h" compile="0" resource="0" file="Source/global.h"/>
+      <FILE id="jmCABV" name="ExerciseGenerator.h" compile="0" resource="0"
+            file="Source/ExerciseGenerator.h"/>
+      <FILE id="eY0RFl" name="ExerciseGenerator.cpp" compile="1" resource="0"
+            file="Source/ExerciseGenerator.cpp"/>
+      <FILE id="WyH5Pd" name="Exercise.h" compile="0" resource="0" file="Source/Exercise.h"/>
+      <FILE id="IschHu" name="Exercise.cpp" compile="1" resource="0" file="Source/Exercise.cpp"/>
+      <FILE id="ZqrzFD" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="eBlN21" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <GROUP id="{61C864F3-5253-1971-8825-96BC225D917D}" name="GUI">
+        <FILE id="Kfv1Xe" name="WaveformDisplay.h" compile="0" resource="0"
+              file="Source/GUI/WaveformDisplay.h"/>
+        <FILE id="bXX5zl" name="MasterVolume.h" compile="0" resource="0" file="Source/GUI/MasterVolume.h"/>
+        <FILE id="QoI5Mc" name="TransportBar.h" compile="0" resource="0" file="Source/GUI/TransportBar.h"/>
+        <FILE id="wtXlUT" name="PositionOverlay.h" compile="0" resource="0"
+              file="Source/GUI/PositionOverlay.h"/>
+        <FILE id="UDzNzh" name="AudioThumbnailComponent.h" compile="0" resource="0"
+              file="Source/GUI/AudioThumbnailComponent.h"/>
+        <FILE id="gOhHyH" name="AboutWindowComponent.h" compile="0" resource="0"
+              file="Source/GUI/AboutWindowComponent.h"/>
+        <FILE id="yWFMth" name="InfoWindowComponent.h" compile="0" resource="0"
+              file="Source/GUI/InfoWindowComponent.h"/>
+        <FILE id="KYYj6k" name="StatsWindowComponent.h" compile="0" resource="0"
+              file="Source/GUI/StatsWindowComponent.h"/>
+        <FILE id="yFrZj9" name="AppGUI.h" compile="0" resource="0" file="Source/GUI/AppGUI.h"/>
+        <FILE id="a3fST0" name="GUIExControls.h" compile="0" resource="0" file="Source/GUI/GUIExControls.h"/>
+        <FILE id="mtYfiJ" name="GUIHeader.cpp" compile="1" resource="0" file="Source/GUI/GUIHeader.cpp"/>
+        <FILE id="bxP5Zz" name="GUIHeader.h" compile="0" resource="0" file="Source/GUI/GUIHeader.h"/>
+        <FILE id="gYjAZU" name="GUIBasicWindow.h" compile="0" resource="0"
+              file="Source/GUI/GUIBasicWindow.h"/>
+        <FILE id="m1CeKS" name="GUIPlayer.h" compile="0" resource="0" file="Source/GUI/GUIPlayer.h"/>
+        <FILE id="RYrQHH" name="GUIStats.h" compile="0" resource="0" file="Source/GUI/GUIStats.h"/>
+      </GROUP>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="AudioAppTest"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="AudioAppTest"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2017 targetFolder="Builds/VisualStudio2017">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="1" optimisation="1" targetName="AudioAppTest"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="0" optimisation="3" targetName="AudioAppTest"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_events" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_graphics" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_data_structures" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_cryptography" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_video" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_opengl" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_basics" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_processors" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_utils" path="..\JUCE\modules"/>
+      </MODULEPATHS>
+    </VS2017>
+    <VS2015 targetFolder="Builds/VisualStudio2015">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="1" optimisation="1" targetName="AudioAppTest"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="0" optimisation="3" targetName="AudioAppTest"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_events" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_graphics" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_data_structures" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_cryptography" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_video" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_opengl" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_basics" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_processors" path="..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_utils" path="..\JUCE\modules"/>
+      </MODULEPATHS>
+    </VS2015>
+    <ANDROIDSTUDIO targetFolder="Builds/Android">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" androidArchitectures="armeabi x86" isDebug="1" optimisation="1"
+                       targetName="AudioAppTest"/>
+        <CONFIGURATION name="Release" androidArchitectures="" isDebug="0" optimisation="3"
+                       targetName="AudioAppTest"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </ANDROIDSTUDIO>
+    <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" windowsCodeBlocksArchitecture="-m64" isDebug="1"
+                       optimisation="1" targetName="AudioAppTest"/>
+        <CONFIGURATION name="Release" windowsCodeBlocksArchitecture="-m64" isDebug="0"
+                       optimisation="3" targetName="AudioAppTest"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </CODEBLOCKS_WINDOWS>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
