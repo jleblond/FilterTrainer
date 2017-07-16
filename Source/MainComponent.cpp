@@ -283,7 +283,7 @@ void MainContentComponent::openButtonClicked()
 {
     FileChooser chooser ("Select a Wave file to play...",
                          File::nonexistent,
-                         "*.wav, *.aiff, *.mp3, *.flac, *.ogg");
+                         "*.wav; *.aiff; *.mp3; *.flac; *.ogg");
     
     if (chooser.browseForFileToOpen())
     {
