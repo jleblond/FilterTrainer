@@ -1798,6 +1798,8 @@
     <ClInclude Include="..\..\Source\global.h"/>
     <ClInclude Include="..\..\Source\ExerciseGenerator.h"/>
     <ClInclude Include="..\..\Source\Exercise.h"/>
+    <ClInclude Include="..\..\Source\GUI\ExerciseAnswering.h"/>
+    <ClInclude Include="..\..\Source\GUI\ExerciseSettings.h"/>
     <ClInclude Include="..\..\Source\GUI\WaveformDisplay.h"/>
     <ClInclude Include="..\..\Source\GUI\MasterVolume.h"/>
     <ClInclude Include="..\..\Source\GUI\TransportBar.h"/>

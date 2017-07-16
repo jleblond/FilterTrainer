@@ -67,6 +67,10 @@
             file="Source/MainComponent.cpp"/>
       <FILE id="eBlN21" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <GROUP id="{61C864F3-5253-1971-8825-96BC225D917D}" name="GUI">
+        <FILE id="LplEtv" name="ExerciseAnswering.h" compile="0" resource="0"
+              file="Source/GUI/ExerciseAnswering.h"/>
+        <FILE id="UdOKNs" name="ExerciseSettings.h" compile="0" resource="0"
+              file="Source/GUI/ExerciseSettings.h"/>
         <FILE id="Kfv1Xe" name="WaveformDisplay.h" compile="0" resource="0"
               file="Source/GUI/WaveformDisplay.h"/>
         <FILE id="bXX5zl" name="MasterVolume.h" compile="0" resource="0" file="Source/GUI/MasterVolume.h"/>

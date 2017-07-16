@@ -48,3 +48,4 @@ int g_freqRangeValue = 0;
 int g_filterGainValue = 6;
 bool g_gainAmplification = false;
 bool g_gainAttenuation = false;
+bool g_questionMode = true;

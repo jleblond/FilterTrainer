@@ -77,6 +77,8 @@ add_library( ${BINARY_NAME}
     "../../../Source/Exercise.cpp"
     "../../../Source/MainComponent.cpp"
     "../../../Source/Main.cpp"
+    "../../../Source/GUI/ExerciseAnswering.h"
+    "../../../Source/GUI/ExerciseSettings.h"
     "../../../Source/GUI/WaveformDisplay.h"
     "../../../Source/GUI/MasterVolume.h"
     "../../../Source/GUI/TransportBar.h"
@@ -1317,6 +1319,8 @@ set_source_files_properties("../../../Source/MainComponent.h" PROPERTIES HEADER_
 set_source_files_properties("../../../Source/global.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/ExerciseGenerator.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/Exercise.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/GUI/ExerciseAnswering.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/GUI/ExerciseSettings.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/WaveformDisplay.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/MasterVolume.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/TransportBar.h" PROPERTIES HEADER_FILE_ONLY TRUE)

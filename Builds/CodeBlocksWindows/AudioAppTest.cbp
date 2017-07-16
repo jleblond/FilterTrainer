@@ -371,6 +371,18 @@
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
     </Unit>
+    <Unit filename="../../Source/GUI/ExerciseAnswering.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
+    </Unit>
+    <Unit filename="../../Source/GUI/ExerciseSettings.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
+    </Unit>
     <Unit filename="../../Source/GUI/WaveformDisplay.h">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>

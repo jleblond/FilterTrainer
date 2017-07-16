@@ -49,3 +49,4 @@ extern int g_freqRangeValue;
 extern int g_filterGainValue;
 extern bool g_gainAmplification;
 extern bool g_gainAttenuation;
+extern bool g_questionMode;
