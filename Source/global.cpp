@@ -16,6 +16,7 @@ float g_currDrawPosition = 0;
 
 //Buttons
 TextButton g_questionButton;
+TextButton g_answerButton;
 TextButton g_openButton;
 TextButton g_playButton;
 TextButton g_stopButton;
@@ -49,3 +50,4 @@ int g_filterGainValue = 6;
 bool g_gainAmplification = false;
 bool g_gainAttenuation = false;
 bool g_questionMode = true;
+int g_answerValue = 0;

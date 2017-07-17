@@ -33,7 +33,6 @@ public:
     ~Exercise();
     
     
-    
     void AnswerExercise(float answer)
     {
         this->mCenterFreqAnswered=answer;
@@ -44,6 +43,8 @@ public:
             {
                 mCorrectAnswer=true;
                 mAnswerDistance=1; //arbitrary value to distinguish from default 0
+                
+               
             }
             else if( SameSign(mCenterFreq, mCenterFreqAnswered) )
             {
@@ -60,6 +61,8 @@ public:
                 //not the same sign, arbitrary distance value
                 mAnswerDistance=12;
             }
+            
+            std::cout<<"answer distance: "<<mAnswerDistance<<std::endl;
             
         }
     }

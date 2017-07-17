@@ -23,29 +23,30 @@ public:
     ExerciseAnswering()
     {
         addAndMakeVisible(freqrange);
-        freqrange->addItem("will be grey out", 1);
+        freqrange->addItem("ALL", 1);
         freqrange->addSeparator();
         freqrange->addItem("High", 2);
         freqrange->addItem("Mid", 3);
         freqrange->addItem("Low", 4);
-        freqrange->setSelectedId(1);
-        freqrange->addListener(this);
+        freqrange->setSelectedId( g_freqRangeValue );
+        freqrange->setEnabled(false);
         
-        addAndMakeVisible(dBAmpSlider);
-        dBAmpSlider.setRange(3, 12, 3);
-        dBAmpSlider.setTextValueSuffix("dB");
-        dBAmpSlider.setSliderStyle(juce::Slider::LinearVertical);
-        dBAmpSlider.setTextBoxIsEditable(false);
-        dBAmpSlider.setValue(6);
-        dBAmpSlider.addListener(this);
         
-        amplify.setButtonText("+");
-        amplify.addListener(this);
-        addAndMakeVisible(amplify);
+        addAndMakeVisible(mAnswerSlider);
+        mAnswerSlider.setRange(1, 5, 1);
+        mAnswerSlider.setTextValueSuffix("Hz");
+        mAnswerSlider.setSliderStyle(juce::Slider::LinearVertical);
+        mAnswerSlider.setTextBoxIsEditable(false);
+        mAnswerSlider.setValue(1);
+        mAnswerSlider.addListener(this);
         
-        attenuate.setButtonText("-");
-        attenuate.addListener(this);
-        addAndMakeVisible(attenuate);
+//        amplify.setButtonText("+");
+//        amplify.addListener(this);
+//        addAndMakeVisible(amplify);
+//        
+//        attenuate.setButtonText("-");
+//        attenuate.addListener(this);
+//        addAndMakeVisible(attenuate);
         
     }
     
@@ -65,45 +66,62 @@ public:
     void resized() override
     {
         
-        dBAmpSlider.setBounds (0.2*getWidth(), 0.25*getHeight(), 30, 135);
-        amplify.setBounds (0.15*getWidth(), 0.8*getHeight(), 30, 30);
-        attenuate.setBounds (0.27*getWidth(), 0.8*getHeight(), 30, 30);
+        mAnswerSlider.setBounds (0.2*getWidth(), 0.25*getHeight(), 30, 135);
+       // amplify.setBounds (0.15*getWidth(), 0.8*getHeight(), 30, 30);
+       // attenuate.setBounds (0.27*getWidth(), 0.8*getHeight(), 30, 30);
         
         freqrange->setBounds (0.5*getWidth(), 0.4*getHeight(), 100, 30);
     
     }
     
+    void update()
+    {
+        freqrange->setSelectedId( g_freqRangeValue );
+        
+        int sliderRange = 5;
+        
+        if ( g_freqRangeValue == 1)
+            sliderRange = 10;
+        
+         mAnswerSlider.setRange(1, sliderRange, 1);
+    }
+    
     void buttonClicked(Button* button) override
     {
-        if(button == &amplify)
-            g_gainAmplification = !g_gainAmplification;
-        
-        if(button == &attenuate)
-            g_gainAttenuation = !g_gainAttenuation;
+
+//        if(button == &amplify)
+//            g_gainAmplification = !g_gainAmplification;
+//        
+//        if(button == &attenuate)
+//            g_gainAttenuation = !g_gainAttenuation;
         
     }
     
     void sliderValueChanged (Slider* slider) override
     {
-        if(slider == &dBAmpSlider)
-            g_filterGainValue = dBAmpSlider.getValue();
+        if(slider == &mAnswerSlider)
+            g_answerValue = mAnswerSlider.getValue();
         
-        if(slider == &volumeSlider)
-            g_mainVolume = volumeSlider.getValue() /10;
     }
     
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override
     {
-        if(comboBoxThatHasChanged == freqrange)
-            g_freqRangeValue=freqrange->getSelectedId();
+//        if(comboBoxThatHasChanged == freqrange)
+//           g_answerValue =freqrange->getSelectedId();
+    }
+    
+    
+    void answer()
+    {
+        if( ExerciseGenerator::listexercises.size() > 0 )
+        {
+            ( ExerciseGenerator::Instance() ) .Answering( mAnswerSlider.getValue() );
+        }
     }
     
     
 private:
-    Slider dBAmpSlider;
-    Slider volumeSlider;
+    Slider mAnswerSlider;
     ComboBox* freqrange=new ComboBox("Frequency Range");
-    TextButton amplify;
-    TextButton attenuate;
     
 };

@@ -17,6 +17,7 @@ extern float g_currDrawPosition;
 
 //Buttons
 extern TextButton g_questionButton;
+extern TextButton g_answerButton;
 extern TextButton g_openButton;
 extern TextButton g_playButton;
 extern TextButton g_stopButton;
@@ -50,3 +51,4 @@ extern int g_filterGainValue;
 extern bool g_gainAmplification;
 extern bool g_gainAttenuation;
 extern bool g_questionMode;
+extern int g_answerValue;

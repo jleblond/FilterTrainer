@@ -84,3 +84,33 @@ float ExerciseGenerator::configExerciseFreq(int range)
         return mAllRange[rndchoice];
     }
 }
+
+
+void ExerciseGenerator::Answering(int answer)
+{
+    assert( listexercises.size() > 0 && answer > 0 && answer <= 10);
+    
+    float answ = 0;
+    
+    
+    switch( g_freqRangeValue )
+    {
+        case 1:
+            answ = mAllRange[answer+1];
+            break;
+        case 2:
+            answ = mHighRange[answer+1];
+            break;
+        case 3:
+            answ = mMidRange[answer+1];
+            break;
+        case 4:
+            answ = mLowRange[answer+1];
+            break;
+            
+ 
+    }
+
+    ( listexercises.back() )->AnswerExercise(answ);
+
+}

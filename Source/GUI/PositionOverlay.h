@@ -92,6 +92,8 @@ public:
         {
             const double clickPosition = event.position.x;
             const double audioPosition = (clickPosition / getWidth()) * g_srcDurationInSec;
+            
+            std::cout<<"clickPosition: "<<clickPosition<<"  audioPosition: "<<audioPosition<<std::endl;
 
             if( audioPosition < g_srcDurationInSec )
             {

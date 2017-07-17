@@ -23,6 +23,8 @@ public:
     
     void createExercise(int freqrange, int absfreqboost, bool amplification, bool attenuation);
     
+    void Answering(int answer);
+    
     static std::vector<Exercise*> listexercises;
     
 private:

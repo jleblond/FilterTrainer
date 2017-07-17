@@ -48,7 +48,6 @@ public:
     void resized() override
     {
         
-        
         g_playButton.setBounds   (10, mTransportHeight, 80, 30);
         g_stopButton.setBounds   (100, mTransportHeight, 80, 30);
         g_loopingButton.setBounds (190 , mTransportHeight, 80, 30);
