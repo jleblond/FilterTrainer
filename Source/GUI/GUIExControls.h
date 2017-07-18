@@ -14,6 +14,7 @@
 #include "../ExerciseGenerator.h"
 #include "ExerciseSettings.h"
 #include "ExerciseAnswering.h"
+#include "ExerciseCorrection.h"
 #include "../global.h"
 
 
@@ -25,8 +26,12 @@ public:
     {
         addAndMakeVisible(&mExerciseSettings);
         mExerciseSettings.setVisible(true);
+        
         addAndMakeVisible(&mExerciseAnswering);
         mExerciseAnswering.setVisible(false);
+        
+        addAndMakeVisible(&mExerciseCorrection);
+        mExerciseCorrection.setVisible(false);
         
         g_questionButton.setButtonText("NEW QUESTION");
         g_questionButton.addListener(this);
@@ -36,6 +41,11 @@ public:
         g_answerButton.addListener(this);
         addAndMakeVisible(g_answerButton);
         g_answerButton.setVisible(false);
+        
+        g_correctionButton.setButtonText("OK");
+        g_correctionButton.addListener(this);
+        addAndMakeVisible(g_correctionButton);
+        g_correctionButton.setVisible(false);
     }
     
     ~GUIExControls()
@@ -56,9 +66,23 @@ public:
     {
         mExerciseSettings.setBounds(0, 0, getWidth(), 0.75*getHeight() );
         mExerciseAnswering.setBounds(0, 0, getWidth(), 0.75*getHeight() );
+        mExerciseCorrection.setBounds(0, 0, getWidth(), 0.75*getHeight() );
         
         g_questionButton.setBounds (0.3*getWidth(), 0.75*getHeight(), 120, 0.25*getHeight() );
         g_answerButton.setBounds (0.3*getWidth(), 0.75*getHeight(), 120, 0.25*getHeight() );
+        g_correctionButton.setBounds (0.3*getWidth(), 0.75*getHeight(), 120, 0.25*getHeight() );
+    }
+    
+    void changePanelVisibility(bool vis1, bool vis2, bool vis3)
+    {
+        mExerciseSettings.setVisible(vis1);
+        g_questionButton.setVisible(vis1);
+        
+        mExerciseAnswering.setVisible(vis2);
+        g_answerButton.setVisible(vis2);
+        
+        mExerciseCorrection.setVisible(vis3);
+        g_correctionButton.setVisible(vis3);
     }
     
     void buttonClicked(Button* button) override
@@ -71,17 +95,14 @@ public:
             std::cout<<"freqrange_value:"<<g_freqRangeValue<<" dBAmpSlider_value:"<<g_filterGainValue<<
             " amplification_value:"<<g_gainAmplification<<" attenuation_value:"<<g_gainAttenuation<<
             std::endl;
-            
-                g_questionMode = !g_questionMode;  //still useful?
-            
+        
 
-                mExerciseAnswering.update();
-                
-                mExerciseSettings.setVisible(false);
-                g_questionButton.setVisible(false);
+            mExerciseAnswering.update();
             
-                mExerciseAnswering.setVisible(true);
-                g_answerButton.setVisible(true);
+            changePanelVisibility(false, true, false);
+            
+            g_filterButton.setVisible(true);
+            g_filterButton.setEnabled(true);
                 
         }
         
@@ -89,14 +110,23 @@ public:
         {
             mExerciseAnswering.answer();
             
-            //mExerciseSettings.update();
+            mExerciseCorrection.update();
             
            
-            mExerciseAnswering.setVisible(false);
-            g_answerButton.setVisible(false);
-           
-             mExerciseSettings.setVisible(true);
-             g_questionButton.setVisible(true);
+            changePanelVisibility(false, false, true);
+        }
+        
+        
+        if( button == &g_correctionButton )
+        {
+            changePanelVisibility(true, false, false);
+            
+            if( g_filterOn == true )
+            {
+                g_filterButton.triggerClick();
+            }
+            g_filterButton.setVisible(false);
+            
         }
         
     }
@@ -105,5 +135,5 @@ public:
 private:
     ExerciseSettings mExerciseSettings;
     ExerciseAnswering mExerciseAnswering;
-    
+    ExerciseCorrection mExerciseCorrection;
 };

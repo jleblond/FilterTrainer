@@ -38,6 +38,8 @@ public:
         dBAmpSlider.setValue(6);
         dBAmpSlider.addListener(this);
         
+        
+        
         amplify.setButtonText("+");
         amplify.addListener(this);
         addAndMakeVisible(amplify);
@@ -80,6 +82,8 @@ public:
         if(button == &attenuate)
             g_gainAttenuation = !g_gainAttenuation;
         
+        
+        
     }
     
     void sliderValueChanged (Slider* slider) override
@@ -105,5 +109,6 @@ private:
     ComboBox* freqrange=new ComboBox("Frequency Range");
     TextButton amplify;
     TextButton attenuate;
+    
     
 };

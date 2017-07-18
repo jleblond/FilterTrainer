@@ -61,6 +61,7 @@
 		016F21D0833B12987F4DD5E2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Common.h; path = ../../DspFilters/DspFilters/Common.h; sourceTree = "SOURCE_ROOT"; };
 		01F3206FA2B678127D8EA714 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Biquad.h; path = ../../DspFilters/DspFilters/Biquad.h; sourceTree = "SOURCE_ROOT"; };
 		029BB46067497D51E718C98E = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Biquad.cpp; path = ../../DspFilters/Biquad.cpp; sourceTree = "SOURCE_ROOT"; };
+		0316DFEC384351757BCBB433 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExerciseCorrection.h; path = ../../Source/GUI/ExerciseCorrection.h; sourceTree = "SOURCE_ROOT"; };
 		04A94AD3517C0D739DCF5B74 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SmoothedFilter.h; path = ../../DspFilters/DspFilters/SmoothedFilter.h; sourceTree = "SOURCE_ROOT"; };
 		05485DDC0B556ECA4641B784 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AudioThumbnailComponent.h; path = ../../Source/GUI/AudioThumbnailComponent.h; sourceTree = "SOURCE_ROOT"; };
 		06C38F715BFBCACA7AC127F7 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExerciseAnswering.h; path = ../../Source/GUI/ExerciseAnswering.h; sourceTree = "SOURCE_ROOT"; };
@@ -217,6 +218,7 @@
 		F27BF1BCBD79D99C29053A92 = {isa = PBXGroup; children = (
 					06C38F715BFBCACA7AC127F7,
 					8D61A14DF7517E421046A79A,
+					0316DFEC384351757BCBB433,
 					11FF90189510B0A0BA280394,
 					14B27CA9C17D957028929C25,
 					6830A8D9246310AC1AF6115A,

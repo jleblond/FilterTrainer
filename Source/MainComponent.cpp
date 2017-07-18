@@ -297,7 +297,7 @@ void MainContentComponent::openButtonClicked()
             g_srcDurationInSec = transportSource.getLengthInSeconds();
             
             g_playButton.setEnabled (true);
-            g_filterButton.setEnabled (true);
+            //g_filterButton.setEnabled (true);
             g_loopingButton.setEnabled (true);
             g_ZoomInButton.setEnabled(true);
             
@@ -334,6 +334,8 @@ void MainContentComponent::stopButtonClicked()
 
 void MainContentComponent::filterButtonClicked()
 {
+    std::cout<<"filter button got clicked on"<<std::endl;
+    
     g_filterOn = !g_filterOn;
     
     if(g_filterOn)

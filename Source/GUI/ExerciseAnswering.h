@@ -14,22 +14,21 @@
 #include "../ExerciseGenerator.h"
 #include "../global.h"
 
-//class filled with test code for now
 
 class ExerciseAnswering : public Component,
-public Button::Listener, public Slider::Listener, public ComboBox::Listener
+public Button::Listener, public Slider::Listener
 {
 public:
     ExerciseAnswering()
     {
         addAndMakeVisible(freqrange);
-        freqrange->addItem("ALL", 1);
-        freqrange->addSeparator();
-        freqrange->addItem("High", 2);
-        freqrange->addItem("Mid", 3);
-        freqrange->addItem("Low", 4);
-        freqrange->setSelectedId( g_freqRangeValue );
-        freqrange->setEnabled(false);
+        freqrange.addItem("ALL", 1);
+        freqrange.addSeparator();
+        freqrange.addItem("High", 2);
+        freqrange.addItem("Mid", 3);
+        freqrange.addItem("Low", 4);
+        freqrange.setSelectedId( g_freqRangeValue );
+        freqrange.setEnabled(false);
         
         
         addAndMakeVisible(mAnswerSlider);
@@ -39,6 +38,16 @@ public:
         mAnswerSlider.setTextBoxIsEditable(false);
         mAnswerSlider.setValue(1);
         mAnswerSlider.addListener(this);
+        
+        addAndMakeVisible(mAnswerLabel);
+        mAnswerLabel.setText("Freq", dontSendNotification);
+        mAnswerLabel.attachToComponent(&mAnswerSlider, true);
+        
+        
+        addAndMakeVisible(mCurrFreqLabel);
+        mCurrFreqLabel.setText("", dontSendNotification);
+        
+        
         
 //        amplify.setButtonText("+");
 //        amplify.addListener(this);
@@ -52,7 +61,7 @@ public:
     
     ~ExerciseAnswering()
     {
-        delete freqrange;
+ 
     }
     
     void paint(Graphics& g) override
@@ -65,18 +74,18 @@ public:
     
     void resized() override
     {
-        
+        mCurrFreqLabel.setBounds ( 0.2*getWidth(), 0.15*getHeight(), 60, 35 );
         mAnswerSlider.setBounds (0.2*getWidth(), 0.25*getHeight(), 30, 135);
        // amplify.setBounds (0.15*getWidth(), 0.8*getHeight(), 30, 30);
        // attenuate.setBounds (0.27*getWidth(), 0.8*getHeight(), 30, 30);
         
-        freqrange->setBounds (0.5*getWidth(), 0.4*getHeight(), 100, 30);
+        freqrange.setBounds (0.5*getWidth(), 0.4*getHeight(), 100, 30);
     
     }
     
     void update()
     {
-        freqrange->setSelectedId( g_freqRangeValue );
+        freqrange.setSelectedId( g_freqRangeValue );
         
         int sliderRange = 5;
         
@@ -84,6 +93,9 @@ public:
             sliderRange = 10;
         
          mAnswerSlider.setRange(1, sliderRange, 1);
+         mAnswerSlider.setValue(1);
+         mCurrFreqLabel.setText( static_cast<String>( getSliderAnswerValue() ) , dontSendNotification);
+  
     }
     
     void buttonClicked(Button* button) override
@@ -100,15 +112,14 @@ public:
     void sliderValueChanged (Slider* slider) override
     {
         if(slider == &mAnswerSlider)
-            g_answerValue = mAnswerSlider.getValue();
+        {
+            String str = static_cast<String>( getSliderAnswerValue() );
+            mCurrFreqLabel.setText( str , dontSendNotification );
+            g_answerValue = mAnswerSlider.getValue(); //needed?
+        }
         
     }
     
-    void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override
-    {
-//        if(comboBoxThatHasChanged == freqrange)
-//           g_answerValue =freqrange->getSelectedId();
-    }
     
     
     void answer()
@@ -119,9 +130,36 @@ public:
         }
     }
     
+    int getSliderAnswerValue()
+    {
+        int answ = 0;
+        
+        
+        switch( g_freqRangeValue )
+        {
+            case 1:
+                answ = g_AllRange[ mAnswerSlider.getValue() - 1 ];
+                break;
+            case 2:
+                answ = g_HighRange[ mAnswerSlider.getValue() - 1 ];
+                break;
+            case 3:
+                answ = g_MidRange[ mAnswerSlider.getValue() - 1 ];
+                break;
+            case 4:
+                answ = g_LowRange[ mAnswerSlider.getValue() - 1 ];
+                break;
+        }
+        
+        return answ;
+    }
+    
+    
     
 private:
     Slider mAnswerSlider;
-    ComboBox* freqrange=new ComboBox("Frequency Range");
+    Label mAnswerLabel;
+    Label mCurrFreqLabel;
+    ComboBox freqrange;
     
 };

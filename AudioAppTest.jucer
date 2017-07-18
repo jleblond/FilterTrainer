@@ -71,6 +71,8 @@
               file="Source/GUI/ExerciseAnswering.h"/>
         <FILE id="UdOKNs" name="ExerciseSettings.h" compile="0" resource="0"
               file="Source/GUI/ExerciseSettings.h"/>
+        <FILE id="xTZkfg" name="ExerciseCorrection.h" compile="0" resource="0"
+              file="Source/GUI/ExerciseCorrection.h"/>
         <FILE id="Kfv1Xe" name="WaveformDisplay.h" compile="0" resource="0"
               file="Source/GUI/WaveformDisplay.h"/>
         <FILE id="bXX5zl" name="MasterVolume.h" compile="0" resource="0" file="Source/GUI/MasterVolume.h"/>
@@ -232,5 +234,5 @@
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
-  <JUCEOPTIONS/>
+  <JUCEOPTIONS JUCE_USE_FLAC="enabled" JUCE_USE_OGGVORBIS="enabled" JUCE_USE_MP3AUDIOFORMAT="enabled"/>
 </JUCERPROJECT>

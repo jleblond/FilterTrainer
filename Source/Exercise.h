@@ -41,8 +41,8 @@ public:
         {
             if( mCenterFreq == mCenterFreqAnswered )
             {
-                mCorrectAnswer=true;
-                mAnswerDistance=1; //arbitrary value to distinguish from default 0
+                mCorrectAnswer = true;
+                mAnswerDistance = 0 ; // same as default value though...
                 
                
             }
@@ -71,6 +71,7 @@ public:
     {
         return (a >= 0) ^ (b < 0);
     }
+    
     
     
 protected:

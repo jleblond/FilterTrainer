@@ -73,15 +73,15 @@ float ExerciseGenerator::configExerciseFreq(int range)
     int rndchoice = rand() % 5;
     
     if(range==2)
-        return mHighRange[rndchoice];
+        return g_HighRange[rndchoice];
     else if(range==3)
-        return mMidRange[rndchoice];
+        return g_MidRange[rndchoice];
     else if(range==4)
-        return mLowRange[rndchoice];
+        return g_LowRange[rndchoice];
     else //including range==1
     {
-        rndchoice = rand() % (mAllRange.size());
-        return mAllRange[rndchoice];
+        rndchoice = rand() % (g_AllRange.size());
+        return g_AllRange[rndchoice];
     }
 }
 
@@ -96,20 +96,22 @@ void ExerciseGenerator::Answering(int answer)
     switch( g_freqRangeValue )
     {
         case 1:
-            answ = mAllRange[answer+1];
+            answ = g_AllRange[answer - 1];
             break;
         case 2:
-            answ = mHighRange[answer+1];
+            answ = g_HighRange[answer - 1];
             break;
         case 3:
-            answ = mMidRange[answer+1];
+            answ = g_MidRange[answer - 1];
             break;
         case 4:
-            answ = mLowRange[answer+1];
+            answ = g_LowRange[answer - 1];
             break;
             
  
     }
+    
+    std::cout<<"exercise generator answ: "<<answ<<std::endl;
 
     ( listexercises.back() )->AnswerExercise(answ);
 

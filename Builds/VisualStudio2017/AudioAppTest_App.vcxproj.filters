@@ -2298,6 +2298,9 @@
     <ClInclude Include="..\..\Source\GUI\ExerciseSettings.h">
       <Filter>AudioAppTest\Source\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\GUI\ExerciseCorrection.h">
+      <Filter>AudioAppTest\Source\GUI</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\GUI\WaveformDisplay.h">
       <Filter>AudioAppTest\Source\GUI</Filter>
     </ClInclude>
