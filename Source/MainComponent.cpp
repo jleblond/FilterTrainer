@@ -1,6 +1,6 @@
 
 #include "MainComponent.h"
-
+#include "../JuceLibraryCode/JuceHeader.h"
 
 
 MainContentComponent::MainContentComponent()
@@ -287,7 +287,7 @@ void MainContentComponent::openButtonClicked()
     
     if (chooser.browseForFileToOpen())
     {
-        File file (chooser.getResult());
+        File file = chooser.getResult();
         AudioFormatReader* reader = formatManager.createReaderFor (file);
         
         if (reader != nullptr)
@@ -302,6 +302,7 @@ void MainContentComponent::openButtonClicked()
             g_ZoomInButton.setEnabled(true);
             
             waveform.setWaveformDisplay(file);
+           // waveform.zoomWaveform(1);
             
             readerSource = newSource.release();
             

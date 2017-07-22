@@ -1,29 +1,27 @@
 /*
-  ==============================================================================
-
-    WaveformDisplay.h
-    Created: 13 Jul 2017 11:30:34pm
-    Author:  Jasmine Leblond-Chartrand
-
-  ==============================================================================
-*/
+ ==============================================================================
+ WaveformDisplay.h
+ Created: 13 Jul 2017 11:30:34pm
+ Author:  Jasmine Leblond-Chartrand
+ ==============================================================================
+ */
 
 #pragma once
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../global.h"
 
 class WaveformDisplay : public Viewport,
-                        public Button::Listener
+public Button::Listener
 {
 public:
     WaveformDisplay(  int sourceSamplesPerThumbnailSample,
-                      AudioFormatManager& formatManager,
-                      AudioThumbnailCache& cache,
-                      AudioTransportSource& transportSourceToUse
+                    AudioFormatManager& formatManager,
+                    AudioThumbnailCache& cache,
+                    AudioTransportSource& transportSourceToUse
                     )
     
     :   thumbnailComp (sourceSamplesPerThumbnailSample, formatManager, cache, transportSourceToUse)
-
+    
     {
         addAndMakeVisible (&thumbnailComp);
         
@@ -35,7 +33,7 @@ public:
         
         g_ZoomInButton.setEnabled(false);
         g_ZoomOutButton.setEnabled(false);
-
+        
     }
     
     ~WaveformDisplay()
@@ -49,12 +47,12 @@ public:
     
     void resized() override
     {
-        thumbnailComp.setBounds (0, 0, getWidth(), getHeight() );
-    
+        thumbnailComp.setBounds (getLocalBounds() );
+        
         
         thumbnailComp.setSize( g_scaleZoomWaveform * thumbnailComp.getWidth(),
-                                thumbnailComp.getHeight() );
-
+                              thumbnailComp.getHeight() );
+        
     }
     
     void buttonClicked(Button* button) override
@@ -62,7 +60,7 @@ public:
         if (button == &g_ZoomInButton) zoomWaveform( g_scaleZoomWaveform + 1);
         if (button == &g_ZoomOutButton) zoomWaveform( g_scaleZoomWaveform - 1 );
     }
-
+    
     //called on file load (openFile) from MainContentComponent
     void setWaveformDisplay(File& file)
     {
@@ -76,7 +74,7 @@ public:
     {
         return thumbnailComp.getWidth();
     }
-
+    
     
     void zoomWaveform(double scaleZoom)
     {
@@ -90,18 +88,18 @@ public:
         else
             g_ZoomInButton.setEnabled(true);
         
-
+        
         
         thumbnailComp.centreWithSize( scaleZoom *  mThumbnailCompWidth,
-                              thumbnailComp.getHeight() );
+                                     thumbnailComp.getHeight() );
         
         
         g_scaleZoomWaveform = scaleZoom;
         
         std::cout<<"scale"<<scaleZoom<<std::endl;
     }
-
-
+    
+    
     void updateDisplay()
     {
         

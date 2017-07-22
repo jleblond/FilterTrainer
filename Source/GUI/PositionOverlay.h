@@ -33,8 +33,8 @@ public:
             //Loop button pressed - draw rectangle
             if( g_srcDurationInSec > 0.0 && g_loopOn )
             {
-                const float drawStartPosition = (g_loopStartPos / g_srcDurationInSec) * getWidth();
-                const float drawEndPosition = (g_loopEndPos / g_srcDurationInSec) * getWidth();
+                const float drawStartPosition = (g_loopStartPos / g_srcDurationInSec) * getParentWidth () ;
+                const float drawEndPosition = (g_loopEndPos / g_srcDurationInSec) * getParentWidth () ;
             
                 //Draw loop rectangle for whole file vs region
                 if(g_loopOnRecentClick)
@@ -91,7 +91,7 @@ public:
         if (g_srcDurationInSec > 0.0)
         {
             const double clickPosition = event.position.x;
-            const double audioPosition = (clickPosition / getWidth()) * g_srcDurationInSec;
+            const double audioPosition = (clickPosition / getParentWidth () ) * g_srcDurationInSec;
             
             std::cout<<"clickPosition: "<<clickPosition<<"  audioPosition: "<<audioPosition<<std::endl;
 
@@ -113,7 +113,7 @@ public:
     {
         
             mLastMouseXPosition = event.position.x;
-            double lastAudioPosition = (mLastMouseXPosition / getWidth()) * g_srcDurationInSec;
+            double lastAudioPosition = (mLastMouseXPosition / getParentWidth () ) * g_srcDurationInSec;
             
             g_loopStartPos = mMouseDownXPosition;
             

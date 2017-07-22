@@ -26,6 +26,8 @@ public:
         addAndMakeVisible(mCurrFreqLabel);
         mCurrFreqLabel.setText("", dontSendNotification);
         
+        addAndMakeVisible(mCorrectAnswer);
+        mCorrectAnswer.setText("", dontSendNotification);
         
         
         //        amplify.setButtonText("+");
@@ -50,13 +52,13 @@ public:
     void resized() override
     {
         mCurrFreqLabel.setBounds ( 0.2*getWidth(), 0.15*getHeight(), 60, 35 );
-        
+        mCorrectAnswer.setBounds (0.2*getWidth(), 0.35*getHeight(), 120, 70 );
     }
     
     void update()
     {
         mCurrFreqLabel.setText( "text here" , dontSendNotification);
-        
+        mCorrectAnswer.setText(static_cast<String>(g_centreFrequency), dontSendNotification);
     }
     
     void buttonClicked(Button* button) override
@@ -74,6 +76,8 @@ public:
     
     
 private:
+    Label mCorrectAnswer;
+    
 
     Label mCurrFreqLabel;
     

@@ -12,6 +12,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <vector>
+#include <assert.h>
 #include <random>
 
 

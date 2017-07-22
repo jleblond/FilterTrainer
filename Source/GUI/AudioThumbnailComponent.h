@@ -38,7 +38,7 @@ public:
     
     void resized() override
     {
-        positionOverlay.setBounds ( 0, 0, getWidth(), getHeight() );
+        positionOverlay.setBounds ( getLocalBounds() );
         
         positionOverlay.setSize( g_scaleZoomWaveform *  positionOverlay.getWidth(),
                                positionOverlay.getHeight() );
@@ -52,7 +52,7 @@ public:
     
     void paint (Graphics& g) override
     {
-        g.setColour(Colour::Colour(144, 24, 17) );
+        g.setColour(Colour::fromRGB(144, 24, 17) );
         
         if (thumbnail.getNumChannels() == 0)
             paintIfNoFileLoaded (g);

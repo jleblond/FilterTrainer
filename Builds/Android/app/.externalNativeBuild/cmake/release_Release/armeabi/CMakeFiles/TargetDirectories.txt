@@ -1,0 +1,4 @@
+/Users/jasmineleblond-chartrand/Documents/Code/AudioAppTest/Builds/Android/app/.externalNativeBuild/cmake/release_Release/armeabi/CMakeFiles/edit_cache.dir
+/Users/jasmineleblond-chartrand/Documents/Code/AudioAppTest/Builds/Android/app/.externalNativeBuild/cmake/release_Release/armeabi/CMakeFiles/rebuild_cache.dir
+/Users/jasmineleblond-chartrand/Documents/Code/AudioAppTest/Builds/Android/app/.externalNativeBuild/cmake/release_Release/armeabi/CMakeFiles/juce_jni.dir
+/Users/jasmineleblond-chartrand/Documents/Code/AudioAppTest/Builds/Android/app/.externalNativeBuild/cmake/release_Release/armeabi/CMakeFiles/cpufeatures.dir

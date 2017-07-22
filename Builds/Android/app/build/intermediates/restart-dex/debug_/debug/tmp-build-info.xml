@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="x86"
+    api-level="23"
+    build-mode="FULL"
+    density="xhdpi"
+    format="10"
+    plugin-version="2.3.1"
+    timestamp="1500425197000"
+    token="-6512374302161645588"
+    verifier="FULL_BUILD_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="0" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="0" />
+    <task
+        name="verifier"
+        duration="0" />
+
+    <artifact
+        location="/Users/jasmineleblond-chartrand/Documents/Code/AudioAppTest/Builds/Android/app/build/intermediates/instant-run-resources/resources-debug_/debug.ir.ap_"
+        type="RESOURCES" />
+
+</instant-run>

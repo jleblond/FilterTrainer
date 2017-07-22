@@ -48,7 +48,7 @@ public:
         //g.fillAll(Colours::midnightblue);
        // g.fillAll(Colour::Colour(0, 51, 102) );
         // g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-         g.fillAll(Colour::Colour(69, 0, 3) );  //very dark red
+         g.fillAll(Colour::fromRGB(69, 0, 3) );  //very dark red
     }
 
     void resized() override
