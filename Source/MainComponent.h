@@ -47,8 +47,6 @@ public:
     
     void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override;
     
-    void looping();
-    
     void releaseResources() override;
     
     void resized() override;

@@ -10,8 +10,8 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../global.h"
 
-class WaveformDisplay : public Viewport,
-public Button::Listener
+class WaveformDisplay : public Viewport
+//public Button::Listener
 {
 public:
     WaveformDisplay(  int sourceSamplesPerThumbnailSample,
@@ -20,95 +20,42 @@ public:
                     AudioTransportSource& transportSourceToUse
                     )
     
-    :   thumbnailComp (sourceSamplesPerThumbnailSample, formatManager, cache, transportSourceToUse)
-    
+    :   thumbnailComp (sourceSamplesPerThumbnailSample, formatManager, cache),
+        positionOverlay (transportSourceToUse)
     {
         addAndMakeVisible (&thumbnailComp);
-        
-        setViewedComponent(&thumbnailComp);
-        setScrollBarsShown(false, true);
-        
-        g_ZoomInButton.addListener(this);
-        g_ZoomOutButton.addListener(this);
-        
-        g_ZoomInButton.setEnabled(false);
-        g_ZoomOutButton.setEnabled(false);
-        
+        addAndMakeVisible (&positionOverlay);
     }
     
     ~WaveformDisplay()
     {
-    };
-    
-    void paint(Graphics& g) override
-    {
-        g.fillAll(Colours::white);
     }
+    
     
     void resized() override
     {
         thumbnailComp.setBounds (getLocalBounds() );
-        
-        
-        thumbnailComp.setSize( g_scaleZoomWaveform * thumbnailComp.getWidth(),
-                              thumbnailComp.getHeight() );
+        positionOverlay.setBounds ( getLocalBounds() );
+  
         
     }
-    
-    void buttonClicked(Button* button) override
-    {
-        if (button == &g_ZoomInButton) zoomWaveform( g_scaleZoomWaveform + 1);
-        if (button == &g_ZoomOutButton) zoomWaveform( g_scaleZoomWaveform - 1 );
-    }
-    
-    //called on file load (openFile) from MainContentComponent
-    void setWaveformDisplay(File& file)
-    {
-        thumbnailComp.setFile (file);
-        mThumbnailCompWidth = thumbnailComp.getWidth();
-        mThumbnailCompHeight = thumbnailComp.getHeight();
-    }
-    
-    
+
     double getThumbnailWidth()
     {
         return thumbnailComp.getWidth();
     }
     
     
-    void zoomWaveform(double scaleZoom)
+    //called on file load (openFile) from MainContentComponent
+    void setWaveformDisplay(File& file)
     {
-        if(scaleZoom <= 1)
-            g_ZoomOutButton.setEnabled(false);
-        else
-            g_ZoomOutButton.setEnabled(true);
-        
-        if(scaleZoom >=  g_srcDurationInSec/5 )
-            g_ZoomInButton.setEnabled(false);
-        else
-            g_ZoomInButton.setEnabled(true);
-        
-        
-        
-        thumbnailComp.centreWithSize( scaleZoom *  mThumbnailCompWidth,
-                                     thumbnailComp.getHeight() );
-        
-        
-        g_scaleZoomWaveform = scaleZoom;
-        
-        std::cout<<"scale"<<scaleZoom<<std::endl;
+        thumbnailComp.setFile (file);
     }
     
-    
-    void updateDisplay()
-    {
-        
-    }
     
 private:
     AudioThumbnailComponent thumbnailComp;
+    PositionOverlay positionOverlay;
     
-    double mThumbnailCompWidth;
-    double mThumbnailCompHeight;
     
 };

@@ -100,36 +100,10 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
     bufferToFill.buffer->applyGainRamp( bufferToFill.startSample, bufferToFill.numSamples,
                                        mLastGain, g_mainVolume);
     mLastGain = g_mainVolume;
-    
-    
-    if(g_loopOn && !g_loopOnRecentClick )
-        looping();
+
     
 }
 
-void MainContentComponent::looping()
-{
-    //Loop Pre-Conditions
-    if(g_loopStartPos < 0)
-        g_loopStartPos = 0;
-    
-    if(g_loopEndPos < 0)
-        g_loopEndPos = 0;
-    
-    if(g_loopStartPos > transportSource.getLengthInSeconds() - 1)
-        g_loopStartPos = transportSource.getLengthInSeconds() - 1;
-    
-    if(g_loopEndPos > transportSource.getLengthInSeconds() - 1 )
-        g_loopEndPos = transportSource.getLengthInSeconds() - 1;
-    
-    //Loop
-    if( transportSource.getCurrentPosition() >= g_loopEndPos  )
-    {
-        if( std::abs( g_loopEndPos - g_loopStartPos ) >= g_minLoopDuration )
-            transportSource.setPosition(g_loopStartPos);
-    }
-
-}
 
 void MainContentComponent::releaseResources()
 {
@@ -195,10 +169,6 @@ void MainContentComponent::timerCallback()
         currentPositionLabel.setText ("Stopped", dontSendNotification);
     }
     
-    if( g_loopOn && g_loopOnRecentClick )
-        updateLoopState(true);
-    else
-        updateLoopState(false);
 }
 
 
@@ -302,7 +272,6 @@ void MainContentComponent::openButtonClicked()
             g_ZoomInButton.setEnabled(true);
             
             waveform.setWaveformDisplay(file);
-           // waveform.zoomWaveform(1);
             
             readerSource = newSource.release();
             
@@ -367,20 +336,6 @@ void MainContentComponent::transportSourceChanged()
 void MainContentComponent::loopButtonChanged()
 {
     
-    g_loopOn = !g_loopOn;
-    
-    if(g_loopOn)
-    {
-        //LoopButton was just clicked
-        g_loopOnRecentClick = true;
-        
-        g_loopingButton.setColour (TextButton::buttonColourId, Colours::orange );
-        
-    }
-    else
-    {
-        g_loopingButton.setColour (TextButton::buttonColourId,
-                                 getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    }
+   
 
 }
