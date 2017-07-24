@@ -39,6 +39,11 @@ public:
   
         
     }
+    
+    void updatePositionOverlay()
+    {
+        positionOverlay.repaint();
+    }
 
     double getThumbnailWidth()
     {

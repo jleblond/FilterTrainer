@@ -169,6 +169,9 @@ void MainContentComponent::timerCallback()
         currentPositionLabel.setText ("Stopped", dontSendNotification);
     }
     
+    
+    waveform.updatePositionOverlay();
+    
 }
 
 

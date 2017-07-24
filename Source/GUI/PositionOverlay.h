@@ -14,14 +14,14 @@
 #include "../global.h"
 #include <cmath>        // std::abs
 
-class PositionOverlay : public Component,
-private Timer
+class PositionOverlay : public Component
+//private Timer
 {
 public:
     PositionOverlay (AudioTransportSource& transportSourceToUse)
     : transportSource (transportSourceToUse)
     {
-        startTimer (40);
+        //startTimer (40);
     }
     
     void paint (Graphics& g) override
@@ -52,11 +52,6 @@ public:
     }
     
 private:
-    void timerCallback() override
-    {
-        repaint();
-    }
-    
     AudioTransportSource& transportSource;
     
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PositionOverlay)
