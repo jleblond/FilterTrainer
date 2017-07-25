@@ -21,7 +21,7 @@ public:
     
     static ExerciseGenerator& Instance();
     
-    void createExercise(int freqrange, int absfreqboost, bool amplification, bool attenuation);
+    void createExercise( int freqrange, int absfreqboost, bool amplification, bool attenuation );
     
     void Answering(int answer);
     
@@ -29,13 +29,13 @@ public:
     
 private:
     
-    ExerciseGenerator();
+    ExerciseGenerator(){}
     
-    ~ExerciseGenerator();
+    ~ExerciseGenerator(){}
     
     static ExerciseGenerator exercisegenerator;
     
-    int configExerciseFreqBoost(int absfreqboost, bool amplification, bool attenuation);
+    int configExerciseFreqBoost( int absfreqboost, bool amplification, bool attenuation );
     
     float configExerciseFreq(int range);
     

@@ -7,7 +7,7 @@ MainContentComponent::MainContentComponent()
     :   state (Stopped),
         peakfilter(2),
         thumbnailCache (5),
-        waveform(512, formatManager, thumbnailCache, transportSource)
+        waveform( 512, formatManager, thumbnailCache, transportSource )
 
 {
     //GUIExControls.h g_questionButton Listener
@@ -57,7 +57,7 @@ MainContentComponent::~MainContentComponent()
 }
 
 
-void MainContentComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
+void MainContentComponent::prepareToPlay ( int samplesPerBlockExpected, double sampleRate )
 {
     this->mSampleRate=sampleRate;
     
@@ -66,7 +66,7 @@ void MainContentComponent::prepareToPlay (int samplesPerBlockExpected, double sa
     peakfilter.reset();
     peakfilter.changeParam(sampleRate, g_centreFrequency, g_Q, g_gainFactor);
     
-    bandshelf.setup(2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1);
+    bandshelf.setup( 2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q , g_gainFactor, 1 );
 }
 
 
@@ -150,7 +150,8 @@ void MainContentComponent::buttonClicked (Button* button)
 void MainContentComponent::timerCallback()
 {
     g_currAudioPosition = transportSource.getCurrentPosition();
-    g_currDrawPosition = (g_currAudioPosition / g_srcDurationInSec ) * waveform.getThumbnailWidth();
+    g_currDrawPosition = ( g_currAudioPosition / g_srcDurationInSec )
+                                            * waveform.getThumbnailWidth();
     
     
     if (transportSource.isPlaying())
@@ -176,8 +177,10 @@ void MainContentComponent::timerCallback()
 
 
 String MainContentComponent::currentTime(double currentposition)
-{   //does not check for transportSource.isPlaying - caller function's responsability
+{
+    //does not check for transportSource.isPlaying - caller function's responsability
     //very often currentposition = transportSource.getCurrentPosition()
+    
     const RelativeTime position (currentposition);
     
     const int minutes = ((int) position.inMinutes()) % 60;
@@ -187,7 +190,10 @@ String MainContentComponent::currentTime(double currentposition)
     const String positionString (String::formatted ("%02d:%02d:%03d", minutes, seconds, millis));
     
     return positionString;
+    
 }
+
+
 
 //TransportSource loop for the whole file
 void MainContentComponent::updateLoopState (bool shouldLoop)
@@ -242,12 +248,12 @@ void MainContentComponent::changeState (TransportState newState)
 
 void MainContentComponent::questionButtonChanged()
 {
-    ExerciseGenerator::Instance().createExercise(g_freqRangeValue, g_filterGainValue, g_gainAmplification, g_gainAttenuation);
+    ExerciseGenerator::Instance().createExercise( g_freqRangeValue, g_filterGainValue,                                 g_gainAmplification, g_gainAttenuation);
     
-    peakfilter.updateCoeff(g_centreFrequency, g_Q, g_gainFactor );
+    peakfilter.updateCoeff( g_centreFrequency, g_Q, g_gainFactor );
     
     assert(this->mSampleRate != 0);
-    bandshelf.setup(2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1);
+    bandshelf.setup( 2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1 );
 
 }
 
@@ -265,8 +271,10 @@ void MainContentComponent::openButtonClicked()
         
         if (reader != nullptr)
         {
-            ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
-            transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
+            ScopedPointer<AudioFormatReaderSource> newSource =
+                                                new AudioFormatReaderSource ( reader, true );
+            
+            transportSource.setSource ( newSource, 0, nullptr, reader->sampleRate );
             g_srcDurationInSec = transportSource.getLengthInSeconds();
             
             g_playButton.setEnabled (true);

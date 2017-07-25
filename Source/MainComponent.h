@@ -43,7 +43,7 @@ public:
     
     ~MainContentComponent();
     
-    void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override;
+    void prepareToPlay ( int samplesPerBlockExpected, double sampleRate ) override;
     
     void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override;
     
