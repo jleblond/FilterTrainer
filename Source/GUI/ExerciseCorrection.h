@@ -21,7 +21,9 @@ public Button::Listener
 public:
     ExerciseCorrection()
     {
-     
+        addAndMakeVisible(mTitleLabel);
+        mTitleLabel.setText("EXERCISE FEEDBACK", dontSendNotification);
+        
         addAndMakeVisible(mCurrFreqLabel);
         mCurrFreqLabel.setText("", dontSendNotification);
         
@@ -44,9 +46,11 @@ public:
     
     void resized() override
     {
-        mCurrFreqLabel.setBounds ( 0.2*getWidth(), 0.1*getHeight(), 120, 60 );
-        mCorrectAnswerLabel.setBounds (0.2*getWidth(), 0.2*getHeight(), 120, 60 );
-        mFreqBoostLabel.setBounds (0.2*getWidth(), 0.6*getHeight(), 120, 60 );
+        mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
+
+        mCurrFreqLabel.setBounds ( 0.2*getWidth(), 0.2*getHeight(), 120, 60 );
+        mCorrectAnswerLabel.setBounds (0.2*getWidth(), 0.3*getHeight(), 120, 60 );
+        mFreqBoostLabel.setBounds (0.2*getWidth(), 0.7*getHeight(), 120, 60 );
     }
     
     void update()
@@ -87,6 +91,7 @@ private:
     Label mCorrectAnswerLabel;
     Label mFreqBoostLabel;
     
+    Label mTitleLabel;
     
     
 

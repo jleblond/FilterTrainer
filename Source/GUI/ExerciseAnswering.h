@@ -21,6 +21,9 @@ public Button::Listener, public Slider::Listener
 public:
     ExerciseAnswering()
     {
+        addAndMakeVisible(mTitleLabel);
+        mTitleLabel.setText("ANSWER SECTION", dontSendNotification);
+        
         addAndMakeVisible(freqrange);
         freqrange.addItem("ALL", 1);
         freqrange.addSeparator();
@@ -74,12 +77,14 @@ public:
     
     void resized() override
     {
-        mCurrFreqLabel.setBounds ( 0.2*getWidth(), 0.15*getHeight(), 60, 35 );
-        mAnswerSlider.setBounds (0.2*getWidth(), 0.25*getHeight(), 30, 135);
+        mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
+        
+        mCurrFreqLabel.setBounds ( 0.2*getWidth(), 0.25*getHeight(), 60, 35 );
+        mAnswerSlider.setBounds (0.2*getWidth(), 0.35*getHeight(), 30, 135);
        // amplify.setBounds (0.15*getWidth(), 0.8*getHeight(), 30, 30);
        // attenuate.setBounds (0.27*getWidth(), 0.8*getHeight(), 30, 30);
         
-        freqrange.setBounds (0.5*getWidth(), 0.4*getHeight(), 100, 30);
+        freqrange.setBounds (0.5*getWidth(), 0.5*getHeight(), 100, 30);
     
     }
     
@@ -162,4 +167,5 @@ private:
     Label mCurrFreqLabel;
     ComboBox freqrange;
     
+    Label mTitleLabel;
 };

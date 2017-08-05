@@ -32,14 +32,14 @@ public:
         
         
         addAndMakeVisible (mDummyFilterButton);
-        mDummyFilterButton.setButtonText ("Filter is off");
+        mDummyFilterButton.setButtonText ("Filter is OFF");
         mDummyFilterButton.setColour (TextButton::buttonColourId,
                                   getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
         mDummyFilterButton.setEnabled (false);
         
         
         addAndMakeVisible (g_filterButton);
-        g_filterButton.setButtonText ("Filter is off");
+        g_filterButton.setButtonText ("Filter is OFF");
         g_filterButton.setColour (TextButton::buttonColourId,
                                   getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
         g_filterButton.setEnabled (false);
@@ -57,13 +57,16 @@ public:
     
     void resized() override
     {
+        mDummyFilterButton.setBounds (10, mTransportHeight, 120, 30);
+        g_filterButton.setBounds (10, mTransportHeight, 120, 30);
+        //-10 + getWidth() - 80
         
-        g_playButton.setBounds   (10, mTransportHeight, 80, 30);
-        g_stopButton.setBounds   (100, mTransportHeight, 80, 30);
-        g_loopingButton.setBounds (190 , mTransportHeight, 80, 30);
+        int xstart = getWidth() - 10 ;
+        g_playButton.setBounds   (xstart - 250, mTransportHeight, 70, 30);
+        g_stopButton.setBounds   (xstart - 160, mTransportHeight, 70, 30);
+        g_loopingButton.setBounds (xstart - 80, mTransportHeight, 70, 30);
      
-        mDummyFilterButton.setBounds (-10 + getWidth() - 80, mTransportHeight, 80, 30);
-        g_filterButton.setBounds (-10 + getWidth() - 80, mTransportHeight, 80, 30);
+      
     }
 
 

@@ -262,7 +262,7 @@ void MainContentComponent::openButtonClicked()
 {
     FileChooser chooser ("Select a Wave file to play...",
                          File::nonexistent,
-                         "*.wav; *.aiff; *.mp3; *.flac; *.ogg");
+                         "*.wav; *.aiff; *.mp3; *.flac; *.ogg; *.m4a");
     
     if (chooser.browseForFileToOpen())
     {
@@ -315,18 +315,17 @@ void MainContentComponent::stopButtonClicked()
 
 void MainContentComponent::filterButtonClicked()
 {
-    std::cout<<"filter button got clicked on"<<std::endl;
     
     g_filterOn = !g_filterOn;
     
     if(g_filterOn)
     {
-        g_filterButton.setButtonText ("Filter is on");
+        g_filterButton.setButtonText ("Filter is ON");
         g_filterButton.setColour(TextButton::buttonColourId, Colours::blue);
     }
     else
     {
-        g_filterButton.setButtonText ("Filter is off");
+        g_filterButton.setButtonText ("Filter is OFF");
         g_filterButton.setColour(TextButton::buttonColourId,
                                getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
     }

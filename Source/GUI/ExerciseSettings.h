@@ -21,6 +21,9 @@ public Button::Listener, public Slider::Listener, public ComboBox::Listener
 public:
     ExerciseSettings()
     {
+        addAndMakeVisible(mTitleLabel);
+        mTitleLabel.setText("EXERCISE PARAMETERS", dontSendNotification);
+        
         addAndMakeVisible(mFreqRangeLabel);
         mFreqRangeLabel.setText("Frequency Range", dontSendNotification);
         
@@ -71,13 +74,15 @@ public:
     
     void resized() override
     {
-        mdBAmpLabel.setBounds(0.15*getWidth(), 0.15*getHeight(), 90, 30);
-        dBAmpSlider.setBounds (0.2*getWidth(), 0.25*getHeight(), 30, 135);
+         mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
+        
+        mdBAmpLabel.setBounds(0.15*getWidth(), 0.25*getHeight(), 90, 30);
+        dBAmpSlider.setBounds (0.2*getWidth(), 0.35*getHeight(), 30, 135);
         amplify.setBounds (0.15*getWidth(), 0.8*getHeight(), 30, 30);
         attenuate.setBounds (0.27*getWidth(), 0.8*getHeight(), 30, 30);
         
-        mFreqRangeLabel.setBounds (0.4*getWidth(), 0.25*getHeight(), 90, 30);
-        freqrange->setBounds (0.5*getWidth(), 0.4*getHeight(), 100, 30);
+        mFreqRangeLabel.setBounds (0.5*getWidth(), 0.35*getHeight(), 90, 30);
+        freqrange->setBounds (0.5*getWidth(), 0.5*getHeight(), 100, 30);
     
     }
     
@@ -95,9 +100,7 @@ public:
     {
         if(slider == &dBAmpSlider)
             g_filterGainValue = dBAmpSlider.getValue();
-        
-//        if(slider == &volumeSlider)
-//            g_mainVolume = volumeSlider.getValue() /10;
+    
     }
     
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override
@@ -110,12 +113,13 @@ public:
     
 private:
     Slider dBAmpSlider;
-    //Slider volumeSlider;
     ComboBox* freqrange = new ComboBox("Frequency Range");
     TextButton amplify;
     TextButton attenuate;
     
     Label mFreqRangeLabel;
     Label mdBAmpLabel;
+    
+    Label mTitleLabel;
     
 };
