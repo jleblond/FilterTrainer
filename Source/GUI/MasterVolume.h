@@ -27,6 +27,9 @@ public:
         volumeSlider.setTextBoxIsEditable(false);
         volumeSlider.setValue(10);
         volumeSlider.addListener(this);
+        
+        addAndMakeVisible(volumeLabel);
+        volumeLabel.setText("MAIN VOLUME", dontSendNotification);
     }
     
     ~MasterVolume()
@@ -42,7 +45,8 @@ public:
     
     void resized() override
     {
-        volumeSlider.setBounds (getWidth()/2, 0.3*getHeight(), 30, 200);
+        volumeLabel.setBounds( 0.1*getWidth(), 0.1*getHeight(), 80, 70 );
+        volumeSlider.setBounds( getWidth()/2, 0.3*getHeight(), 30, 200 );
     }
     
     void buttonClicked(Button* button) override
@@ -61,5 +65,6 @@ public:
     
 private:
     Slider volumeSlider;
+    Label volumeLabel;
     
 };

@@ -33,7 +33,7 @@ public:
             const double audioPosition = transportSource.getCurrentPosition();
             const float drawPosition = (audioPosition / duration) * getWidth();
             
-            g.setColour (Colours::green);
+            g.setColour (Colours::black);
             g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
         }
     }

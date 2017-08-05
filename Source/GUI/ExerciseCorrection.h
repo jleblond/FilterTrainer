@@ -21,22 +21,15 @@ public Button::Listener
 public:
     ExerciseCorrection()
     {
-        
-        
+     
         addAndMakeVisible(mCurrFreqLabel);
         mCurrFreqLabel.setText("", dontSendNotification);
         
-        addAndMakeVisible(mCorrectAnswer);
-        mCorrectAnswer.setText("", dontSendNotification);
+        addAndMakeVisible(mCorrectAnswerLabel);
+        mCorrectAnswerLabel.setText("", dontSendNotification);
         
-        
-        //        amplify.setButtonText("+");
-        //        amplify.addListener(this);
-        //        addAndMakeVisible(amplify);
-        //
-        //        attenuate.setButtonText("-");
-        //        attenuate.addListener(this);
-        //        addAndMakeVisible(attenuate);
+        addAndMakeVisible(mFreqBoostLabel);
+        mFreqBoostLabel.setText("", dontSendNotification);
         
     }
     
@@ -51,24 +44,38 @@ public:
     
     void resized() override
     {
-        mCurrFreqLabel.setBounds ( 0.2*getWidth(), 0.15*getHeight(), 60, 35 );
-        mCorrectAnswer.setBounds (0.2*getWidth(), 0.35*getHeight(), 120, 70 );
+        mCurrFreqLabel.setBounds ( 0.2*getWidth(), 0.1*getHeight(), 120, 60 );
+        mCorrectAnswerLabel.setBounds (0.2*getWidth(), 0.2*getHeight(), 120, 60 );
+        mFreqBoostLabel.setBounds (0.2*getWidth(), 0.6*getHeight(), 120, 60 );
     }
     
     void update()
     {
-        mCurrFreqLabel.setText( "text here" , dontSendNotification);
-        mCorrectAnswer.setText(static_cast<String>(g_centreFrequency), dontSendNotification);
+        String freqanswered = "";
+        String correctanswer = static_cast<String>( g_centreFrequency );
+        String freqboost = "";
+        
+        
+        if( ExerciseGenerator::listexercises.size() > 0 )
+        {
+            freqanswered = static_cast<String> (
+                             (ExerciseGenerator::listexercises.back() )-> getCenterFreqAnswered()
+                                                );
+            
+            freqboost = static_cast<String> (
+                            (ExerciseGenerator::listexercises.back() )-> getFreqBoost()
+                                            );
+        }
+        
+        
+        mCurrFreqLabel.setText( "Your answer: " + freqanswered , dontSendNotification);
+        mCorrectAnswerLabel.setText( "Correct answer: " + correctanswer , dontSendNotification);
+        mFreqBoostLabel.setText( "Frequency boost: " + freqboost, dontSendNotification );
     }
     
     void buttonClicked(Button* button) override
     {
         
-        //        if(button == &amplify)
-        //            g_gainAmplification = !g_gainAmplification;
-        //
-        //        if(button == &attenuate)
-        //            g_gainAttenuation = !g_gainAttenuation;
         
     }
     
@@ -76,10 +83,10 @@ public:
     
     
 private:
-    Label mCorrectAnswer;
-    
-
     Label mCurrFreqLabel;
+    Label mCorrectAnswerLabel;
+    Label mFreqBoostLabel;
+    
     
     
 

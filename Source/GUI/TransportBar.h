@@ -28,6 +28,16 @@ public:
                                    getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
         g_loopingButton.setEnabled (false);
         
+        
+        
+        
+        addAndMakeVisible (mDummyFilterButton);
+        mDummyFilterButton.setButtonText ("Filter is off");
+        mDummyFilterButton.setColour (TextButton::buttonColourId,
+                                  getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        mDummyFilterButton.setEnabled (false);
+        
+        
         addAndMakeVisible (g_filterButton);
         g_filterButton.setButtonText ("Filter is off");
         g_filterButton.setColour (TextButton::buttonColourId,
@@ -52,6 +62,7 @@ public:
         g_stopButton.setBounds   (100, mTransportHeight, 80, 30);
         g_loopingButton.setBounds (190 , mTransportHeight, 80, 30);
      
+        mDummyFilterButton.setBounds (-10 + getWidth() - 80, mTransportHeight, 80, 30);
         g_filterButton.setBounds (-10 + getWidth() - 80, mTransportHeight, 80, 30);
     }
 
@@ -59,6 +70,7 @@ public:
 
 private:
     int mTransportHeight = 10;
+    TextButton mDummyFilterButton; // for cases when ExerciseSettings panel is shown (in which case g_filterButton setVisibility is false)
     
     
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TransportBar)

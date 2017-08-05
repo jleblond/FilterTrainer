@@ -72,6 +72,23 @@ public:
         return (a >= 0) ^ (b < 0);
     }
     
+
+    const int getFreqBoost()
+    {
+        return mFreqBoost;
+    }
+    
+    
+    const float getCenterFreqAnswered()
+    {
+        return mCenterFreqAnswered;
+    }
+    
+    const int getAnswerDistance()
+    {
+        return mAnswerDistance;
+    }
+    
     
     
 protected:
