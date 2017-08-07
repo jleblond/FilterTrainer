@@ -24,6 +24,9 @@
 #include "../DspFilters/DspFilters/Dsp.h"
 
 #include "IIRPeakFilter.h"
+#include "LoopingAudioFormatReaderSource.h"
+#include "LoopingAudioTransportSource.h"
+
 #include "ExerciseGenerator.h"
 
 
@@ -99,8 +102,8 @@ private:
     float mLastGain = 1.0f;
     
     AudioFormatManager formatManager;
-    ScopedPointer<AudioFormatReaderSource> readerSource;
-    AudioTransportSource transportSource;
+    ScopedPointer<LoopingAudioFormatReaderSource> readerSource;
+    LoopingAudioTransportSource transportSource;
     TransportState state;
     
     IIRPeakFilter peakfilter;

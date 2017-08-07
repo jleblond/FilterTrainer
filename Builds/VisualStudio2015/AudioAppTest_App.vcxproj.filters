@@ -2277,19 +2277,25 @@
     <ClInclude Include="..\..\DspFilters\DspFilters\Utilities.h">
       <Filter>AudioAppTest\DspFilters\DspFilters</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\global.h">
+      <Filter>AudioAppTest\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\IIRPeakFilter.h">
       <Filter>AudioAppTest\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\MainComponent.h">
+    <ClInclude Include="..\..\Source\LoopingAudioFormatReaderSource.h">
       <Filter>AudioAppTest\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\global.h">
+    <ClInclude Include="..\..\Source\LoopingAudioTransportSource.h">
       <Filter>AudioAppTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ExerciseGenerator.h">
       <Filter>AudioAppTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Exercise.h">
+      <Filter>AudioAppTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MainComponent.h">
       <Filter>AudioAppTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\ExerciseAnswering.h">

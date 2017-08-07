@@ -35,12 +35,16 @@ extern double g_scaleZoomWaveform;
 extern float g_mainVolume;
 extern String g_pausedTime;
 extern bool g_filterOn;
-//extern bool g_loopOn;
+
+extern bool g_loopOn;  //used in LoopingAudioFormatReaderSource.h, MainComponent.cpp
+
 //extern bool g_loopOnRecentClick;
 //extern double g_minLoopDuration;
-//audio positions in s
-//extern double g_loopStartPos;
-//extern double g_loopEndPos;
+
+
+//audio positions in s  (PositionOverlay.h)
+extern double g_loopStartPos;
+extern double g_loopEndPos;
 
 //Filter settings
 extern double g_centreFrequency;

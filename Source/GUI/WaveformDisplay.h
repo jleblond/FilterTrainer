@@ -8,6 +8,7 @@
 
 #pragma once
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "../LoopingAudioTransportSource.h"
 #include "../global.h"
 
 class WaveformDisplay : public Viewport
@@ -17,7 +18,7 @@ public:
     WaveformDisplay(  int sourceSamplesPerThumbnailSample,
                     AudioFormatManager& formatManager,
                     AudioThumbnailCache& cache,
-                    AudioTransportSource& transportSourceToUse
+                    LoopingAudioTransportSource& transportSourceToUse
                     )
     
     :   thumbnailComp (sourceSamplesPerThumbnailSample, formatManager, cache),

@@ -271,14 +271,16 @@ void MainContentComponent::openButtonClicked()
         
         if (reader != nullptr)
         {
-            ScopedPointer<AudioFormatReaderSource> newSource =
-                                                new AudioFormatReaderSource ( reader, true );
+            ScopedPointer<LoopingAudioFormatReaderSource> newSource =
+                                                new LoopingAudioFormatReaderSource ( reader, true );
             
             transportSource.setSource ( newSource, 0, nullptr, reader->sampleRate );
+            newSource->setLooping(false); 
+            
             g_srcDurationInSec = transportSource.getLengthInSeconds();
             
             g_playButton.setEnabled (true);
-            //g_filterButton.setEnabled (true);
+   
             g_loopingButton.setEnabled (true);
             g_ZoomInButton.setEnabled(true);
             
@@ -345,7 +347,17 @@ void MainContentComponent::transportSourceChanged()
 
 void MainContentComponent::loopButtonChanged()
 {
+    g_loopOn = !g_loopOn;
     
-   
-
+    if(g_loopOn)
+    {
+            g_loopingButton.setColour(TextButton::buttonColourId, Colours::orange);
+    }
+    else
+    {
+            g_loopingButton.setColour(TextButton::buttonColourId,
+                                 getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
+    }
+    
+    
 }

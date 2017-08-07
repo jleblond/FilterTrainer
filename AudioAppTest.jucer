@@ -53,16 +53,20 @@
       <FILE id="OSSNX1" name="State.cpp" compile="1" resource="0" file="DspFilters/State.cpp"/>
     </GROUP>
     <GROUP id="{53684AA2-C230-7CEC-6389-C510283A28EF}" name="Source">
-      <FILE id="ZurAL4" name="IIRPeakFilter.h" compile="0" resource="0" file="Source/IIRPeakFilter.h"/>
-      <FILE id="gEvuvw" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="lWgoRO" name="global.cpp" compile="1" resource="0" file="Source/global.cpp"/>
       <FILE id="DmV0Pf" name="global.h" compile="0" resource="0" file="Source/global.h"/>
+      <FILE id="lWgoRO" name="global.cpp" compile="1" resource="0" file="Source/global.cpp"/>
+      <FILE id="ZurAL4" name="IIRPeakFilter.h" compile="0" resource="0" file="Source/IIRPeakFilter.h"/>
+      <FILE id="bTSfRO" name="LoopingAudioFormatReaderSource.h" compile="0"
+            resource="0" file="Source/LoopingAudioFormatReaderSource.h"/>
+      <FILE id="XguPW1" name="LoopingAudioTransportSource.h" compile="0"
+            resource="0" file="Source/LoopingAudioTransportSource.h"/>
       <FILE id="jmCABV" name="ExerciseGenerator.h" compile="0" resource="0"
             file="Source/ExerciseGenerator.h"/>
       <FILE id="eY0RFl" name="ExerciseGenerator.cpp" compile="1" resource="0"
             file="Source/ExerciseGenerator.cpp"/>
       <FILE id="WyH5Pd" name="Exercise.h" compile="0" resource="0" file="Source/Exercise.h"/>
       <FILE id="IschHu" name="Exercise.cpp" compile="1" resource="0" file="Source/Exercise.cpp"/>
+      <FILE id="gEvuvw" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="ZqrzFD" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="eBlN21" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>

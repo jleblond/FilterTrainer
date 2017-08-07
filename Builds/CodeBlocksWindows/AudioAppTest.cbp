@@ -321,13 +321,7 @@
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
     </Unit>
-    <Unit filename="../../Source/IIRPeakFilter.h">
-      <Option target="App | Debug"/>
-      <Option target="App | Release"/>
-      <Option compile="0"/>
-      <Option link="0"/>
-    </Unit>
-    <Unit filename="../../Source/MainComponent.h">
+    <Unit filename="../../Source/global.h">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
       <Option compile="0"/>
@@ -337,7 +331,19 @@
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
     </Unit>
-    <Unit filename="../../Source/global.h">
+    <Unit filename="../../Source/IIRPeakFilter.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
+    </Unit>
+    <Unit filename="../../Source/LoopingAudioFormatReaderSource.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
+    </Unit>
+    <Unit filename="../../Source/LoopingAudioTransportSource.h">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
       <Option compile="0"/>
@@ -362,6 +368,12 @@
     <Unit filename="../../Source/Exercise.cpp">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
+    </Unit>
+    <Unit filename="../../Source/MainComponent.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
     </Unit>
     <Unit filename="../../Source/MainComponent.cpp">
       <Option target="App | Debug"/>

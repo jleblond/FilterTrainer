@@ -67,14 +67,16 @@ add_library( ${BINARY_NAME}
     "../../../DspFilters/RBJ.cpp"
     "../../../DspFilters/RootFinder.cpp"
     "../../../DspFilters/State.cpp"
-    "../../../Source/IIRPeakFilter.h"
-    "../../../Source/MainComponent.h"
-    "../../../Source/global.cpp"
     "../../../Source/global.h"
+    "../../../Source/global.cpp"
+    "../../../Source/IIRPeakFilter.h"
+    "../../../Source/LoopingAudioFormatReaderSource.h"
+    "../../../Source/LoopingAudioTransportSource.h"
     "../../../Source/ExerciseGenerator.h"
     "../../../Source/ExerciseGenerator.cpp"
     "../../../Source/Exercise.h"
     "../../../Source/Exercise.cpp"
+    "../../../Source/MainComponent.h"
     "../../../Source/MainComponent.cpp"
     "../../../Source/Main.cpp"
     "../../../Source/GUI/ExerciseAnswering.h"
@@ -1315,11 +1317,13 @@ set_source_files_properties("../../../DspFilters/DspFilters/SmoothedFilter.h" PR
 set_source_files_properties("../../../DspFilters/DspFilters/State.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../DspFilters/DspFilters/Types.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../DspFilters/DspFilters/Utilities.h" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../Source/IIRPeakFilter.h" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../Source/MainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/global.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/IIRPeakFilter.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/LoopingAudioFormatReaderSource.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/LoopingAudioTransportSource.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/ExerciseGenerator.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/Exercise.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/MainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ExerciseAnswering.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ExerciseSettings.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ExerciseCorrection.h" PROPERTIES HEADER_FILE_ONLY TRUE)

@@ -1793,11 +1793,13 @@
     <ClInclude Include="..\..\DspFilters\DspFilters\State.h"/>
     <ClInclude Include="..\..\DspFilters\DspFilters\Types.h"/>
     <ClInclude Include="..\..\DspFilters\DspFilters\Utilities.h"/>
-    <ClInclude Include="..\..\Source\IIRPeakFilter.h"/>
-    <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="..\..\Source\global.h"/>
+    <ClInclude Include="..\..\Source\IIRPeakFilter.h"/>
+    <ClInclude Include="..\..\Source\LoopingAudioFormatReaderSource.h"/>
+    <ClInclude Include="..\..\Source\LoopingAudioTransportSource.h"/>
     <ClInclude Include="..\..\Source\ExerciseGenerator.h"/>
     <ClInclude Include="..\..\Source\Exercise.h"/>
+    <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\ExerciseAnswering.h"/>
     <ClInclude Include="..\..\Source\GUI\ExerciseSettings.h"/>
     <ClInclude Include="..\..\Source\GUI\ExerciseCorrection.h"/>
