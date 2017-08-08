@@ -101,9 +101,12 @@ public:
             }
             else
             {
+                //Regular playback (no loop)
+                
+                int64 nxtPos = nextPlayPos;
                 
                 reader->read (info.buffer, info.startSample,
-                              info.numSamples, start, true, true);
+                              info.numSamples, nxtPos, true, true);
                 nextPlayPos += info.numSamples;
                 
 

@@ -79,7 +79,7 @@ public:
     void mouseDrag (const MouseEvent& event) override {
         const double duration = transportSource.getLengthInSeconds();
         
-        if (duration > 0.0 && isMouseDown)
+        if ( duration > 0.0 && isMouseDown)
         {
             endPosition = event.position.x;
             if(endPosition > getWidth()){
@@ -90,7 +90,7 @@ public:
     void mouseMove (const MouseEvent& event) override {
         const double duration = transportSource.getLengthInSeconds();
         
-        if (duration > 0.0 && isMouseDown)
+        if ( duration > 0.0 && isMouseDown)
         {
             endPosition = event.position.x;
             if(endPosition > getWidth()){
@@ -102,7 +102,7 @@ public:
     void mouseUp (const MouseEvent& event) override {
         const double duration = transportSource.getLengthInSeconds();
         
-        if (duration > 0.0 && isMouseDown)
+        if ( duration > 0.0 && isMouseDown)
         {
             isMouseDown = false;
             endPosition = event.position.x;
@@ -125,9 +125,9 @@ public:
             startPosition = event.position.x;
             const double audioPosition = (startPosition / getWidth()) * duration;
            
-           // transportSource.setPosition (audioPosition);
+            transportSource.setPosition (audioPosition);
             
-               transportSource.setNextPos (audioPosition);
+             //  transportSource.setNextPos (audioPosition);
         }
     }
             
