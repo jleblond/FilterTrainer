@@ -113,6 +113,8 @@ public:
             
            if(g_loopOn)
                transportSource.setEndPosition(audioPosition);
+            else
+                transportSource.setEndPosition();
             
         }
     }

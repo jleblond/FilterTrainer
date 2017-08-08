@@ -102,6 +102,8 @@ public:
             else
             {
                 //Regular playback (no loop)
+            
+                setEndReadPosition( (int64) (getTotalLength()) );
                 
                 int64 nxtPos = nextPlayPos;
                 

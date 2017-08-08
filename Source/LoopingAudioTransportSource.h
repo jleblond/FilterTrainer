@@ -38,7 +38,7 @@ public:
         AudioTransportSource::prepareToPlay(samplesPerBlockExpected, newSampleRate);
     }
     
-    void setNextPos(float nextPosition)
+    void setNextPosition(float nextPosition)
     {
         if (source != nullptr)
             source->setNextReadPosition((int64) (nextPosition * sampleRate));
@@ -46,6 +46,11 @@ public:
     void setEndPosition(float endPosition){
         if (source != nullptr)
             source->setEndReadPosition((int64) (endPosition * sampleRate));
+    }
+    
+    void setEndPosition(){
+        if (source != nullptr)
+            source->setEndReadPosition( (int64) (source->getTotalLength()) );
     }
     
     void resetPosition(){
