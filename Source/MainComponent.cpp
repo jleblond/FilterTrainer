@@ -21,9 +21,11 @@ MainContentComponent::MainContentComponent()
     //Zoom IN & Zoom OUT
     addAndMakeVisible (g_ZoomInButton);
     g_ZoomInButton.setButtonText ("+");
+    g_ZoomInButton.setEnabled(false);
     
     addAndMakeVisible (g_ZoomOutButton);
     g_ZoomOutButton.setButtonText ("-");
+    g_ZoomOutButton.setEnabled(false);
     
     //CurrentPosition
     addAndMakeVisible (&currentPositionLabel);
@@ -141,7 +143,6 @@ void MainContentComponent::buttonClicked (Button* button)
     if (button == &g_openButton)  openButtonClicked();
     if (button == &g_playButton)  playButtonClicked();
     if (button == &g_stopButton)  stopButtonClicked();
-    if (button == &g_loopingButton) loopButtonChanged();
     if (button == &g_filterButton) filterButtonClicked();
     if (button == &g_questionButton) questionButtonChanged();
 }
@@ -281,8 +282,7 @@ void MainContentComponent::openButtonClicked()
             g_srcDurationInSec = transportSource.getLengthInSeconds();
             
             g_playButton.setEnabled (true);
-            g_loopingButton.setEnabled (true);
-            g_ZoomInButton.setEnabled(true);
+           // g_loopingButton.setEnabled (true);
             
             waveform.setWaveformDisplay(file);
             
@@ -345,19 +345,4 @@ void MainContentComponent::transportSourceChanged()
 }
 
 
-void MainContentComponent::loopButtonChanged()
-{
-    g_loopOn = !g_loopOn;
-    
-    if(g_loopOn)
-    {
-            g_loopingButton.setColour(TextButton::buttonColourId, Colours::orange);
-    }
-    else
-    {
-            g_loopingButton.setColour(TextButton::buttonColourId,
-                                 getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
-    }
-    
-    
-}
+

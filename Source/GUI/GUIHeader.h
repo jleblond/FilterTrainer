@@ -22,14 +22,17 @@ public:
         menu1.setButtonText(str_menu1);
         menu1.addListener(this);
         addAndMakeVisible(menu1);
+        menu1.setEnabled(false);
         
         menu2.setButtonText(str_menu2);
         menu2.addListener(this);
         addAndMakeVisible(menu2);
+        menu2.setEnabled(false);
         
         menu3.setButtonText(str_menu3);
         menu3.addListener(this);
         addAndMakeVisible(menu3);
+        menu3.setEnabled(false);
     }
     
     ~GUIHeader()
@@ -99,8 +102,8 @@ public:
 private:
   //  BasicWindow *bwindow=nullptr;
     
-    String str_title="FILTER [prototype]";
-    String str_subtitle="Inner Ear";
+    String str_title="FILTER ";
+    String str_subtitle=""; 
     
     TextButton menu1;
     String str_menu1="INFO";

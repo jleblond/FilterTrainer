@@ -9,7 +9,7 @@
 
 
 
-#define IIRFILTERON 1
+#define IIRFILTERON 0
 //SELECT FILTER CLASS
 //0: using Dsp::ChebyshevI::BandShelf
 //              from DspFilters - "A Collection of Useful C++ Classes for Digital Signal Processing"
@@ -92,7 +92,6 @@ private:
     
     void transportSourceChanged();
     
-    void loopButtonChanged();
     
     //==========================================================================
 

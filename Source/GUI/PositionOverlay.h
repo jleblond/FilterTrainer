@@ -15,7 +15,8 @@
 #include "../LoopingAudioTransportSource.h"
 #include <cmath>        // std::abs
 
-class PositionOverlay : public Component
+class PositionOverlay : public Component,
+                        public Button::Listener
 //private Timer
 {
     float startPosition;
@@ -27,42 +28,13 @@ public:
     : transportSource (transportSourceToUse)
     {
             //startTimer (40);
+        g_loopingButton.addListener(this);
     }
     
     void resetSelection(){
         startPosition = 0;
         endPosition = getWidth();
         transportSource.resetPosition();
-    }
-    void paint (Graphics& g) override
-    {
-        const double duration = transportSource.getLengthInSeconds();
-        
-        if (duration > 0.0)
-        {
-            const double audioPosition = transportSource.getCurrentPosition();
-            const float drawPosition = (audioPosition / duration) * getWidth();
-            
-            g.setColour (Colours::green);
-            g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
-            
-            
-            
-            g.setColour (Colours::darkred);
-            
-            //Loop button pressed
-//            const float drawStartPosition = (g_loopStartPos / duration) * getWidth();
-//            const float drawEndPosition = (g_loopEndPos / duration) * getWidth();
-            
-            if(g_loopOn)
-                paintRectangle(g, Colours::darkgrey, startPosition, endPosition);
-            
-            
-            
-//            
-//            g.drawLine (startPosition, 0.0f, startPosition, (float) getHeight(), 2.0f);
-//            g.drawLine (endPosition, 0.0f, endPosition, (float) getHeight(), 2.0f);
-        }
     }
     
     void paintRectangle (Graphics& g, Colour c, float startPos, float endPos)
@@ -76,10 +48,45 @@ public:
         g.fillRect(rect);
     }
     
+    
+    void paint (Graphics& g) override
+    {
+        const double duration = transportSource.getLengthInSeconds();
+        
+        if (duration > 0.0)
+        {
+            const double audioPosition = transportSource.getCurrentPosition();
+            const float drawPosition = (audioPosition / duration) * getWidth();
+            
+            g.setColour (Colours::green);
+            g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
+            g.setColour (Colours::darkred);
+            g.drawLine (startPosition, 0.0f, startPosition, (float) getHeight(), 2.0f);
+            g.drawLine (endPosition, 0.0f, endPosition, (float) getHeight(), 2.0f);
+            
+           // float diff = std::abs(endPosition - startPosition);
+           // g.drawLine ( startPosition+diff , 0.0f, startPosition+diff, (float) getHeight(), 2.0f);
+            
+            
+            float rectStart = startPosition;
+            float rectEnd = endPosition;
+            
+            if( rectEnd < rectStart)
+            {
+                float temp = rectStart;
+                rectStart = rectEnd;
+                rectEnd = temp;
+            }
+            
+            paintRectangle(g, Colours::darkgrey, rectStart, rectEnd);
+            
+        }
+    }
+    
     void mouseDrag (const MouseEvent& event) override {
         const double duration = transportSource.getLengthInSeconds();
         
-        if ( duration > 0.0 && isMouseDown)
+        if (duration > 0.0 && isMouseDown)
         {
             endPosition = event.position.x;
             if(endPosition > getWidth()){
@@ -90,7 +97,7 @@ public:
     void mouseMove (const MouseEvent& event) override {
         const double duration = transportSource.getLengthInSeconds();
         
-        if ( duration > 0.0 && isMouseDown)
+        if (duration > 0.0 && isMouseDown)
         {
             endPosition = event.position.x;
             if(endPosition > getWidth()){
@@ -102,19 +109,40 @@ public:
     void mouseUp (const MouseEvent& event) override {
         const double duration = transportSource.getLengthInSeconds();
         
-        if ( duration > 0.0 && isMouseDown)
+        if (duration > 0.0 && isMouseDown)
         {
             isMouseDown = false;
             endPosition = event.position.x;
             if(endPosition > getWidth()){
                 endPosition = getWidth();
             }
-            const double audioPosition = (endPosition / getWidth()) * duration;
             
-           if(g_loopOn)
-               transportSource.setEndPosition(audioPosition);
-          // else
-          //     transportSource.setEndPosition();
+            
+            if( endPosition < startPosition )
+            {
+                float temp = startPosition;
+                startPosition = endPosition;
+                endPosition = temp;
+                
+                const double audioStartPosition = (startPosition / getWidth()) * duration;
+                transportSource.setPosition (audioStartPosition);
+            }
+            
+            
+            //LOOP END POINT
+            double audioEndPosition = (endPosition / getWidth()) * duration;
+            
+                const double startingPosition = (startPosition / getWidth()) * duration;
+            
+            if( std::abs(audioEndPosition - startingPosition) < g_loopMinDuration )
+            {
+                endPosition = getWidth();
+                audioEndPosition = (endPosition / getWidth()) * duration;
+            }
+            
+            transportSource.setEndPosition(audioEndPosition);
+            
+            
             
         }
     }
@@ -125,18 +153,39 @@ public:
         if (duration > 0.0)
         {
             startPosition = event.position.x;
-            const double audioPosition = (startPosition / getWidth()) * duration;
-           
-            transportSource.setPosition (audioPosition);
-            
-             //  transportSource.setNextPos (audioPosition);
-            
-            if(!g_loopOn)
-                transportSource.setEndPosition();
+            const double audioStartPosition = (startPosition / getWidth()) * duration;
+            transportSource.setPosition (audioStartPosition);
+  
         }
     }
-            
-
+    
+    
+    
+    void buttonClicked (Button* button) override
+    {
+        if (button == &g_loopingButton) loopButtonChanged();
+    }
+    
+    void loopButtonChanged()
+    {
+        std::cout<< g_loopOn;
+        
+        g_loopOn = !g_loopOn;
+        
+        if(g_loopOn)
+        {
+            g_loopingButton.setColour(TextButton::buttonColourId, Colours::orange);
+           //transportSource.setLooping(true);
+        }
+        else
+        {
+            g_loopingButton.setColour(TextButton::buttonColourId,
+                                      getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
+            //transportSource.setLooping(false);
+        }
+        
+        
+    }
     
 private:
     LoopingAudioTransportSource& transportSource;

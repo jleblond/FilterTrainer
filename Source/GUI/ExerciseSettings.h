@@ -49,11 +49,12 @@ public:
         
         
         amplify.setButtonText("+");
-        //amplify.setColour(TextButton::buttonColourId, Colours::blue);
+        amplify.setColour(TextButton::buttonColourId, Colours::grey);
         amplify.addListener(this);
         addAndMakeVisible(amplify);
         
         attenuate.setButtonText("-");
+        attenuate.setColour(TextButton::buttonColourId, Colours::grey);
         attenuate.addListener(this);
         addAndMakeVisible(attenuate);
     
@@ -89,10 +90,10 @@ public:
     void buttonClicked(Button* button) override
     {
         if(button == &amplify)
-            g_gainAmplification = !g_gainAmplification;
+            amplifyChanged();
         
         if(button == &attenuate)
-            g_gainAttenuation = !g_gainAttenuation;
+            attenuateChanged();
         
     }
     
@@ -109,6 +110,51 @@ public:
             g_freqRangeValue = freqrange->getSelectedId();
     }
     
+    void amplifyChanged()
+    {
+        g_gainAmplification = !g_gainAmplification;
+        
+        checkAmplifyAttenuate();
+        
+        if(g_gainAmplification)
+        {
+            amplify.setColour(TextButton::buttonColourId, Colours::grey);
+            
+        }
+        else
+        {
+            amplify.setColour (TextButton::buttonColourId,
+                                getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        }
+    }
+    
+    void attenuateChanged()
+    {
+        g_gainAttenuation = !g_gainAttenuation;
+        
+        checkAmplifyAttenuate();
+        
+        if(g_gainAttenuation)
+        {
+            attenuate.setColour(TextButton::buttonColourId, Colours::grey);
+            
+        }
+        else
+        {
+            attenuate.setColour (TextButton::buttonColourId,
+                               getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        }
+
+    }
+    
+    void checkAmplifyAttenuate()
+    {
+        if( !g_gainAttenuation && !g_gainAmplification)
+        {
+            attenuate.triggerClick();
+            amplify.triggerClick();
+        }
+    }
     
     
 private:

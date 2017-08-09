@@ -39,7 +39,7 @@ extern bool g_filterOn;
 extern bool g_loopOn;  //used in LoopingAudioFormatReaderSource.h, MainComponent.cpp
 
 //extern bool g_loopOnRecentClick;
-//extern double g_minLoopDuration;
+extern double g_loopMinDuration;
 
 
 //audio positions in s  (PositionOverlay.h)

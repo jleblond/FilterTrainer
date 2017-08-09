@@ -41,7 +41,7 @@ public:
     ~LoopingAudioFormatReaderSource() {};
     
     int64 getTotalLength() const     override              { return reader->lengthInSamples; };
-    void setNextReadPosition (int64 newPosition) override  { nextPlayPos = newPosition; regNextPlayPos = newPosition;
+    void setNextReadPosition (int64 newPosition) override  { nextPlayPos = newPosition;
         nStart = newPosition;
         nNumberSample = nEnd - nStart;
     };
@@ -70,11 +70,9 @@ public:
     {
         if (info.numSamples > 0 && nNumberSample > 0 && valid)
         {
-          //  nextPlayPos = regNextPlayPos;
             const int64 start = nextPlayPos - nStart;
             
-            if (g_loopOn)
-            {
+
                 const int64 newStart = (start ) % nNumberSample;
                 const int64 newEnd = (start  + info.numSamples) % nNumberSample;
                 
@@ -95,21 +93,6 @@ public:
                 }
                 
                 nextPlayPos = newEnd + nStart;
-                
-                regNextPlayPos = nextPlayPos;
-            }
-            else
-            {
-                //Regular playback (no loop)
-    
-                
-                reader->read (info.buffer, info.startSample,
-                              info.numSamples, regNextPlayPos, true, true);
-                regNextPlayPos += info.numSamples;
-                
-
-            }
-            
             
         }
     };

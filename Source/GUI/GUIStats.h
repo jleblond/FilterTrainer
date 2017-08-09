@@ -28,7 +28,8 @@ public:
     
     void paint(Graphics& g)override
     {
-        
+         g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+         g.fillAll(Colours::white);
     }
     
     

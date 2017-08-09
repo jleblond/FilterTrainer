@@ -36,8 +36,7 @@ String g_pausedTime;
 bool g_filterOn = false;
 
 bool g_loopOn = false;
-//bool g_loopOnRecentClick = false;
-//double g_minLoopDuration = 0.2;
+double g_loopMinDuration = 0.2;
 
 double g_loopStartPos = 0 ;
 double g_loopEndPos = 0;
@@ -51,8 +50,8 @@ float g_gainFactor = 6;
 //Exercise settings
 int g_freqRangeValue = 0;
 int g_filterGainValue = 6;
-bool g_gainAmplification = false;
-bool g_gainAttenuation = false;
+bool g_gainAmplification = true;
+bool g_gainAttenuation = true;
 //bool g_questionMode = true;
 int g_answerValue = 0;
 
