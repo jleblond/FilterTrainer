@@ -113,8 +113,8 @@ public:
             
            if(g_loopOn)
                transportSource.setEndPosition(audioPosition);
-            else
-                transportSource.setEndPosition();
+          // else
+          //     transportSource.setEndPosition();
             
         }
     }
@@ -130,6 +130,9 @@ public:
             transportSource.setPosition (audioPosition);
             
              //  transportSource.setNextPos (audioPosition);
+            
+            if(!g_loopOn)
+                transportSource.setEndPosition();
         }
     }
             

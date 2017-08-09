@@ -275,12 +275,12 @@ void MainContentComponent::openButtonClicked()
                                                 new LoopingAudioFormatReaderSource ( reader, true );
             
             transportSource.setSource ( newSource, 0, nullptr, reader->sampleRate );
-            newSource->setLooping(false); 
+            newSource->setLooping(false);   //(required?)
+            transportSource.resetPosition();
             
             g_srcDurationInSec = transportSource.getLengthInSeconds();
             
             g_playButton.setEnabled (true);
-   
             g_loopingButton.setEnabled (true);
             g_ZoomInButton.setEnabled(true);
             

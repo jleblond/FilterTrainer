@@ -18,9 +18,7 @@ class LoopingAudioFormatReaderSource : public PositionableAudioSource
 {
     OptionalScopedPointer<AudioFormatReader> reader;
     int64 nStart, nEnd, nNumberSample;
-    int64 volatile nextPlayPos;
-    //bool volatile looping;
-    
+    int64 volatile nextPlayPos, regNextPlayPos;
     bool valid;
     
 public:
@@ -29,8 +27,7 @@ public:
     : reader (r, deleteReaderWhenThisIsDeleted),
     nStart(0),
     nNumberSample(0),
-    nextPlayPos (0),
-    //looping (false),
+    nextPlayPos (0), regNextPlayPos(0),
     valid(false)
     {
         jassert (reader != nullptr);
@@ -44,7 +41,7 @@ public:
     ~LoopingAudioFormatReaderSource() {};
     
     int64 getTotalLength() const     override              { return reader->lengthInSamples; };
-    void setNextReadPosition (int64 newPosition) override  { nextPlayPos = newPosition;
+    void setNextReadPosition (int64 newPosition) override  { nextPlayPos = newPosition; regNextPlayPos = newPosition;
         nStart = newPosition;
         nNumberSample = nEnd - nStart;
     };
@@ -52,7 +49,6 @@ public:
         nEnd = endPosition;
         nNumberSample = nEnd - nStart;
     }
-    
     
 //    void setLooping (bool shouldLoop)        override      {
 //        looping = shouldLoop; };
@@ -74,6 +70,7 @@ public:
     {
         if (info.numSamples > 0 && nNumberSample > 0 && valid)
         {
+          //  nextPlayPos = regNextPlayPos;
             const int64 start = nextPlayPos - nStart;
             
             if (g_loopOn)
@@ -98,18 +95,17 @@ public:
                 }
                 
                 nextPlayPos = newEnd + nStart;
+                
+                regNextPlayPos = nextPlayPos;
             }
             else
             {
                 //Regular playback (no loop)
-            
-                setEndReadPosition( (int64) (getTotalLength()) );
-                
-                int64 nxtPos = nextPlayPos;
+    
                 
                 reader->read (info.buffer, info.startSample,
-                              info.numSamples, nxtPos, true, true);
-                nextPlayPos += info.numSamples;
+                              info.numSamples, regNextPlayPos, true, true);
+                regNextPlayPos += info.numSamples;
                 
 
             }
