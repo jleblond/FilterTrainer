@@ -33,6 +33,9 @@ public:
         freqrange.setSelectedId( g_freqRangeValue );
         freqrange.setEnabled(false);
         
+        addAndMakeVisible(mFreqRangeListLabel);
+        mFreqRangeListLabel.setText( listFreqInRange(g_AllRange) , dontSendNotification); //g_AllRange arbitrary default
+        
         
         addAndMakeVisible(mAnswerSlider);
         mAnswerSlider.setRange(1, 5, 1);
@@ -85,6 +88,7 @@ public:
        // attenuate.setBounds (0.27*getWidth(), 0.8*getHeight(), 30, 30);
         
         freqrange.setBounds (0.5*getWidth(), 0.5*getHeight(), 100, 30);
+        mFreqRangeListLabel.setBounds(0.5*getWidth(), 0.6*getHeight(), 150, 100);
     
     }
     
@@ -100,6 +104,32 @@ public:
          mAnswerSlider.setRange(1, sliderRange, 1);
          mAnswerSlider.setValue(1);
          mCurrFreqLabel.setText( static_cast<String>( getSliderAnswerValue() ) , dontSendNotification);
+        
+        
+        String listfreqtext = "";
+        
+        switch( g_freqRangeValue )
+        {
+            case 1:
+                listfreqtext = listFreqInRange(g_AllRange);
+                break;
+                
+            case 2:
+                listfreqtext = listFreqInRange(g_HighRange);
+                break;
+                
+            case 3:
+                listfreqtext = listFreqInRange(g_MidRange);
+                break;
+                
+            case 4:
+                listfreqtext = listFreqInRange(g_LowRange);
+                break;
+                
+        }
+        
+        mFreqRangeListLabel.setText( listfreqtext , dontSendNotification);
+
   
     }
     
@@ -160,11 +190,31 @@ public:
     }
     
     
+    String listFreqInRange( const std::vector<float> &freqrangevec )
+    {
+        String str="List of frequencies involved: \n";
+        
+        for(int i=0; i<freqrangevec.size(); i++)
+        {
+            str+= static_cast<String> (freqrangevec[i]);
+            
+            if(i != freqrangevec.size() - 1 )
+                str+= ", ";
+        }
+        
+        std::cout<<str<<std::endl;
+        
+        return str;
+    }
+    
+    
+    
     
 private:
     Slider mAnswerSlider;
     Label mAnswerLabel;
     Label mCurrFreqLabel;
+    Label mFreqRangeListLabel;
     ComboBox freqrange;
     
     Label mTitleLabel;

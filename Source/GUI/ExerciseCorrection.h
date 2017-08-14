@@ -74,7 +74,7 @@ public:
         
         mCurrFreqLabel.setText( "Your answer: " + freqanswered , dontSendNotification);
         mCorrectAnswerLabel.setText( "Correct answer: " + correctanswer , dontSendNotification);
-        mFreqBoostLabel.setText( "Frequency boost: " + freqboost, dontSendNotification );
+        mFreqBoostLabel.setText( "Boost Amount (dB): " + freqboost, dontSendNotification );
     }
     
     void buttonClicked(Button* button) override

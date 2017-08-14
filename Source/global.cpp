@@ -51,7 +51,7 @@ float g_gainFactor = 6;
 int g_freqRangeValue = 0;
 int g_filterGainValue = 6;
 bool g_gainAmplification = true;
-bool g_gainAttenuation = true;
+bool g_gainAttenuation = false;
 //bool g_questionMode = true;
 int g_answerValue = 0;
 

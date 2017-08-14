@@ -36,15 +36,19 @@ public:
         freqrange->setSelectedId(1);
         freqrange->addListener(this);
         
+        addAndMakeVisible(mFreqRangeListLabel);
+        mFreqRangeListLabel.setText( listFreqInRange(g_AllRange) , dontSendNotification); //g_AllRange default
+    
+        
         addAndMakeVisible(mdBAmpLabel);
-        mdBAmpLabel.setText("Frequency Boost", dontSendNotification);
+        mdBAmpLabel.setText("Boost Amount (dB)", dontSendNotification);
         
         addAndMakeVisible(dBAmpSlider);
         dBAmpSlider.setRange(3, 12, 3);
         dBAmpSlider.setTextValueSuffix("dB");
         dBAmpSlider.setSliderStyle(juce::Slider::LinearVertical);
         dBAmpSlider.setTextBoxIsEditable(false);
-        dBAmpSlider.setValue(6);
+        dBAmpSlider.setValue(12);
         dBAmpSlider.addListener(this);
         
         
@@ -54,7 +58,8 @@ public:
         addAndMakeVisible(amplify);
         
         attenuate.setButtonText("-");
-        attenuate.setColour(TextButton::buttonColourId, Colours::grey);
+        attenuate.setColour (TextButton::buttonColourId,
+                             getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
         attenuate.addListener(this);
         addAndMakeVisible(attenuate);
     
@@ -75,7 +80,7 @@ public:
     
     void resized() override
     {
-         mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
+        mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
         
         mdBAmpLabel.setBounds(0.15*getWidth(), 0.25*getHeight(), 90, 30);
         dBAmpSlider.setBounds (0.2*getWidth(), 0.35*getHeight(), 30, 135);
@@ -84,6 +89,7 @@ public:
         
         mFreqRangeLabel.setBounds (0.5*getWidth(), 0.35*getHeight(), 90, 30);
         freqrange->setBounds (0.5*getWidth(), 0.5*getHeight(), 100, 30);
+        mFreqRangeListLabel.setBounds(0.5*getWidth(), 0.6*getHeight(), 150, 100);
     
     }
     
@@ -107,7 +113,34 @@ public:
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override
     {
         if(comboBoxThatHasChanged == freqrange)
+        {
             g_freqRangeValue = freqrange->getSelectedId();
+            
+            String listfreqtext = "";
+            
+            switch( g_freqRangeValue )
+            {
+                case 1:
+                    listfreqtext = listFreqInRange(g_AllRange);
+                    break;
+                    
+                case 2:
+                    listfreqtext = listFreqInRange(g_HighRange);
+                    break;
+                    
+                case 3:
+                    listfreqtext = listFreqInRange(g_MidRange);
+                    break;
+                    
+                case 4:
+                    listfreqtext = listFreqInRange(g_LowRange);
+                    break;
+                    
+            }
+            
+            mFreqRangeListLabel.setText( listfreqtext , dontSendNotification);
+            
+        }
     }
     
     void amplifyChanged()
@@ -156,6 +189,23 @@ public:
         }
     }
     
+    String listFreqInRange( const std::vector<float> &freqrangevec )
+    {
+        String str="List of frequencies involved: \n";
+        
+        for(int i=0; i<freqrangevec.size(); i++)
+        {
+            str+= static_cast<String> (freqrangevec[i]);
+            
+            if(i != freqrangevec.size() - 1 )
+                str+= ", ";
+        }
+        
+        std::cout<<str<<std::endl;
+        
+        return str;
+    }
+    
     
 private:
     Slider dBAmpSlider;
@@ -164,6 +214,7 @@ private:
     TextButton attenuate;
     
     Label mFreqRangeLabel;
+    Label mFreqRangeListLabel;
     Label mdBAmpLabel;
     
     Label mTitleLabel;
