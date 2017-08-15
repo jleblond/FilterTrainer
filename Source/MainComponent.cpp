@@ -282,7 +282,7 @@ void MainContentComponent::openButtonClicked()
             g_srcDurationInSec = transportSource.getLengthInSeconds();
             
             g_playButton.setEnabled (true);
-           // g_loopingButton.setEnabled (true);
+            g_loopingButton.setEnabled (true);
             
             waveform.setWaveformDisplay(file);
             

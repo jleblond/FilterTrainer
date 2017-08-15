@@ -91,13 +91,14 @@ float ExerciseGenerator::configExerciseFreq(int range)
     
     else if(range == 4)
         return g_LowRange[rndchoice];
-    
+    else if(range == 5)
+        return g_Mid8Range[ rand() % 8 ];
     else //including range==1
     {
         
-        rndchoice = rand() % ( g_AllRange.size() );
+       // rndchoice = rand() % ( g_AllRange.size() );
         
-        return g_AllRange[rndchoice];
+        return g_AllRange[rand() % 10 ];
     }
 }
 
@@ -126,6 +127,9 @@ void ExerciseGenerator::Answering(int answer)
             
         case 4:
             answ = g_LowRange[answer - 1];
+            break;
+        case 5:
+            answ = g_Mid8Range[answer - 1];
             break;
             
     }

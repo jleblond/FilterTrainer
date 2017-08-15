@@ -51,7 +51,7 @@ public:
     {
         g.fillAll(Colours::white);
         
-        g.setColour (Colours::red);
+        g.setColour (Colours::blue);
         thumbnail.drawChannels (g, getLocalBounds(), 0.0, thumbnail.getTotalLength(), 1.0f);
     }
     

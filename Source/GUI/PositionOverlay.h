@@ -58,29 +58,31 @@ public:
             const double audioPosition = transportSource.getCurrentPosition();
             const float drawPosition = (audioPosition / duration) * getWidth();
             
-            g.setColour (Colours::green);
+            g.setColour (Colours::black);
             g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
-            g.setColour (Colours::darkred);
-            g.drawLine (startPosition, 0.0f, startPosition, (float) getHeight(), 2.0f);
-            g.drawLine (endPosition, 0.0f, endPosition, (float) getHeight(), 2.0f);
             
-           // float diff = std::abs(endPosition - startPosition);
-           // g.drawLine ( startPosition+diff , 0.0f, startPosition+diff, (float) getHeight(), 2.0f);
-            
-            
-            float rectStart = startPosition;
-            float rectEnd = endPosition;
-            
-            if( rectEnd < rectStart)
+            if(g_loopOn)
             {
-                float temp = rectStart;
-                rectStart = rectEnd;
-                rectEnd = temp;
+                g.setColour (Colours::darkslateblue);
+                g.drawLine (startPosition, 0.0f, startPosition, (float) getHeight(), 2.0f);
+                g.drawLine (endPosition, 0.0f, endPosition, (float) getHeight(), 2.0f);
+                
+                
+                float rectStart = startPosition;
+                float rectEnd = endPosition;
+                
+                if( rectEnd < rectStart)
+                {
+                    float temp = rectStart;
+                    rectStart = rectEnd;
+                    rectEnd = temp;
+                }
+                
+                paintRectangle(g, Colours::darkgrey, rectStart, rectEnd);
             }
             
-            paintRectangle(g, Colours::darkgrey, rectStart, rectEnd);
-            
         }
+        
     }
     
     void mouseDrag (const MouseEvent& event) override {
@@ -130,18 +132,26 @@ public:
             
             
             //LOOP END POINT
-            double audioEndPosition = (endPosition / getWidth()) * duration;
-            
-                const double startingPosition = (startPosition / getWidth()) * duration;
-            
-            if( std::abs(audioEndPosition - startingPosition) < g_loopMinDuration )
+            if(g_loopOn)
             {
-                endPosition = getWidth();
-                audioEndPosition = (endPosition / getWidth()) * duration;
+                double audioEndPosition = (endPosition / getWidth()) * duration;
+                
+                    const double startingPosition = (startPosition / getWidth()) * duration;
+                
+                if( std::abs(audioEndPosition - startingPosition) < g_loopMinDuration )
+                {
+                    endPosition = getWidth();
+                    audioEndPosition = (endPosition / getWidth()) * duration;
+                    
+                    g_loopingButton.triggerClick();
+                }
+                
+                transportSource.setEndPosition(audioEndPosition);
             }
-            
-            transportSource.setEndPosition(audioEndPosition);
-            
+            else
+            {
+                transportSource.setEndPosition();
+            }
             
             
         }

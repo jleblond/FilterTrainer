@@ -33,6 +33,8 @@ public:
         freqrange->addItem("High", 2);
         freqrange->addItem("Mid", 3);
         freqrange->addItem("Low", 4);
+        freqrange->addSeparator();
+        freqrange->addItem("Mid 8", 5);
         freqrange->setSelectedId(1);
         freqrange->addListener(this);
         
@@ -50,6 +52,9 @@ public:
         dBAmpSlider.setTextBoxIsEditable(false);
         dBAmpSlider.setValue(12);
         dBAmpSlider.addListener(this);
+        
+        addAndMakeVisible(mdBAmpValueLabel);
+        mdBAmpValueLabel.setText( dBAmpCurrValue() , dontSendNotification);
         
         
         amplify.setButtonText("+");
@@ -82,12 +87,13 @@ public:
     {
         mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
         
-        mdBAmpLabel.setBounds(0.15*getWidth(), 0.25*getHeight(), 90, 30);
+        mdBAmpLabel.setBounds(0.15*getWidth(), 0.25*getHeight(), 100, 30);
         dBAmpSlider.setBounds (0.2*getWidth(), 0.35*getHeight(), 30, 135);
-        amplify.setBounds (0.15*getWidth(), 0.8*getHeight(), 30, 30);
-        attenuate.setBounds (0.27*getWidth(), 0.8*getHeight(), 30, 30);
+        mdBAmpValueLabel.setBounds (0.3*getWidth(), 0.45*getHeight(), 60, 30);
+        amplify.setBounds (0.15*getWidth(), 0.85*getHeight(), 30, 30);
+        attenuate.setBounds (0.27*getWidth(), 0.85*getHeight(), 30, 30);
         
-        mFreqRangeLabel.setBounds (0.5*getWidth(), 0.35*getHeight(), 90, 30);
+        mFreqRangeLabel.setBounds (0.5*getWidth(), 0.35*getHeight(), 100, 30);
         freqrange->setBounds (0.5*getWidth(), 0.5*getHeight(), 100, 30);
         mFreqRangeListLabel.setBounds(0.5*getWidth(), 0.6*getHeight(), 150, 100);
     
@@ -97,16 +103,22 @@ public:
     {
         if(button == &amplify)
             amplifyChanged();
-        
+
         if(button == &attenuate)
             attenuateChanged();
+        
+        mdBAmpValueLabel.setText( dBAmpCurrValue(), dontSendNotification);
         
     }
     
     void sliderValueChanged (Slider* slider) override
     {
         if(slider == &dBAmpSlider)
+        {
             g_filterGainValue = dBAmpSlider.getValue();
+            
+            mdBAmpValueLabel.setText( dBAmpCurrValue(), dontSendNotification);
+        }
     
     }
     
@@ -135,10 +147,14 @@ public:
                 case 4:
                     listfreqtext = listFreqInRange(g_LowRange);
                     break;
+                case 5:
+                    listfreqtext = listFreqInRange(g_Mid8Range);
+                    break;
+
                     
             }
             
-            mFreqRangeListLabel.setText( listfreqtext , dontSendNotification);
+            mFreqRangeListLabel.setText( listfreqtext, dontSendNotification); //g_AllRange default
             
         }
     }
@@ -159,6 +175,7 @@ public:
             amplify.setColour (TextButton::buttonColourId,
                                 getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
         }
+        
     }
     
     void attenuateChanged()
@@ -177,6 +194,8 @@ public:
             attenuate.setColour (TextButton::buttonColourId,
                                getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
         }
+        
+        mdBAmpValueLabel.setText( dBAmpCurrValue(), dontSendNotification);
 
     }
     
@@ -184,14 +203,13 @@ public:
     {
         if( !g_gainAttenuation && !g_gainAmplification)
         {
-            attenuate.triggerClick();
             amplify.triggerClick();
         }
     }
     
     String listFreqInRange( const std::vector<float> &freqrangevec )
     {
-        String str="List of frequencies involved: \n";
+        String str="List of frequencies: \n";
         
         for(int i=0; i<freqrangevec.size(); i++)
         {
@@ -202,8 +220,30 @@ public:
         }
         
         std::cout<<str<<std::endl;
-        
         return str;
+    }
+    
+    String dBAmpCurrValue()
+    {
+        String s="";
+        
+        if(g_gainAmplification )
+        {
+            s += "+";
+            s += static_cast<String>(dBAmpSlider.getValue());
+        }
+        if( g_gainAmplification && g_gainAttenuation )
+        {
+            s += ", ";
+        }
+        
+        if(g_gainAttenuation)
+        {
+            s += "-";
+            s += static_cast<String>(dBAmpSlider.getValue());
+        }
+        
+        return s;
     }
     
     
@@ -216,6 +256,7 @@ private:
     Label mFreqRangeLabel;
     Label mFreqRangeListLabel;
     Label mdBAmpLabel;
+    Label mdBAmpValueLabel;
     
     Label mTitleLabel;
     

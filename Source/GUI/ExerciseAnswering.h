@@ -30,6 +30,8 @@ public:
         freqrange.addItem("High", 2);
         freqrange.addItem("Mid", 3);
         freqrange.addItem("Low", 4);
+        freqrange.addSeparator();
+        freqrange.addItem("Mid 8", 5);
         freqrange.setSelectedId( g_freqRangeValue );
         freqrange.setEnabled(false);
         
@@ -54,15 +56,6 @@ public:
         mCurrFreqLabel.setText("", dontSendNotification);
         
         
-        
-//        amplify.setButtonText("+");
-//        amplify.addListener(this);
-//        addAndMakeVisible(amplify);
-//        
-//        attenuate.setButtonText("-");
-//        attenuate.addListener(this);
-//        addAndMakeVisible(attenuate);
-        
     }
     
     ~ExerciseAnswering()
@@ -84,8 +77,6 @@ public:
         
         mCurrFreqLabel.setBounds ( 0.2*getWidth(), 0.25*getHeight(), 60, 35 );
         mAnswerSlider.setBounds (0.2*getWidth(), 0.35*getHeight(), 30, 135);
-       // amplify.setBounds (0.15*getWidth(), 0.8*getHeight(), 30, 30);
-       // attenuate.setBounds (0.27*getWidth(), 0.8*getHeight(), 30, 30);
         
         freqrange.setBounds (0.5*getWidth(), 0.5*getHeight(), 100, 30);
         mFreqRangeListLabel.setBounds(0.5*getWidth(), 0.6*getHeight(), 150, 100);
@@ -100,6 +91,8 @@ public:
         
         if ( g_freqRangeValue == 1)
             sliderRange = 10;
+        else if (g_freqRangeValue == 5)
+            sliderRange = 8;
         
          mAnswerSlider.setRange(1, sliderRange, 1);
          mAnswerSlider.setValue(1);
@@ -125,6 +118,9 @@ public:
             case 4:
                 listfreqtext = listFreqInRange(g_LowRange);
                 break;
+            case 5:
+                listfreqtext = listFreqInRange(g_Mid8Range);
+                break;
                 
         }
         
@@ -135,12 +131,6 @@ public:
     
     void buttonClicked(Button* button) override
     {
-
-//        if(button == &amplify)
-//            g_gainAmplification = !g_gainAmplification;
-//        
-//        if(button == &attenuate)
-//            g_gainAttenuation = !g_gainAttenuation;
         
     }
     
@@ -184,6 +174,9 @@ public:
             case 4:
                 answ = g_LowRange[ mAnswerSlider.getValue() - 1 ];
                 break;
+            case 5:
+                answ = g_Mid8Range[ mAnswerSlider.getValue() - 1 ];
+                break;
         }
         
         return answ;
@@ -192,7 +185,7 @@ public:
     
     String listFreqInRange( const std::vector<float> &freqrangevec )
     {
-        String str="List of frequencies involved: \n";
+        String str="List of frequencies: \n";
         
         for(int i=0; i<freqrangevec.size(); i++)
         {
@@ -201,8 +194,6 @@ public:
             if(i != freqrangevec.size() - 1 )
                 str+= ", ";
         }
-        
-        std::cout<<str<<std::endl;
         
         return str;
     }

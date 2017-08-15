@@ -36,7 +36,7 @@ extern float g_mainVolume;
 extern String g_pausedTime;
 extern bool g_filterOn;
 
-extern bool g_loopOn;  //used in LoopingAudioFormatReaderSource.h, MainComponent.cpp
+extern bool g_loopOn;  //used in LoopingAudioFormatReaderSource.h, MainComponent.cpp, PositionOverlay.h
 
 //extern bool g_loopOnRecentClick;
 extern double g_loopMinDuration;
@@ -61,6 +61,7 @@ extern int g_answerValue;
 
 //rnd in configExerciseFreq according to fixed size
 extern std::vector<float> g_AllRange;
+extern std::vector<float> g_Mid8Range;
 extern std::vector<float> g_HighRange;
 extern std::vector<float> g_MidRange;
 extern std::vector<float> g_LowRange;
