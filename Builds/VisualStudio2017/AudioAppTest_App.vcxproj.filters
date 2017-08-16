@@ -2277,6 +2277,15 @@
     <ClInclude Include="..\..\DspFilters\DspFilters\Utilities.h">
       <Filter>AudioAppTest\DspFilters\DspFilters</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\User.h">
+      <Filter>AudioAppTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Session.h">
+      <Filter>AudioAppTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\StatsStructs.h">
+      <Filter>AudioAppTest\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\global.h">
       <Filter>AudioAppTest\Source</Filter>
     </ClInclude>

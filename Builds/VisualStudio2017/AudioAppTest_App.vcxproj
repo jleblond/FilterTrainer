@@ -1793,6 +1793,9 @@
     <ClInclude Include="..\..\DspFilters\DspFilters\State.h"/>
     <ClInclude Include="..\..\DspFilters\DspFilters\Types.h"/>
     <ClInclude Include="..\..\DspFilters\DspFilters\Utilities.h"/>
+    <ClInclude Include="..\..\Source\User.h"/>
+    <ClInclude Include="..\..\Source\Session.h"/>
+    <ClInclude Include="..\..\Source\StatsStructs.h"/>
     <ClInclude Include="..\..\Source\global.h"/>
     <ClInclude Include="..\..\Source\IIRPeakFilter.h"/>
     <ClInclude Include="..\..\Source\LoopingAudioFormatReaderSource.h"/>

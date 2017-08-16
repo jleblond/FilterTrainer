@@ -32,10 +32,19 @@ public:
         setSize (WIDTH, HEIGHT);
         
         addAndMakeVisible (mHeader);
+        //mHeader.setVisible(true);
+        
         addAndMakeVisible (mPlayer);
+        //mPlayer.setVisible(false);
+        
         addAndMakeVisible (mExcontrols);
+        //mExcontrols.setVisible(false);
+        
         addAndMakeVisible (mStats);
+        //mStats.setVisible(false);
+        
         addAndMakeVisible (mVolume);
+        //mVolume.setVisible(false);
     }
     
     ~AppGUI()

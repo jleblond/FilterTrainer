@@ -78,6 +78,10 @@ public:
         return mFreqBoost;
     }
     
+    const float getCenterFreq()
+    {
+        return mCenterFreq;
+    }
     
     const float getCenterFreqAnswered()
     {

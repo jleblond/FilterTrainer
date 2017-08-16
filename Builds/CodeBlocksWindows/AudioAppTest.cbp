@@ -321,6 +321,24 @@
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
     </Unit>
+    <Unit filename="../../Source/User.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
+    </Unit>
+    <Unit filename="../../Source/Session.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
+    </Unit>
+    <Unit filename="../../Source/StatsStructs.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
+    </Unit>
     <Unit filename="../../Source/global.h">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>

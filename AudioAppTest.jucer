@@ -53,6 +53,9 @@
       <FILE id="OSSNX1" name="State.cpp" compile="1" resource="0" file="DspFilters/State.cpp"/>
     </GROUP>
     <GROUP id="{53684AA2-C230-7CEC-6389-C510283A28EF}" name="Source">
+      <FILE id="aX2zbh" name="User.h" compile="0" resource="0" file="Source/User.h"/>
+      <FILE id="uXBSy5" name="Session.h" compile="0" resource="0" file="Source/Session.h"/>
+      <FILE id="duvdX6" name="StatsStructs.h" compile="0" resource="0" file="Source/StatsStructs.h"/>
       <FILE id="DmV0Pf" name="global.h" compile="0" resource="0" file="Source/global.h"/>
       <FILE id="lWgoRO" name="global.cpp" compile="1" resource="0" file="Source/global.cpp"/>
       <FILE id="ZurAL4" name="IIRPeakFilter.h" compile="0" resource="0" file="Source/IIRPeakFilter.h"/>

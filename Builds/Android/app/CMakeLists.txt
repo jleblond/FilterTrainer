@@ -67,6 +67,9 @@ add_library( ${BINARY_NAME}
     "../../../DspFilters/RBJ.cpp"
     "../../../DspFilters/RootFinder.cpp"
     "../../../DspFilters/State.cpp"
+    "../../../Source/User.h"
+    "../../../Source/Session.h"
+    "../../../Source/StatsStructs.h"
     "../../../Source/global.h"
     "../../../Source/global.cpp"
     "../../../Source/IIRPeakFilter.h"
@@ -1317,6 +1320,9 @@ set_source_files_properties("../../../DspFilters/DspFilters/SmoothedFilter.h" PR
 set_source_files_properties("../../../DspFilters/DspFilters/State.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../DspFilters/DspFilters/Types.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../DspFilters/DspFilters/Utilities.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/User.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/Session.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/StatsStructs.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/global.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/IIRPeakFilter.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/LoopingAudioFormatReaderSource.h" PROPERTIES HEADER_FILE_ONLY TRUE)
