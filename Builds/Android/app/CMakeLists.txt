@@ -78,10 +78,10 @@ add_library( ${BINARY_NAME}
     "../../../Source/ExerciseGenerator.h"
     "../../../Source/ExerciseGenerator.cpp"
     "../../../Source/Exercise.h"
-    "../../../Source/Exercise.cpp"
     "../../../Source/MainComponent.h"
     "../../../Source/MainComponent.cpp"
     "../../../Source/Main.cpp"
+    "../../../Source/GUI/StatsBar.h"
     "../../../Source/GUI/ExerciseAnswering.h"
     "../../../Source/GUI/ExerciseSettings.h"
     "../../../Source/GUI/ExerciseCorrection.h"
@@ -95,7 +95,6 @@ add_library( ${BINARY_NAME}
     "../../../Source/GUI/StatsWindowComponent.h"
     "../../../Source/GUI/AppGUI.h"
     "../../../Source/GUI/GUIExControls.h"
-    "../../../Source/GUI/GUIHeader.cpp"
     "../../../Source/GUI/GUIHeader.h"
     "../../../Source/GUI/GUIBasicWindow.h"
     "../../../Source/GUI/GUIPlayer.h"
@@ -1330,6 +1329,7 @@ set_source_files_properties("../../../Source/LoopingAudioTransportSource.h" PROP
 set_source_files_properties("../../../Source/ExerciseGenerator.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/Exercise.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/MainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/GUI/StatsBar.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ExerciseAnswering.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ExerciseSettings.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ExerciseCorrection.h" PROPERTIES HEADER_FILE_ONLY TRUE)

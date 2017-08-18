@@ -436,17 +436,11 @@
     <ClCompile Include="..\..\Source\ExerciseGenerator.cpp">
       <Filter>AudioAppTest\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Exercise.cpp">
-      <Filter>AudioAppTest\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\MainComponent.cpp">
       <Filter>AudioAppTest\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>AudioAppTest\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\GUI\GUIHeader.cpp">
-      <Filter>AudioAppTest\Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -2306,6 +2300,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">
       <Filter>AudioAppTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GUI\StatsBar.h">
+      <Filter>AudioAppTest\Source\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\ExerciseAnswering.h">
       <Filter>AudioAppTest\Source\GUI</Filter>

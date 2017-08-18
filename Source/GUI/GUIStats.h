@@ -14,6 +14,7 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Session.h"
 #include "../global.h"
+#include "StatsBar.h"
 
 class GUIStats : public Component,
                  public Button::Listener
@@ -24,11 +25,29 @@ public:
         g_correctionButton.addListener(this);
         
         
-//        std::cout<<"GUISTATS - getWidth:"<<getParentWidth()<<" getHeight:"<<getParentHeight()<<std::endl;
+        std::cout<<"GUISTATS - getWidth:"<<getWidth()<<" getHeight:"<<getHeight()<<std::endl;
+        std::cout<<"getParentWidth:"<<getParentWidth()<<" getParentHeight:"<<getParentHeight()<<std::endl;
+        
+        
+        //*warning: vecFreqRange is not fixed size, while mSessionStats is fixed size
+        vecFreqRange = getFreqRange(s->getRange());
+        
+        for(int i=0; i<vecFreqRange.size(); i++)
+        {
+            mVecBars.push_back( new StatsBar(vecFreqRange[i]) );
+            addAndMakeVisible(mVecBars[i]);
+        }
+        
+        
+        
     }
     
     ~GUIStats()
     {
+        for(int i=0; i<vecFreqRange.size(); i++)
+        {
+            delete mVecBars[i];
+        }
         
     }
     
@@ -37,27 +56,45 @@ public:
          g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
          g.fillAll(Colours::white);
         
-        std::vector<float> vecFreqRange = getFreqRange(s->getRange());
+       // std::vector<float> vecFreqRange = getFreqRange(s->getRange());
         
-        s->printStats();
         
-        //*warning: vecFreqRange is not fixed size, while mSessionStats is fixed size
-        
-        for(int i=0; i< vecFreqRange.size() ; i++ )
+        if(vecFreqRange.size() > 0 && mVecBars.size()>0)
         {
-            float freq = vecFreqRange[i];
-            float percent = s->mSessionStats.getPercent(freq);
-            std::cout<<"gui per freq - freq"<<freq<<" percent"<<percent<<std::endl;
-
-            percent *= 0.8*mBarPercentScale;
-            
-            float startX = 100 + i*80; //vecStartXPos[i] * getWidth();
-             paintRectangle(g, Colours::blue, startX, mBarSize, 0, percent);
+            for(int i=0; i< vecFreqRange.size() ; i++ )
+            {
+                float freq = vecFreqRange[i];
+                float percent = s->mSessionStats.getPercent(freq);
+                float count = s->mSessionStats.count[freq];
+                // std::cout<<"gui per freq - freq"<<freq<<" percent"<<percent<<std::endl;
+                
+                mVecBars[i]->updateValues(percent, count);
+                
+                mVecBars[i]->repaintBar();
+                
+            }
             
             
         }
+        
+        
       
     
+    }
+    
+    void resized() override
+    {
+       if(mVecBars.size() > 0)
+       {
+           for(int i=0; i<mVecBars.size(); i++)
+           {
+               mVecBars[i]->setBounds( vecStartXPos[i]*getWidth(), 0.25*getHeight(),
+                                       mBarSize, 0.7*getHeight() );
+               
+           }
+
+       }
+        
     }
     
     void paintRectangle (Graphics& g, Colour c,
@@ -109,6 +146,8 @@ public:
             
             repaint();
             
+            s->printStats(); //console print
+            
         }
         
         
@@ -117,9 +156,10 @@ public:
     
 private:
     Session* s = new Session(0);
-    float mBarSize = 30; //0.05*getWidth(); //width
-    float mBarPercentScale = getParentHeight()/3;
+    float mBarSize = 20; //0.05*getWidth(); //width
     
+    std::vector<float> vecFreqRange; //current freq range
+    std::vector<StatsBar*> mVecBars;
     std::vector<float> vecStartXPos =
         {0.2, 0.275, 0.35, 0.425, 0.5, 0.575, 0.65, 0.725, 0.8, 0.875};
 };

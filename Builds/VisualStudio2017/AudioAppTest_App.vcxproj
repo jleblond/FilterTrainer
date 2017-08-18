@@ -157,10 +157,8 @@
     <ClCompile Include="..\..\DspFilters\State.cpp"/>
     <ClCompile Include="..\..\Source\global.cpp"/>
     <ClCompile Include="..\..\Source\ExerciseGenerator.cpp"/>
-    <ClCompile Include="..\..\Source\Exercise.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
-    <ClCompile Include="..\..\Source\GUI\GUIHeader.cpp"/>
     <ClCompile Include="..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1803,6 +1801,7 @@
     <ClInclude Include="..\..\Source\ExerciseGenerator.h"/>
     <ClInclude Include="..\..\Source\Exercise.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
+    <ClInclude Include="..\..\Source\GUI\StatsBar.h"/>
     <ClInclude Include="..\..\Source\GUI\ExerciseAnswering.h"/>
     <ClInclude Include="..\..\Source\GUI\ExerciseSettings.h"/>
     <ClInclude Include="..\..\Source\GUI\ExerciseCorrection.h"/>

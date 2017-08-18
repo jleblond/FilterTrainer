@@ -383,10 +383,6 @@
       <Option compile="0"/>
       <Option link="0"/>
     </Unit>
-    <Unit filename="../../Source/Exercise.cpp">
-      <Option target="App | Debug"/>
-      <Option target="App | Release"/>
-    </Unit>
     <Unit filename="../../Source/MainComponent.h">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
@@ -400,6 +396,12 @@
     <Unit filename="../../Source/Main.cpp">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
+    </Unit>
+    <Unit filename="../../Source/GUI/StatsBar.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
     </Unit>
     <Unit filename="../../Source/GUI/ExerciseAnswering.h">
       <Option target="App | Debug"/>
@@ -478,10 +480,6 @@
       <Option target="App | Release"/>
       <Option compile="0"/>
       <Option link="0"/>
-    </Unit>
-    <Unit filename="../../Source/GUI/GUIHeader.cpp">
-      <Option target="App | Debug"/>
-      <Option target="App | Release"/>
     </Unit>
     <Unit filename="../../Source/GUI/GUIHeader.h">
       <Option target="App | Debug"/>
