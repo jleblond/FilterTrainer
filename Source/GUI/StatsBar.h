@@ -51,11 +51,16 @@ public:
                            startY, std::abs(getHeight() - startY ) );
         }
       
-
-//        g.setColour (Colours::white);
-//        g.setFont (14.0f);
-//        g.drawText ("StatsBar", getLocalBounds(),
-//                    Justification::centred, true);
+        float value = mPercent*100.0;
+       // float rounded = ((int)(value * 100 + .5) / 100.0);
+        float rounded = static_cast<float>(static_cast<int>(value * 10.)) / 10.;
+        
+        String bartext = static_cast<String>(rounded)+"%";
+        
+        g.setColour (Colours::black);
+        g.setFont (12.0f);
+        g.drawText (bartext, getLocalBounds(),
+                    Justification::centred, true);
     }
 
     void resized() override

@@ -36,6 +36,17 @@ public:
         {
             mVecBars.push_back( new StatsBar(vecFreqRange[i]) );
             addAndMakeVisible(mVecBars[i]);
+            
+            String freqstr = static_cast<String>( vecFreqRange[i] );
+            Label* label = new Label(freqstr, freqstr );
+            mVecFreqLabels.push_back(label);
+            
+            addAndMakeVisible(mVecFreqLabels[i]);
+            mVecFreqLabels[i]->setText( freqstr + "\nHz",
+                                       dontSendNotification );
+            mVecFreqLabels[i]->setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
+            mVecFreqLabels[i]->setFont(12);
+            mVecFreqLabels[i]->setJustificationType(juce::Justification::centred);
         }
         
         
@@ -47,6 +58,7 @@ public:
         for(int i=0; i<vecFreqRange.size(); i++)
         {
             delete mVecBars[i];
+            delete mVecFreqLabels[i];
         }
         
     }
@@ -89,7 +101,11 @@ public:
            for(int i=0; i<mVecBars.size(); i++)
            {
                mVecBars[i]->setBounds( vecStartXPos[i]*getWidth(), 0.25*getHeight(),
-                                       mBarSize, 0.7*getHeight() );
+                                       mBarSize, 0.6*getHeight() );
+               
+               mVecFreqLabels[i]->setBounds(vecStartXPos[i]*getWidth(),
+                                           0.75*getHeight(),
+                                           mBarSize*1.25, mBarSize*2);
                
            }
 
@@ -156,10 +172,11 @@ public:
     
 private:
     Session* s = new Session(0);
-    float mBarSize = 20; //0.05*getWidth(); //width
+    float mBarSize = 35; //0.05*getWidth(); //width
     
     std::vector<float> vecFreqRange; //current freq range
+    std::vector<Label*> mVecFreqLabels;
     std::vector<StatsBar*> mVecBars;
     std::vector<float> vecStartXPos =
-        {0.2, 0.275, 0.35, 0.425, 0.5, 0.575, 0.65, 0.725, 0.8, 0.875};
+        {0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75};
 };
