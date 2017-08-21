@@ -50,12 +50,12 @@ public:
             paintRectangle(g, Colours::blue, 0, getWidth(),
                            startY, std::abs(getHeight() - startY ) );
         }
-      
-        float value = mPercent*100.0;
-       // float rounded = ((int)(value * 100 + .5) / 100.0);
-        float rounded = static_cast<float>(static_cast<int>(value * 10.)) / 10.;
         
-        String bartext = static_cast<String>(rounded)+"%";
+        
+        //Percent text within bars
+        float percentValue = ( mPercent )*100.0;
+        float percentRounded = static_cast<float>( static_cast<int>(percentValue * 10.) ) / 10.;
+        String bartext = static_cast<String> (percentRounded) + "%";
         
         g.setColour (Colours::black);
         g.setFont (12.0f);
