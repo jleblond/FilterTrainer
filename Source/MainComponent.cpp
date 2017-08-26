@@ -21,11 +21,11 @@ MainContentComponent::MainContentComponent()
     //Zoom IN & Zoom OUT
     addAndMakeVisible (g_ZoomInButton);
     g_ZoomInButton.setButtonText ("+");
-    g_ZoomInButton.setEnabled(false);
+    //g_ZoomInButton.setEnabled(false);
     
     addAndMakeVisible (g_ZoomOutButton);
     g_ZoomOutButton.setButtonText ("-");
-    g_ZoomOutButton.setEnabled(false);
+   // g_ZoomOutButton.setEnabled(false);
     
     //CurrentPosition
     addAndMakeVisible (&currentPositionLabel);
@@ -283,6 +283,7 @@ void MainContentComponent::openButtonClicked()
             
             g_playButton.setEnabled (true);
             g_loopingButton.setEnabled (true);
+            g_ZoomInButton.setEnabled(true);
             
             waveform.setWaveformDisplay(file);
             

@@ -33,8 +33,18 @@ public:
     
     void resetSelection(){
         startPosition = 0;
-        endPosition = getWidth();
+        endPosition = getParentWidth();
         transportSource.resetPosition();
+    }
+    
+    void setZoomPosition(double zoomScale)
+    {
+        startPosition *= zoomScale;
+        endPosition *= zoomScale;
+         std::cout<<"startPos: "<<startPosition;
+        std::cout<<" endPos: "<<endPosition<<std::endl;
+        
+        repaint();
     }
     
     void paintRectangle (Graphics& g, Colour c, float startPos, float endPos)
@@ -56,17 +66,23 @@ public:
         if (duration > 0.0)
         {
             const double audioPosition = transportSource.getCurrentPosition();
-            const float drawPosition = (audioPosition / duration) * getWidth();
+            const float drawPosition = (audioPosition / duration) * getParentWidth();
             
             g.setColour (Colours::black);
             g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
             
+            
+            
+            
             if(g_loopOn)
             {
+                
                 g.setColour (Colours::darkslateblue);
                 g.drawLine (startPosition, 0.0f, startPosition, (float) getHeight(), 2.0f);
                 g.drawLine (endPosition, 0.0f, endPosition, (float) getHeight(), 2.0f);
                 
+                std::cout<<"startPos: "<<startPosition;
+                std::cout<<" endPos: "<<endPosition<<std::endl;
                 
                 float rectStart = startPosition;
                 float rectEnd = endPosition;
@@ -91,8 +107,8 @@ public:
         if (duration > 0.0 && isMouseDown)
         {
             endPosition = event.position.x;
-            if(endPosition > getWidth()){
-                endPosition = getWidth();
+            if(endPosition > getParentWidth()){
+                endPosition = getParentWidth();
             }
         }
     }
@@ -102,8 +118,8 @@ public:
         if (duration > 0.0 && isMouseDown)
         {
             endPosition = event.position.x;
-            if(endPosition > getWidth()){
-                endPosition = getWidth();
+            if(endPosition > getParentWidth()){
+                endPosition = getParentWidth();
             }
         }
     }
@@ -115,8 +131,8 @@ public:
         {
             isMouseDown = false;
             endPosition = event.position.x;
-            if(endPosition > getWidth()){
-                endPosition = getWidth();
+            if(endPosition > getParentWidth()){
+                endPosition = getParentWidth();
             }
             
             
@@ -126,25 +142,26 @@ public:
                 startPosition = endPosition;
                 endPosition = temp;
                 
-                const double audioStartPosition = (startPosition / getWidth()) * duration;
+                const double audioStartPosition = (startPosition / getParentWidth()) * duration;
                 transportSource.setPosition (audioStartPosition);
             }
-            
+    
             
             //LOOP END POINT
             if(g_loopOn)
             {
-                double audioEndPosition = (endPosition / getWidth()) * duration;
+                double audioEndPosition = (endPosition / getParentWidth()) * duration;
                 
-                    const double startingPosition = (startPosition / getWidth()) * duration;
+                    const double startingPosition = (startPosition / getParentWidth()) * duration;
                 
                 if( std::abs(audioEndPosition - startingPosition) < g_loopMinDuration )
                 {
-                    endPosition = getWidth();
-                    audioEndPosition = (endPosition / getWidth()) * duration;
+                    endPosition = getParentWidth();
+                    audioEndPosition = (endPosition / getParentWidth()) * duration;
                     
                     g_loopingButton.triggerClick();
                 }
+                
                 
                 transportSource.setEndPosition(audioEndPosition);
             }
@@ -163,7 +180,7 @@ public:
         if (duration > 0.0)
         {
             startPosition = event.position.x;
-            const double audioStartPosition = (startPosition / getWidth()) * duration;
+            const double audioStartPosition = (startPosition / getParentWidth()) * duration;
             transportSource.setPosition (audioStartPosition);
   
         }

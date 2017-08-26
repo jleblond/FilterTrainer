@@ -11,8 +11,8 @@
 #include "../LoopingAudioTransportSource.h"
 #include "../global.h"
 
-class WaveformDisplay : public Viewport
-//public Button::Listener
+class WaveformDisplay : public Viewport,
+public Button::Listener
 {
 public:
     WaveformDisplay(  int sourceSamplesPerThumbnailSample,
@@ -21,11 +21,22 @@ public:
                     LoopingAudioTransportSource& transportSourceToUse
                     )
     
-    :   thumbnailComp (sourceSamplesPerThumbnailSample, formatManager, cache),
-        positionOverlay (transportSourceToUse)
+    :   thumbnailComp (sourceSamplesPerThumbnailSample, formatManager, cache, transportSourceToUse)
+    //,
+    //    positionOverlay (transportSourceToUse)
     {
         addAndMakeVisible (&thumbnailComp);
-        addAndMakeVisible (&positionOverlay);
+       // addAndMakeVisible (&positionOverlay);
+        
+        setViewedComponent(&thumbnailComp);
+        setScrollBarsShown(false, true);
+        
+        g_ZoomInButton.addListener(this);
+        g_ZoomOutButton.addListener(this);
+        
+        g_ZoomInButton.setEnabled(false);
+        g_ZoomOutButton.setEnabled(false);
+        
     }
     
     ~WaveformDisplay()
@@ -36,14 +47,40 @@ public:
     void resized() override
     {
         thumbnailComp.setBounds (getLocalBounds() );
-        positionOverlay.setBounds ( getLocalBounds() );
+        thumbnailComp.setSize( g_scaleZoomWaveform * thumbnailComp.getWidth(),
+                              thumbnailComp.getHeight() );
+        
+        
+       // positionOverlay.setBounds ( getLocalBounds() );
   
         
     }
     
+    void buttonClicked(Button* button) override
+    {
+        if (button == &g_ZoomInButton) zoomWaveform( g_scaleZoomWaveform + 1);
+        if (button == &g_ZoomOutButton) zoomWaveform( g_scaleZoomWaveform - 1 );
+    }
+    
+    //called on file load (openFile) from MainContentComponent
+    void setWaveformDisplay(File& file)
+    {
+        thumbnailComp.setFile (file);
+        mThumbnailCompWidth = thumbnailComp.getWidth();
+    }
+    
+//    //called on file load (openFile) from MainContentComponent
+//    void setWaveformDisplay(File& file)
+//    {
+//        thumbnailComp.setFile (file);
+//    }
+    
+    
     void updatePositionOverlay()
     {
-        positionOverlay.repaint();
+       // positionOverlay.repaint();
+        
+        thumbnailComp.updatePositionOverlay();
     }
 
     double getThumbnailWidth()
@@ -51,17 +88,41 @@ public:
         return thumbnailComp.getWidth();
     }
     
-    
-    //called on file load (openFile) from MainContentComponent
-    void setWaveformDisplay(File& file)
+
+    void zoomWaveform(double scaleZoom)
     {
-        thumbnailComp.setFile (file);
+        if(scaleZoom <= 1)
+            g_ZoomOutButton.setEnabled(false);
+        else
+            g_ZoomOutButton.setEnabled(true);
+        
+        if(scaleZoom >=  g_srcDurationInSec/5 )
+            g_ZoomInButton.setEnabled(false);
+        else
+            g_ZoomInButton.setEnabled(true);
+        
+        
+        
+        thumbnailComp.centreWithSize( scaleZoom *  mThumbnailCompWidth,
+                                     thumbnailComp.getHeight() );
+        
+        
+        g_scaleZoomWaveform = scaleZoom;
+        
+        //update position overlay so grey selected rectangle can match new x component coordinates
+        thumbnailComp.setZoomPosition (g_scaleZoomWaveform);
+    
+        
+        std::cout<<"scale"<<scaleZoom<<std::endl;
     }
+
     
     
 private:
     AudioThumbnailComponent thumbnailComp;
-    PositionOverlay positionOverlay;
+   // PositionOverlay positionOverlay;
+    
+    double mThumbnailCompWidth;
     
     
 };

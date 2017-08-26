@@ -20,11 +20,29 @@ private ChangeListener
 {
 public:
     AudioThumbnailComponent (int sourceSamplesPerThumbnailSample,
-                              AudioFormatManager& formatManager,
-                              AudioThumbnailCache& cache)
-    : thumbnail (sourceSamplesPerThumbnailSample, formatManager, cache)
+                             AudioFormatManager& formatManager,
+                             AudioThumbnailCache& cache,
+                             LoopingAudioTransportSource& transportSourceToUse
+                             )
+    : thumbnail (sourceSamplesPerThumbnailSample, formatManager, cache),
+    positionOverlay (transportSourceToUse)
     {
         thumbnail.addChangeListener (this);
+        
+        addAndMakeVisible (&positionOverlay);
+        
+        //        mPositionOverlayWidth = positionOverlay.getWidth();
+        //        mPositionOverlayHeight = positionOverlay.getHeight();
+        
+    }
+    
+    void resized() override
+    {
+        positionOverlay.setBounds ( getLocalBounds() );
+        
+        positionOverlay.setSize( g_scaleZoomWaveform *  positionOverlay.getWidth(),
+                                positionOverlay.getHeight() );
+        
     }
     
     void setFile (const File& file)
@@ -61,6 +79,16 @@ public:
             thumbnailChanged();
     }
     
+    void updatePositionOverlay()
+    {
+        positionOverlay.repaint();
+    }
+    
+    void setZoomPosition(double zoomScale)
+    {
+        positionOverlay.setZoomPosition(zoomScale);
+    }
+    
 private:
     void thumbnailChanged()
     {
@@ -68,6 +96,7 @@ private:
     }
     
     AudioThumbnail thumbnail;
+    PositionOverlay positionOverlay;
     
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioThumbnailComponent)
 };

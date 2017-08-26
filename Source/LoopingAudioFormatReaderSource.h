@@ -60,6 +60,13 @@ public:
         : nextPlayPos;
     };
     
+    int64 getEndReadPosition() const override
+    {
+        return g_loopOn ? nextPlayPos % reader->lengthInSamples
+        : nextPlayPos;
+    };
+    
+    
     bool isLooping() const override                             { return g_loopOn; }
     
     AudioFormatReader* getAudioFormatReader() const noexcept    { return reader; }
