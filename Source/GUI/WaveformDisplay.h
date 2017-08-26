@@ -110,7 +110,7 @@ public:
         g_scaleZoomWaveform = scaleZoom;
         
         //update position overlay so grey selected rectangle can match new x component coordinates
-        thumbnailComp.setZoomPosition (g_scaleZoomWaveform);
+        thumbnailComp.setZoomLoopSelection();
     
         
         std::cout<<"scale"<<scaleZoom<<std::endl;

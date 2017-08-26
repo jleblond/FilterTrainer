@@ -37,12 +37,11 @@ public:
         transportSource.resetPosition();
     }
     
-    void setZoomPosition(double zoomScale)
+    void setZoomLoopSelection()
     {
-        startPosition *= zoomScale;
-        endPosition *= zoomScale;
-         std::cout<<"startPos: "<<startPosition;
-        std::cout<<" endPos: "<<endPosition<<std::endl;
+        const double duration = transportSource.getLengthInSeconds();
+        startPosition = (g_loopStartPos / duration) * getParentWidth();
+        endPosition = (g_loopEndPos / duration )*getParentWidth();
         
         repaint();
     }
@@ -144,6 +143,8 @@ public:
                 
                 const double audioStartPosition = (startPosition / getParentWidth()) * duration;
                 transportSource.setPosition (audioStartPosition);
+                
+                g_loopStartPos = audioStartPosition;
             }
     
             
@@ -164,10 +165,14 @@ public:
                 
                 
                 transportSource.setEndPosition(audioEndPosition);
+                
+                g_loopEndPos = audioEndPosition;
             }
             else
             {
                 transportSource.setEndPosition();
+                
+                g_loopEndPos = duration;
             }
             
             
@@ -182,6 +187,8 @@ public:
             startPosition = event.position.x;
             const double audioStartPosition = (startPosition / getParentWidth()) * duration;
             transportSource.setPosition (audioStartPosition);
+            
+            g_loopStartPos = audioStartPosition;
   
         }
     }

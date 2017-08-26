@@ -31,9 +31,6 @@ public:
         
         addAndMakeVisible (&positionOverlay);
         
-        //        mPositionOverlayWidth = positionOverlay.getWidth();
-        //        mPositionOverlayHeight = positionOverlay.getHeight();
-        
     }
     
     void resized() override
@@ -84,9 +81,9 @@ public:
         positionOverlay.repaint();
     }
     
-    void setZoomPosition(double zoomScale)
+    void setZoomLoopSelection()
     {
-        positionOverlay.setZoomPosition(zoomScale);
+        positionOverlay.setZoomLoopSelection();
     }
     
 private:
