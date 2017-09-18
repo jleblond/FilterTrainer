@@ -2,7 +2,6 @@
   ==============================================================================
 
     MasterVolume.h
-    Created: 13 Jul 2017 8:13:05pm
     Author:  Jasmine Leblond-Chartrand
 
   ==============================================================================
@@ -39,8 +38,8 @@ public:
     void paint(Graphics& g) override
     {
         //sidebar
-        g.fillAll(Colours::grey);
         g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        g.fillAll(Colours::black);
     }
     
     void resized() override

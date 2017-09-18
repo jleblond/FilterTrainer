@@ -2,7 +2,6 @@
   ==============================================================================
 
     ExerciseCorrection.h
-    Created: 18 Jul 2017 1:41:42am
     Author:  Jasmine Leblond-Chartrand
 
   ==============================================================================
@@ -80,7 +79,6 @@ public:
     void buttonClicked(Button* button) override
     {
         
-        
     }
     
 
@@ -90,11 +88,7 @@ private:
     Label mCurrFreqLabel;
     Label mCorrectAnswerLabel;
     Label mFreqBoostLabel;
-    
     Label mTitleLabel;
-    
-    
-
     
 };
 

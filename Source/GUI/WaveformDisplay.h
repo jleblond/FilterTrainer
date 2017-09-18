@@ -1,7 +1,6 @@
 /*
  ==============================================================================
  WaveformDisplay.h
- Created: 13 Jul 2017 11:30:34pm
  Author:  Jasmine Leblond-Chartrand
  ==============================================================================
  */
@@ -22,11 +21,8 @@ public:
                     )
     
     :   thumbnailComp (sourceSamplesPerThumbnailSample, formatManager, cache, transportSourceToUse)
-    //,
-    //    positionOverlay (transportSourceToUse)
     {
         addAndMakeVisible (&thumbnailComp);
-       // addAndMakeVisible (&positionOverlay);
         
         setViewedComponent(&thumbnailComp);
         setScrollBarsShown(false, true);
@@ -49,11 +45,7 @@ public:
         thumbnailComp.setBounds (getLocalBounds() );
         thumbnailComp.setSize( g_scaleZoomWaveform * thumbnailComp.getWidth(),
                               thumbnailComp.getHeight() );
-        
-        
-       // positionOverlay.setBounds ( getLocalBounds() );
   
-        
     }
     
     void buttonClicked(Button* button) override
@@ -69,16 +61,9 @@ public:
         mThumbnailCompWidth = thumbnailComp.getWidth();
     }
     
-//    //called on file load (openFile) from MainContentComponent
-//    void setWaveformDisplay(File& file)
-//    {
-//        thumbnailComp.setFile (file);
-//    }
-    
     
     void updatePositionOverlay()
     {
-       // positionOverlay.repaint();
         
         thumbnailComp.updatePositionOverlay();
     }
@@ -102,10 +87,8 @@ public:
             g_ZoomInButton.setEnabled(true);
         
         
-        
         thumbnailComp.centreWithSize( scaleZoom *  mThumbnailCompWidth,
                                      thumbnailComp.getHeight() );
-        
         
         g_scaleZoomWaveform = scaleZoom;
         
@@ -116,12 +99,13 @@ public:
         std::cout<<"scale"<<scaleZoom<<std::endl;
     }
 
-    
+    void resetLoopSelection()
+    {
+        thumbnailComp.resetLoopSelection();
+    }
     
 private:
     AudioThumbnailComponent thumbnailComp;
-   // PositionOverlay positionOverlay;
-    
     double mThumbnailCompWidth;
     
     

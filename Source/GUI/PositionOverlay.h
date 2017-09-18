@@ -2,7 +2,6 @@
   ==============================================================================
 
     PositionOverlay.h
-    Created: 12 Jul 2017 4:42:14pm
     Author:  Jasmine Leblond-Chartrand
 
   ==============================================================================
@@ -35,6 +34,7 @@ public:
         startPosition = 0;
         endPosition = getParentWidth();
         transportSource.resetPosition();
+        repaint();
     }
     
     void setZoomLoopSelection()
@@ -71,17 +71,12 @@ public:
             g.drawLine (drawPosition, 0.0f, drawPosition, (float) getHeight(), 2.0f);
             
             
-            
-            
             if(g_loopOn)
             {
-                
                 g.setColour (Colours::darkslateblue);
                 g.drawLine (startPosition, 0.0f, startPosition, (float) getHeight(), 2.0f);
                 g.drawLine (endPosition, 0.0f, endPosition, (float) getHeight(), 2.0f);
-                
-                std::cout<<"startPos: "<<startPosition;
-                std::cout<<" endPos: "<<endPosition<<std::endl;
+
                 
                 float rectStart = startPosition;
                 float rectEnd = endPosition;

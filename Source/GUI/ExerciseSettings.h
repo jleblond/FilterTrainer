@@ -2,7 +2,6 @@
   ==============================================================================
 
     ExerciseSettings.h
-    Created: 15 Jul 2017 10:59:19pm
     Author:  Jasmine Leblond-Chartrand
 
   ==============================================================================
@@ -58,7 +57,7 @@ public:
         
         
         amplify.setButtonText("+");
-        amplify.setColour(TextButton::buttonColourId, Colours::grey);
+        amplify.setColour(TextButton::buttonColourId, Colours::darkgrey);
         amplify.addListener(this);
         addAndMakeVisible(amplify);
         
@@ -167,7 +166,7 @@ public:
         
         if(g_gainAmplification)
         {
-            amplify.setColour(TextButton::buttonColourId, Colours::grey);
+            amplify.setColour(TextButton::buttonColourId, Colours::darkgrey);
             
         }
         else
@@ -186,7 +185,7 @@ public:
         
         if(g_gainAttenuation)
         {
-            attenuate.setColour(TextButton::buttonColourId, Colours::grey);
+            attenuate.setColour(TextButton::buttonColourId, Colours::darkgrey);
             
         }
         else

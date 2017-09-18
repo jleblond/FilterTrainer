@@ -2,7 +2,6 @@
   ==============================================================================
 
     GUIPlayer.h
-    Created: 26 Jun 2017 11:23:25pm
     Author:  Jasmine Leblond-Chartrand
 
   ==============================================================================
@@ -39,12 +38,12 @@ public:
     {
         Rectangle<int> area (getLocalBounds());
 
-        component->setBounds ( area.removeFromTop(0.8*getHeight()) );
-        transport.setBounds( area.removeFromTop(0.2*getHeight())  );
+        component->setBounds ( area.removeFromTop( 0.8*getHeight() ));
+        transport.setBounds ( area.removeFromTop( 0.2*getHeight() ) );
     }
     
 private:
-    MainContentComponent* component=new MainContentComponent();
+    MainContentComponent* component = new MainContentComponent();
     TransportBar transport;
 
     

@@ -2,7 +2,6 @@
   ==============================================================================
 
     AudioThumbnailComponent.h
-    Created: 12 Jul 2017 4:41:30pm
     Author:  Jasmine Leblond-Chartrand
 
   ==============================================================================
@@ -65,8 +64,7 @@ public:
     void paintIfFileLoaded (Graphics& g)
     {
         g.fillAll(Colours::white);
-        
-        g.setColour (Colours::blue);
+        g.setColour (Colours::darkred);
         thumbnail.drawChannels (g, getLocalBounds(), 0.0, thumbnail.getTotalLength(), 1.0f);
     }
     
@@ -84,6 +82,11 @@ public:
     void setZoomLoopSelection()
     {
         positionOverlay.setZoomLoopSelection();
+    }
+    
+    void resetLoopSelection()
+    {
+        positionOverlay.resetSelection();
     }
     
 private:

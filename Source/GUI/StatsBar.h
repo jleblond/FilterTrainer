@@ -2,7 +2,6 @@
   ==============================================================================
 
     StatsBar.h
-    Created: 18 Aug 2017 11:16:03am
     Author:  Jasmine Leblond-Chartrand
 
   ==============================================================================
@@ -37,17 +36,17 @@ public:
         
         if(mCount == 0)
         {
-            paintRectangle(g, Colours::black, 0, getWidth(),
+            paintRectangle(g, Colours::darkgrey, 0, getWidth(),
                            getHeight() - 0.005*getHeight(), 0.005*getHeight() );
         }
         else if(mPercent < 0.005)
         {
-            paintRectangle(g, Colours::blue, 0, getWidth(),
+            paintRectangle(g, Colours::darkred, 0, getWidth(),
                            getHeight() - 0.005*getHeight(), 0.005*getHeight() );
         }
         else
         {
-            paintRectangle(g, Colours::blue, 0, getWidth(),
+            paintRectangle(g, Colours::darkred, 0, getWidth(),
                            startY, std::abs(getHeight() - startY ) );
         }
         
@@ -98,5 +97,4 @@ private:
     float mFreq = 0;
     int mCount = 0;
     
-    //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (StatsBar)
 };

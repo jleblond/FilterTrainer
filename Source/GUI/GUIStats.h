@@ -2,7 +2,6 @@
   ==============================================================================
 
     GUIStats.h
-    Created: 26 Jun 2017 11:24:10pm
     Author:  Jasmine Leblond-Chartrand
 
   ==============================================================================
@@ -123,12 +122,9 @@ public:
                 float freq = vecFreqRange[i];
                 float percent = s->mSessionStats.getPercent(freq);
                 float count = s->mSessionStats.count[freq];
-                // std::cout<<"gui per freq - freq"<<freq<<" percent"<<percent<<std::endl;
                 
                 mVecBars[i]->updateValues(percent, count);
-                
                 mVecBars[i]->repaintBar();
-                
                 mVecCountLabels[i]->setText(static_cast<String>(count), dontSendNotification);
                 
             }
@@ -136,8 +132,6 @@ public:
             
         }
         
-        
-      
     
     }
     

@@ -2,7 +2,6 @@
   ==============================================================================
 
     GUIExControls.h
-    Created: 26 Jun 2017 11:23:45pm
     Author:  Jasmine Leblond-Chartrand
 
   ==============================================================================
@@ -56,9 +55,9 @@ public:
     void paint(Graphics& g) override
     {
         //sidebar
-       //g.fillAll(Colours::darkred);
        // g.fillAll(Colour::Colour(191, 92, 0) ); //dark red
         g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        g.fillAll(Colours::black);
 
     }
     

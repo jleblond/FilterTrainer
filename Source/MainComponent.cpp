@@ -1,4 +1,13 @@
 
+/*
+ ==============================================================================
+ 
+ MainComponent.cpp
+ 
+ ==============================================================================
+ */
+
+
 #include "MainComponent.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -277,7 +286,6 @@ void MainContentComponent::openButtonClicked()
             
             transportSource.setSource ( newSource, 0, nullptr, reader->sampleRate );
             newSource->setLooping(false);   //(required?)
-            transportSource.resetPosition();
             
             g_srcDurationInSec = transportSource.getLengthInSeconds();
             
@@ -286,6 +294,7 @@ void MainContentComponent::openButtonClicked()
             g_ZoomInButton.setEnabled(true);
             
             waveform.setWaveformDisplay(file);
+            waveform.resetLoopSelection();
             
             readerSource = newSource.release();
             
