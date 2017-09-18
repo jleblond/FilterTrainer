@@ -81,6 +81,7 @@ add_library( ${BINARY_NAME}
     "../../../Source/MainComponent.h"
     "../../../Source/MainComponent.cpp"
     "../../../Source/Main.cpp"
+    "../../../Source/GUI/ConfigExercise.h"
     "../../../Source/GUI/StatsBar.h"
     "../../../Source/GUI/ExerciseAnswering.h"
     "../../../Source/GUI/ExerciseSettings.h"
@@ -94,6 +95,7 @@ add_library( ${BINARY_NAME}
     "../../../Source/GUI/InfoWindowComponent.h"
     "../../../Source/GUI/StatsWindowComponent.h"
     "../../../Source/GUI/AppGUI.h"
+    "../../../Source/GUI/GUIStartSession.h"
     "../../../Source/GUI/GUIExControls.h"
     "../../../Source/GUI/GUIHeader.h"
     "../../../Source/GUI/GUIBasicWindow.h"
@@ -1329,6 +1331,7 @@ set_source_files_properties("../../../Source/LoopingAudioTransportSource.h" PROP
 set_source_files_properties("../../../Source/ExerciseGenerator.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/Exercise.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/MainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/GUI/ConfigExercise.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/StatsBar.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ExerciseAnswering.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ExerciseSettings.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1342,6 +1345,7 @@ set_source_files_properties("../../../Source/GUI/AboutWindowComponent.h" PROPERT
 set_source_files_properties("../../../Source/GUI/InfoWindowComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/StatsWindowComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/AppGUI.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/GUI/GUIStartSession.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/GUIExControls.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/GUIHeader.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/GUIBasicWindow.h" PROPERTIES HEADER_FILE_ONLY TRUE)

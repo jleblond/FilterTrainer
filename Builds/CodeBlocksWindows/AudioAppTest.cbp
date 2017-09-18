@@ -397,6 +397,12 @@
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
     </Unit>
+    <Unit filename="../../Source/GUI/ConfigExercise.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
+    </Unit>
     <Unit filename="../../Source/GUI/StatsBar.h">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
@@ -470,6 +476,12 @@
       <Option link="0"/>
     </Unit>
     <Unit filename="../../Source/GUI/AppGUI.h">
+      <Option target="App | Debug"/>
+      <Option target="App | Release"/>
+      <Option compile="0"/>
+      <Option link="0"/>
+    </Unit>
+    <Unit filename="../../Source/GUI/GUIStartSession.h">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>
       <Option compile="0"/>

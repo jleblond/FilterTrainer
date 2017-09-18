@@ -73,6 +73,8 @@
             file="Source/MainComponent.cpp"/>
       <FILE id="eBlN21" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <GROUP id="{61C864F3-5253-1971-8825-96BC225D917D}" name="GUI">
+        <FILE id="Ms62Jm" name="ConfigExercise.h" compile="0" resource="0"
+              file="Source/GUI/ConfigExercise.h"/>
         <FILE id="MArjoQ" name="StatsBar.h" compile="0" resource="0" file="Source/GUI/StatsBar.h"/>
         <FILE id="LplEtv" name="ExerciseAnswering.h" compile="0" resource="0"
               file="Source/GUI/ExerciseAnswering.h"/>
@@ -95,6 +97,8 @@
         <FILE id="KYYj6k" name="StatsWindowComponent.h" compile="0" resource="0"
               file="Source/GUI/StatsWindowComponent.h"/>
         <FILE id="yFrZj9" name="AppGUI.h" compile="0" resource="0" file="Source/GUI/AppGUI.h"/>
+        <FILE id="SdezkC" name="GUIStartSession.h" compile="0" resource="0"
+              file="Source/GUI/GUIStartSession.h"/>
         <FILE id="a3fST0" name="GUIExControls.h" compile="0" resource="0" file="Source/GUI/GUIExControls.h"/>
         <FILE id="bxP5Zz" name="GUIHeader.h" compile="0" resource="0" file="Source/GUI/GUIHeader.h"/>
         <FILE id="gYjAZU" name="GUIBasicWindow.h" compile="0" resource="0"

@@ -2301,6 +2301,9 @@
     <ClInclude Include="..\..\Source\MainComponent.h">
       <Filter>AudioAppTest\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\GUI\ConfigExercise.h">
+      <Filter>AudioAppTest\Source\GUI</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\GUI\StatsBar.h">
       <Filter>AudioAppTest\Source\GUI</Filter>
     </ClInclude>
@@ -2338,6 +2341,9 @@
       <Filter>AudioAppTest\Source\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\AppGUI.h">
+      <Filter>AudioAppTest\Source\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GUI\GUIStartSession.h">
       <Filter>AudioAppTest\Source\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\GUIExControls.h">

@@ -11,10 +11,13 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 
+#include "GUIStartSession.h"
 #include "GUIExControls.h"
 #include "GUIHeader.h"
 #include "GUIPlayer.h"
 #include "GUIStats.h"
+
+#include "ConfigExercise.h"
 
 #include "MasterVolume.h"
 
@@ -30,20 +33,27 @@ public:
     {
         setSize (WIDTH, HEIGHT);
         
+        
         addAndMakeVisible (mHeader);
-        //mHeader.setVisible(true);
+       // mHeader.setVisible(false);
+        
+        addAndMakeVisible(mStartSession);
+        //mStartSession.setVisible(false);
+        
+        addAndMakeVisible(mConfigExercise);
+        mConfigExercise.setVisible(false);
         
         addAndMakeVisible (mPlayer);
-        //mPlayer.setVisible(false);
+        mPlayer.setVisible(false);
         
         addAndMakeVisible (mExcontrols);
-        //mExcontrols.setVisible(false);
+        mExcontrols.setVisible(false);
         
         addAndMakeVisible (mStats);
-        //mStats.setVisible(false);
+        mStats.setVisible(false);
         
         addAndMakeVisible (mVolume);
-        //mVolume.setVisible(false);
+        mVolume.setVisible(false);
     }
     
     ~AppGUI()
@@ -63,18 +73,27 @@ public:
     {
         Rectangle<int> area (getLocalBounds());
         
-        mHeader.setBounds (area.removeFromTop( mHeaderHeight*getHeight() ));
+        mHeader.setBounds (area.removeFromTop( mHeaderHeight*getHeight()));
+        Rectangle<int> rectAvail(area);
+        
         mStats.setBounds(area.removeFromBottom( mFooterHeight*getHeight() ));
         mExcontrols.setBounds (area.removeFromLeft( mLeftSidebarWidth*getWidth() ));
         mVolume.setBounds(area.removeFromRight( mRightSidebarWidth*getWidth() ));
         mPlayer.setBounds(area.removeFromRight( (WIDTH-mLeftSidebarWidth)*getWidth() ));
+        
+        Rectangle<int> midRect(rectAvail.removeFromTop(0.5*getHeight()));
+        mStartSession.setBounds(midRect);
+        mConfigExercise.setBounds(midRect);
     }
 
 private:
+    GUIStartSession mStartSession;
     GUIExControls mExcontrols;
     GUIHeader mHeader;
     GUIPlayer mPlayer;
     GUIStats mStats;
+    
+    ConfigExercise mConfigExercise;
     
     MasterVolume mVolume;
     

@@ -11,6 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Session.h"
 #include "StatsStructs.h"
+#include "global.h"
 
 
 class User
@@ -20,6 +21,7 @@ public:
     {
         this->mUsername = name;
     }
+    
     String mUsername;
     
     void changeUsername(String name)
@@ -27,9 +29,9 @@ public:
         this->mUsername = name;
     }
     
-    void addSession(Session& s)
+    void addSession(Session &s)
     {
-        mVecSessions.push_back(s);
+        mVecSessions.push_back(&s);
         mLastNbSessions++;
         
         updateGlobalStats();
@@ -40,7 +42,7 @@ public:
         mVecSessions.erase( mVecSessions.begin() + (index) );
         mLastNbSessions--;
     }
-    const std::vec<Session*>& getVecSessions();
+    const std::vector<Session*>& getVecSessions()
     {
         return mVecSessions;
     }
@@ -68,7 +70,7 @@ public:
     
     
 private:
-    std::vec<Session*> mVecSessions;
+    std::vector<Session*> mVecSessions;
     int mLastNbSessions = 0; //keep track of last size of mVecSessions
     FreqStats mGlobalStats;
     

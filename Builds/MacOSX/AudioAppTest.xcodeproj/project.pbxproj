@@ -66,6 +66,7 @@
 		06C38F715BFBCACA7AC127F7 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExerciseAnswering.h; path = ../../Source/GUI/ExerciseAnswering.h; sourceTree = "SOURCE_ROOT"; };
 		06CEAF0013E8F96B4886E213 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Custom.h; path = ../../DspFilters/DspFilters/Custom.h; sourceTree = "SOURCE_ROOT"; };
 		06F72937ACD6521DD500C69E = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_video.mm"; path = "../../JuceLibraryCode/include_juce_video.mm"; sourceTree = "SOURCE_ROOT"; };
+		11132D20F984861FF2592AE9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GUIStartSession.h; path = ../../Source/GUI/GUIStartSession.h; sourceTree = "SOURCE_ROOT"; };
 		11FF90189510B0A0BA280394 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WaveformDisplay.h; path = ../../Source/GUI/WaveformDisplay.h; sourceTree = "SOURCE_ROOT"; };
 		125DE3540CA1430281BD89AE = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		1433BF7F8FC7EBFC155D8798 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -82,6 +83,7 @@
 		234BBB9ED481D625B5CAB3DC = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		25DB740068925D85FD371FFC = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Layout.h; path = ../../DspFilters/DspFilters/Layout.h; sourceTree = "SOURCE_ROOT"; };
 		2D0D6F23999832CB78C66868 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MainComponent.cpp; path = ../../Source/MainComponent.cpp; sourceTree = "SOURCE_ROOT"; };
+		2DB72E1D58CF5DC44D2E5FF6 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ConfigExercise.h; path = ../../Source/GUI/ConfigExercise.h; sourceTree = "SOURCE_ROOT"; };
 		309892AF073971A7671CECED = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3249DAEFBFB8DCECDF366D5E = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChebyshevI.h; path = ../../DspFilters/DspFilters/ChebyshevI.h; sourceTree = "SOURCE_ROOT"; };
 		348E32E5CCBC812CE53BCC10 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_core.mm"; path = "../../JuceLibraryCode/include_juce_core.mm"; sourceTree = "SOURCE_ROOT"; };
@@ -218,6 +220,7 @@
 					D31AB6C8BFC092F08D7F8393,
 					BE17E297175C32F41BC137D9, ); name = DspFilters; sourceTree = "<group>"; };
 		F27BF1BCBD79D99C29053A92 = {isa = PBXGroup; children = (
+					2DB72E1D58CF5DC44D2E5FF6,
 					02EEB66EC318C1BC4A49631C,
 					06C38F715BFBCACA7AC127F7,
 					8D61A14DF7517E421046A79A,
@@ -231,6 +234,7 @@
 					3667D380801D531B5FCA6F5A,
 					EA00A979E70800680CA3C796,
 					7AE7ED975C4203EACD46575E,
+					11132D20F984861FF2592AE9,
 					3935F47B137EAAA214365E6D,
 					F59B234FF1FE4BE929DDB8F0,
 					5F088EDB0FACEC8E2039A614,

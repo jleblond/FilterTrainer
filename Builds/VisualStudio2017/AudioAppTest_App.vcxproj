@@ -1801,6 +1801,7 @@
     <ClInclude Include="..\..\Source\ExerciseGenerator.h"/>
     <ClInclude Include="..\..\Source\Exercise.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
+    <ClInclude Include="..\..\Source\GUI\ConfigExercise.h"/>
     <ClInclude Include="..\..\Source\GUI\StatsBar.h"/>
     <ClInclude Include="..\..\Source\GUI\ExerciseAnswering.h"/>
     <ClInclude Include="..\..\Source\GUI\ExerciseSettings.h"/>
@@ -1814,6 +1815,7 @@
     <ClInclude Include="..\..\Source\GUI\InfoWindowComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\StatsWindowComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\AppGUI.h"/>
+    <ClInclude Include="..\..\Source\GUI\GUIStartSession.h"/>
     <ClInclude Include="..\..\Source\GUI\GUIExControls.h"/>
     <ClInclude Include="..\..\Source\GUI\GUIHeader.h"/>
     <ClInclude Include="..\..\Source\GUI\GUIBasicWindow.h"/>
