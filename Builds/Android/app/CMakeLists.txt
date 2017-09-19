@@ -81,6 +81,7 @@ add_library( ${BINARY_NAME}
     "../../../Source/MainComponent.h"
     "../../../Source/MainComponent.cpp"
     "../../../Source/Main.cpp"
+    "../../../Source/GUI/UserSession.h"
     "../../../Source/GUI/ConfigExercise.h"
     "../../../Source/GUI/StatsBar.h"
     "../../../Source/GUI/ExerciseAnswering.h"
@@ -1331,6 +1332,7 @@ set_source_files_properties("../../../Source/LoopingAudioTransportSource.h" PROP
 set_source_files_properties("../../../Source/ExerciseGenerator.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/Exercise.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/MainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/GUI/UserSession.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ConfigExercise.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/StatsBar.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/ExerciseAnswering.h" PROPERTIES HEADER_FILE_ONLY TRUE)

@@ -2301,6 +2301,9 @@
     <ClInclude Include="..\..\Source\MainComponent.h">
       <Filter>AudioAppTest\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\GUI\UserSession.h">
+      <Filter>AudioAppTest\Source\GUI</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\GUI\ConfigExercise.h">
       <Filter>AudioAppTest\Source\GUI</Filter>
     </ClInclude>

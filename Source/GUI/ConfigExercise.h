@@ -143,10 +143,11 @@ public:
                 case 3:
                     listfreqtext = listFreqInRange(g_MidRange);
                     break;
-                    
+    
                 case 4:
                     listfreqtext = listFreqInRange(g_LowRange);
                     break;
+                    
                 case 5:
                     listfreqtext = listFreqInRange(g_Mid8Range);
                     break;

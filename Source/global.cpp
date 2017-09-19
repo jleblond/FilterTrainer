@@ -9,6 +9,9 @@
 
 #include "global.h"
 
+User g_User("");
+TextButton g_StartSessionButton;
+
 double g_srcDurationInSec = 0;
 double g_currAudioPosition = 0;
 float g_currDrawPosition = 0;
@@ -51,11 +54,10 @@ int g_freqRangeValue = 0;
 int g_filterGainValue = 6;
 bool g_gainAmplification = true;
 bool g_gainAttenuation = false;
-//bool g_questionMode = true;
 int g_answerValue = 0;
 
 std::vector<float> g_AllRange {31.25, 62.5, 125, 250, 500, 1000, 2000, 4000, 8000, 16000};
-std::vector<float> g_Mid8Range {62.5, 125, 250, 500, 1000, 2000, 4000, 8000};
 std::vector<float> g_HighRange {1000, 2000, 4000, 8000, 16000};
 std::vector<float> g_MidRange {250, 500, 1000, 2000, 4000};
 std::vector<float> g_LowRange {31.25, 62.5, 125, 250, 500};
+std::vector<float> g_Mid8Range {62.5, 125, 250, 500, 1000, 2000, 4000, 8000};

@@ -11,35 +11,42 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 
+#include "UserSession.h"
+#include "ConfigExercise.h"
+
 #include "../User.h"
+
+#include "../global.h"
+
 
 //==============================================================================
 /*
 */
 class GUIStartSession    : public Component,
-                           private TextEditor::Listener
+                           private TextEditor::Listener,
+                           public Button::Listener
 {
 public:
     GUIStartSession()
     {
-        // In your constructor, you should add any child components, and
-        // initialise any special settings that your component needs.
+        addAndMakeVisible(mUserSession);
         
-        addAndMakeVisible(mTextField);
-       // mTextField->setBounds (100, 250, 400, 48);
-       // mTextField->setText ("Single-line text box");
+        addAndMakeVisible(mConfigExercise);
+        mConfigExercise.setVisible(false);
         
-        mTextField.setBounds(10, 50, 180, 24);
-        mTextField.setColour(juce::TextEditor::textColourId, Colours::black);
-        mTextField.setColour(juce::TextEditor::outlineColourId, juce::Colour::fromRGB(0,0,0));
-        mTextField.setColour(juce::TextEditor::backgroundColourId, juce::Colour::fromRGB(247, 249, 252));
-        mTextField.setColour(juce::TextEditor::focusedOutlineColourId, juce::Colour::fromRGB(0,0,0));
-        mTextField.setText("username value lorem ipsum");
+        addAndMakeVisible(mNextButton);
+        mNextButton.setButtonText("NEXT");
+        mNextButton.addListener(this);
+        
+        addAndMakeVisible(g_StartSessionButton);
+        g_StartSessionButton.setButtonText("START SESSION");
+        g_StartSessionButton.setVisible(false);
+        
+        
     }
 
     ~GUIStartSession()
     {
-        //delete mUser;
     }
 
     void paint (Graphics& g) override
@@ -52,19 +59,43 @@ public:
 
         //g.setColour (Colours::white);
         g.setFont (14.0f);
-        g.drawText ("Start a new session", getLocalBounds(),
-                    Justification::centred, true);   // draw some placeholder text
+//        g.drawText ("Start a new session", getLocalBounds(),
+//                    Justification::centred, true);   // draw some placeholder text
     }
 
     void resized() override
     {
-         Rectangle<int> area (getLocalBounds());
-       // mTextField.setBounds(area.removeFromBottom(0.4*getHeight()));
+        Rectangle<int> area (getLocalBounds());
+        Rectangle<int> area2 (getLocalBounds());
+        mUserSession.setBounds(area.removeFromTop(0.7*getHeight() ));
+        mConfigExercise.setBounds(area2.removeFromTop(0.7*getHeight() ));
+        
+        mNextButton.setBounds( area.removeFromBottom(0.5*getHeight() ) );
+        g_StartSessionButton.setBounds( area2.removeFromBottom(0.5*getHeight() ) );
 
     }
-
+    
+    void buttonClicked(Button* button) override
+    {
+        
+        if(button == &mNextButton)
+        {
+            mUserSession.setVisible(false);
+            mConfigExercise.setVisible(true);
+            
+            mNextButton.setVisible(false);
+            g_StartSessionButton.setVisible(true);
+            
+            g_User.changeUsername( mUserSession.getTextFieldValue() ) ;
+        }
+        
+    }
+        
 private:
-    //User* mUser = new User("");
-    TextEditor mTextField;
+
+    TextButton mNextButton;
+    
+    UserSession mUserSession;
+    ConfigExercise mConfigExercise;
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GUIStartSession)
 };

@@ -9,6 +9,11 @@
 
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "User.h"
+
+
+extern User g_User;
+extern TextButton g_StartSessionButton;
 
 extern double g_srcDurationInSec;
 extern double g_currAudioPosition;
@@ -37,7 +42,6 @@ extern bool g_filterOn;
 
 extern bool g_loopOn;  //used in LoopingAudioFormatReaderSource.h, MainComponent.cpp, PositionOverlay.h
 
-//extern bool g_loopOnRecentClick;
 extern double g_loopMinDuration;
 
 
@@ -55,12 +59,11 @@ extern int g_freqRangeValue;
 extern int g_filterGainValue;
 extern bool g_gainAmplification;
 extern bool g_gainAttenuation;
-//extern bool g_questionMode;
 extern int g_answerValue;
 
 //rnd in configExerciseFreq according to fixed size
 extern std::vector<float> g_AllRange;
-extern std::vector<float> g_Mid8Range;
 extern std::vector<float> g_HighRange;
 extern std::vector<float> g_MidRange;
 extern std::vector<float> g_LowRange;
+extern std::vector<float> g_Mid8Range;

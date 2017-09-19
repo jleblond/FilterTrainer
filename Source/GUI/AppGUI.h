@@ -17,8 +17,6 @@
 #include "GUIPlayer.h"
 #include "GUIStats.h"
 
-#include "ConfigExercise.h"
-
 #include "MasterVolume.h"
 
 
@@ -26,7 +24,8 @@
 const int HEIGHT=700;
 const int WIDTH=900;
 
-class AppGUI : public Component
+class AppGUI : public Component,
+                public Button::Listener
 {
 public:
     AppGUI()
@@ -35,13 +34,11 @@ public:
         
         
         addAndMakeVisible (mHeader);
-       // mHeader.setVisible(false);
         
         addAndMakeVisible(mStartSession);
-        //mStartSession.setVisible(false);
         
-        addAndMakeVisible(mConfigExercise);
-        mConfigExercise.setVisible(false);
+        g_StartSessionButton.addListener(this);
+        
         
         addAndMakeVisible (mPlayer);
         mPlayer.setVisible(false);
@@ -81,9 +78,29 @@ public:
         mVolume.setBounds(area.removeFromRight( mRightSidebarWidth*getWidth() ));
         mPlayer.setBounds(area.removeFromRight( (WIDTH-mLeftSidebarWidth)*getWidth() ));
         
-        Rectangle<int> midRect(rectAvail.removeFromTop(0.5*getHeight()));
-        mStartSession.setBounds(midRect);
-        mConfigExercise.setBounds(midRect);
+        mStartSession.setBounds( rectAvail.removeFromTop(0.5*getHeight()) );
+    }
+    
+    void buttonClicked(Button* button) override
+    {
+        
+        if(button == &g_StartSessionButton)
+        {
+            mStartSession.setVisible(false);
+            
+            g_User.createSession(g_freqRangeValue);
+            mStats.setSession( g_User.getLastSession() );
+            
+            if(mStats.getSession() != nullptr)
+            {
+                mPlayer.setVisible(true);
+                mExcontrols.setVisible(true);
+                mStats.setVisible(true);
+                mVolume.setVisible(true);
+            }
+            
+        }
+        
     }
 
 private:
@@ -93,7 +110,6 @@ private:
     GUIPlayer mPlayer;
     GUIStats mStats;
     
-    ConfigExercise mConfigExercise;
     
     MasterVolume mVolume;
     

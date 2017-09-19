@@ -21,7 +21,7 @@ public:
         switch(range)
         {
             case 1:
-                mRange = mid8;
+                mRange = all;
                 break;
             case 2:
                 mRange = high;
@@ -32,8 +32,9 @@ public:
             case 4:
                 mRange = low;
                 break;
-            default:	 //includes case 0
-                mRange = all;
+            case 5:
+                mRange = mid8;
+                break;
         }
     }
     
@@ -50,7 +51,7 @@ public:
         
         switch(mRange)
         {
-            case mid8:
+            case all:
                 value = 1;
                 break;
             case high:
@@ -61,6 +62,9 @@ public:
                 break;
             case low:
                 value = 4;
+                break;
+            case mid8:
+                value = 5;
                 break;
 
         }

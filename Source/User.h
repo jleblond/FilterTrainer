@@ -22,11 +22,25 @@ public:
         this->mUsername = name;
     }
     
-    String mUsername;
+    ~User()
+    {
+        for(int i=0;i<mVecSessions.size();i++)
+        {
+            delete mVecSessions[i];
+        }
+    }
+    
+    String mUsername = "";
     
     void changeUsername(String name)
     {
         this->mUsername = name;
+    }
+    
+    void createSession(int range)
+    {
+        mVecSessions.push_back( new Session(range) );
+        mLastNbSessions++;
     }
     
     void addSession(Session &s)
@@ -56,7 +70,7 @@ public:
         
         for( int i =  mLastNbSessions; i<mVecSessions.size(); i++)
         {
-            for (int j=0 ; j<g_AllRange.size() ; j++)
+            for (int j=0 ; j< 10 ; j++)
             {
                 mGlobalStats.count[j] +=
                 mVecSessions[i]->mSessionStats.count[j];
@@ -66,6 +80,16 @@ public:
             }
         }
         
+    }
+    
+    Session* getLastSession()
+    {
+        if(mVecSessions.size()>0)
+        {
+            return mVecSessions[ mVecSessions.size()-1 ];
+        }
+        else
+            return nullptr;
     }
     
     

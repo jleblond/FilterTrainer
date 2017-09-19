@@ -27,9 +27,6 @@ public:
         std::cout<<"GUISTATS - getWidth:"<<getWidth()<<" getHeight:"<<getHeight()<<std::endl;
         std::cout<<"getParentWidth:"<<getParentWidth()<<" getParentHeight:"<<getParentHeight()<<std::endl;
         
-
-        //*warning: vecFreqRange is not fixed size, while mSessionStats is fixed size
-        vecFreqRange = getFreqRange(s->getRange());
         
         addAndMakeVisible(mTitle);
         mTitle.setText("STATISTICS", dontSendNotification);
@@ -55,17 +52,17 @@ public:
         mFreqTitle.setJustificationType(juce::Justification::right);
         
         
-        for(int i=0; i<vecFreqRange.size(); i++)
+        for(int i=0; i<g_AllRange.size(); i++)
         {
-            float currFreq = vecFreqRange[i];
+            float currFreq = g_AllRange[i];
             String freqStr = static_cast<String>( currFreq ) + "\nHz";
             String countStr = static_cast<String>( s->mSessionStats.count[currFreq] );
             
             
             //Bars
-            mVecBars.push_back( new StatsBar(vecFreqRange[i]) );
+            mVecBars.push_back( new StatsBar(g_AllRange[i]) );
             addAndMakeVisible(mVecBars[i]);
-            
+            //mVecBars[i]->setVisible(false);
             
             //Count labels
             
@@ -77,6 +74,7 @@ public:
             mVecCountLabels[i]->setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
             mVecCountLabels[i]->setFont(12);
             mVecCountLabels[i]->setJustificationType(juce::Justification::centred);
+           // mVecCountLabels[i]->setVisible(false);
             
             
             //Frequency labels
@@ -89,7 +87,7 @@ public:
             mVecFreqLabels[i]->setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
             mVecFreqLabels[i]->setFont(12);
             mVecFreqLabels[i]->setJustificationType(juce::Justification::centred);
-            
+           // mVecFreqLabels[i]->setVisible(false);
             
             
         }
@@ -100,7 +98,7 @@ public:
     
     ~GUIStats()
     {
-        for(int i=0; i<vecFreqRange.size(); i++)
+        for(int i=0; i<g_AllRange.size(); i++)
         {
             delete mVecBars[i];
             delete mVecCountLabels[i];
@@ -109,17 +107,36 @@ public:
         
     }
     
+    void setSession(Session* sess)
+    {
+        for(int i=0; i<g_AllRange.size(); i++)
+        {
+            mVecCountLabels[i]->setVisible(false);
+            mVecBars[i]->setVisible(false);
+        }
+        
+        this->s = sess;
+        
+        visibleBarsRange();
+        
+    }
+    
+    Session * getSession()
+    {
+        return s;
+    }
+    
     void paint(Graphics& g)override
     {
          g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
          g.fillAll(Colours::white);
         
         
-        if(vecFreqRange.size() > 0 && mVecBars.size()>0)
+        if( mVecBars.size()>0 &&  s !=nullptr )
         {
-            for(int i=0; i< vecFreqRange.size() ; i++ )
+            for(int i=0; i< g_AllRange.size() ; i++ )
             {
-                float freq = vecFreqRange[i];
+                float freq = g_AllRange[i];
                 float percent = s->mSessionStats.getPercent(freq);
                 float count = s->mSessionStats.count[freq];
                 
@@ -176,16 +193,18 @@ public:
     
     const std::vector<float>& getFreqRange(int range)
     {
+        std::cout<<"range ici: "<<range<<std::endl;
+        
         switch(range)
         {
-            case 1:
-                return g_Mid8Range;
             case 2:
                 return g_HighRange;
             case 3:
                 return g_MidRange;
             case 4:
                 return g_LowRange;
+            case 5:
+                return g_Mid8Range;
             default:
                 return g_AllRange; //includes case 0
         }
@@ -208,23 +227,72 @@ public:
             float answerDistance =
                 ExerciseGenerator::listexercises.back()-> getAnswerDistance();
      
-            s->updateStats(centerFreq, centerFreqAnswered, answerDistance);
             
-            repaint();
-            
-            s->printStats(); //console print
+            if( s != nullptr )
+            {
+                s->updateStats(centerFreq, centerFreqAnswered, answerDistance);
+                
+                repaint();
+                
+                s->printStats(); //console print
+            }
+           
             
         }
         
         
     }
     
+    void visibleBarsRange()
+    {
+        int range = s->getRange();
+        
+        
+        int size = 0;
+        int start = 0;
+        
+            switch(range)
+            {
+                case 1: //all
+                    start = 0;
+                    size = 10;
+                    break;
+                case 2: //high
+                    start = 5;
+                    size = 5;
+                    break;
+                case 3: //mid
+                    start = 3;
+                    size = 5;
+                    break;
+                case 4: //low
+                    start = 0;
+                    size = 5;
+                    break;
+                case 5: //mid8
+                    start = 1;
+                    size = 8;
+                    break;
+            }
+        
+        for(int i=start; i<(start+size) ;i++)
+        {
+            setVisibleComponents(i, true);
+        }
+        
+    }
+    
+    void setVisibleComponents(int index, bool visibility)
+    {
+        mVecFreqLabels[index]->setVisible(visibility);
+        mVecCountLabels[index]->setVisible(visibility);
+        mVecBars[index]->setVisible(visibility);
+    }
     
 private:
     Session* s = new Session(0);
     float mBarSize = 35; //0.05*getWidth(); //width
     
-    std::vector<float> vecFreqRange; //current freq range
     
     Label mTitle;
     Label mCountTitle;
