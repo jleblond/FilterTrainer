@@ -33,6 +33,7 @@ extern TextButton g_loopingToggle; //kept for state (check?)
 extern TextButton g_ZoomInButton;
 extern TextButton g_ZoomOutButton;
 
+//zoom
 extern double g_scaleZoomWaveform;
 
 //Playback settings

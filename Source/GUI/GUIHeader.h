@@ -21,23 +21,22 @@ public:
         menu1.setButtonText(str_menu1);
         menu1.addListener(this);
         addAndMakeVisible(menu1);
-        menu1.setEnabled(false);
+       // menu1.setEnabled(false);
         
         menu2.setButtonText(str_menu2);
         menu2.addListener(this);
         addAndMakeVisible(menu2);
-        menu2.setEnabled(false);
+      //  menu2.setEnabled(false);
         
         menu3.setButtonText(str_menu3);
         menu3.addListener(this);
         addAndMakeVisible(menu3);
-        menu3.setEnabled(false);
+       // menu3.setEnabled(false);
     }
     
     ~GUIHeader()
     {
-//        delete bwindow;
-//        bwindow=nullptr;
+        
     }
     
     void paint(Graphics& g)override
@@ -63,7 +62,7 @@ public:
         
         Rectangle<int> area = getLocalBounds();
         
-        menu1.setBounds(menuxoffset, 0, elementwidth, elementheight);
+        menu1.setBounds(0, 0, elementwidth, elementheight);
         menu2.setBounds(menuxoffset+elementwidth, 0, elementwidth, elementheight);
         menu3.setBounds(menuxoffset+2*elementwidth, 0, elementwidth, elementheight);
         
@@ -73,44 +72,101 @@ public:
     
     void buttonClicked(Button* button) override
     {
-       // if ()
-       //     bwindow->closeButtonPressed();
+    
         
         if(button== &menu1)
         {
             std::cout<<"menu1"<<std::endl;
-             new BasicWindow("Info", 1);
+            commentDialogBox();
+            
             
         }
         else if(button == &menu2)
         {
             std::cout<<"menu2"<<std::endl;
-             new BasicWindow("About", 2);
+            infoDialogBox();
+            
         }
         else if(button == &menu3)
         {
             std::cout<<"menu3"<<std::endl;
-             new BasicWindow("Stats", 3);
+            
         }
 
-        
-        
     }
     
+    void commentDialogBox()
+    {
+#if JUCE_MODAL_LOOPS_PERMITTED
+        AlertWindow w ("AlertWindow demo..",
+                       "This AlertWindow has a couple of extra components added to show how to add drop-down lists and text entry boxes.",
+                       AlertWindow::NoIcon);
+        
+       // w.addTextEditor ("text", "", "Enter your comment here:");
 
+        
+//        const char* options[] = { "option 1", "option 2", "option 3", "option 4", nullptr };
+//        w.addComboBox ("option", StringArray (options), "some options");
+        
+        w.addCustomComponent(&mPropertyPanel);
+        mPropertyPanel.setSize(400,400);
+        mPropertyPanel.addSection ("Comment", createTextEditor());
+        
+        w.addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
+        w.addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));
+        
+        
+        if (w.runModalLoop() != 0) // is they picked 'ok'
+        {
+            // this is the item they chose in the drop-down list..
+//            const int optaionIndexChosen = w.getComboBoxComponent ("option")->getSelectedItemIndex();
+//            ignoreUnused (optionIndexChosen);
+            
+            // this is the text they entered..
+           // String commentText = w.getTextEditorContents ("text");
+           // (g_User.getLastSession())->addComment(commentText);
+        }
+#endif
+    }
+    
+    void infoDialogBox()
+    {
+        AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
+        
+        AlertWindow::showMessageBoxAsync (icon,
+                                          "This is an AlertWindow",
+                                          "And this is the AlertWindow's message. Blah blah blah blah blah blah blah blah blah blah blah blah blah.",
+                                          "OK");
+    }
+    
+    static Array<PropertyComponent*> createTextEditor()
+    {
+        Array<PropertyComponent*> comps;
+        
+        comps.add (new TextPropertyComponent (Value (var (
+                                                          "")),
+                                              "Multi-line text",
+                                              1000, true));
+        
+        return comps;
+    }
+    
+    
 private:
-  //  BasicWindow *bwindow=nullptr;
     
     String str_title="FILTER ";
     String str_subtitle=""; 
     
     TextButton menu1;
-    String str_menu1="INFO";
+    String str_menu1="Add a comment";
     
     TextButton menu2;
-    String str_menu2="ABOUT";
+    String str_menu2="INFO";
     
     TextButton menu3;
-    String str_menu3="STATS";
+    String str_menu3="END SESSION";
+    
+    PropertyPanel mPropertyPanel;
+    
     
 };

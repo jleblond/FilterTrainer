@@ -40,8 +40,8 @@ public:
     
     ~Session()
     {
-       // for(int i = 0; i <mVecComments.size(); ++i)
-       //     delete mVecComments[i];
+        for(int i = 0; i <mVecComments.size(); ++i)
+            delete mVecComments[i];
     }
     
     
@@ -72,21 +72,21 @@ public:
         return value;
     }
     
-//    void addComment(String ctext)
-//    {
-//        Comment * c = new Comment();  //check for c (heap ok?) and delete
-//        c->commentText = ctext;
-//        mVecComments.push_back(c);
-//    }
-//    void removeComment(int index)
-//    {
-//        delete mVecComments.at(index);
-//        mVecComments.erase( mVecComments.begin() + (index) );
-//    }
-//    const std::vec<Comment*>&  getVecComments()
-//    {
-//        return mVecComments;
-//    }
+    void addComment(String ctext)
+    {
+        Comment * c = new Comment();  //check for c (heap ok?) and delete
+        c->commentText = ctext;
+        mVecComments.push_back(c);
+    }
+    void removeComment(int index)
+    {
+        delete mVecComments.at(index);
+        mVecComments.erase( mVecComments.begin() + (index) );
+    }
+    const std::vector<Comment*>&  getVecComments()
+    {
+        return mVecComments;
+    }
     
     void updateStats(float centerFreq, float centerFreqAnswered,
                      int answerDistance)   //update mSessionStats
@@ -116,7 +116,7 @@ public:
     }
     
 private:
-    //std::vec<Comment*>  mVecComments;
+    std::vector<Comment*>  mVecComments;
     enum Range {all, high, mid, low, mid8};
     Range mRange = all;
     //Date date;
