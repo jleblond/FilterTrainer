@@ -99,7 +99,6 @@ add_library( ${BINARY_NAME}
     "../../../Source/GUI/GUIStartSession.h"
     "../../../Source/GUI/GUIExControls.h"
     "../../../Source/GUI/GUIHeader.h"
-    "../../../Source/GUI/GUIBasicWindow.h"
     "../../../Source/GUI/GUIPlayer.h"
     "../../../Source/GUI/GUIStats.h"
     "../../../../../../JUCE/modules/juce_audio_basics/audio_play_head/juce_AudioPlayHead.h"
@@ -1350,7 +1349,6 @@ set_source_files_properties("../../../Source/GUI/AppGUI.h" PROPERTIES HEADER_FIL
 set_source_files_properties("../../../Source/GUI/GUIStartSession.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/GUIExControls.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/GUIHeader.h" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../Source/GUI/GUIBasicWindow.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/GUIPlayer.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/GUI/GUIStats.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../../JUCE/modules/juce_audio_basics/audio_play_head/juce_AudioPlayHead.h" PROPERTIES HEADER_FILE_ONLY TRUE)

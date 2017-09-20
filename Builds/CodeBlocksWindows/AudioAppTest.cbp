@@ -505,12 +505,6 @@
       <Option compile="0"/>
       <Option link="0"/>
     </Unit>
-    <Unit filename="../../Source/GUI/GUIBasicWindow.h">
-      <Option target="App | Debug"/>
-      <Option target="App | Release"/>
-      <Option compile="0"/>
-      <Option link="0"/>
-    </Unit>
     <Unit filename="../../Source/GUI/GUIPlayer.h">
       <Option target="App | Debug"/>
       <Option target="App | Release"/>

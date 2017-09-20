@@ -2355,9 +2355,6 @@
     <ClInclude Include="..\..\Source\GUI\GUIHeader.h">
       <Filter>AudioAppTest\Source\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GUI\GUIBasicWindow.h">
-      <Filter>AudioAppTest\Source\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\GUI\GUIPlayer.h">
       <Filter>AudioAppTest\Source\GUI</Filter>
     </ClInclude>

@@ -10,7 +10,6 @@
 #pragma once
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include "GUIBasicWindow.h"
 
 
 class GUIHeader : public Component, public Button::Listener
@@ -108,9 +107,16 @@ public:
 //        const char* options[] = { "option 1", "option 2", "option 3", "option 4", nullptr };
 //        w.addComboBox ("option", StringArray (options), "some options");
         
+        
+        //tofix: getText, new section added each time opening a new comment window
+        
         w.addCustomComponent(&mPropertyPanel);
         mPropertyPanel.setSize(400,400);
-        mPropertyPanel.addSection ("Comment", createTextEditor());
+        
+        if( !mPropertyPanel.isEmpty() )
+            mPropertyPanel.removeSection(0);
+            
+        mPropertyPanel.addSection ("Comment", createTextEditor(), true, 0);
         
         w.addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
         w.addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));
@@ -143,10 +149,15 @@ public:
     {
         Array<PropertyComponent*> comps;
         
-        comps.add (new TextPropertyComponent (Value (var (
-                                                          "")),
-                                              "Multi-line text",
-                                              1000, true));
+//        comps.add (new TextPropertyComponent (Value (var (
+//                                                          "")),
+//                                              "Multi-line text",
+//                                              1000, true));
+        
+        comps.set(0, new TextPropertyComponent (Value (var (
+                                                                                                                      "")),
+                                                                                                          "Multi-line text",
+                                                                                                          1000, true));
         
         return comps;
     }

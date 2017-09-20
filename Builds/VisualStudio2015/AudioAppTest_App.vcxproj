@@ -1819,7 +1819,6 @@
     <ClInclude Include="..\..\Source\GUI\GUIStartSession.h"/>
     <ClInclude Include="..\..\Source\GUI\GUIExControls.h"/>
     <ClInclude Include="..\..\Source\GUI\GUIHeader.h"/>
-    <ClInclude Include="..\..\Source\GUI\GUIBasicWindow.h"/>
     <ClInclude Include="..\..\Source\GUI\GUIPlayer.h"/>
     <ClInclude Include="..\..\Source\GUI\GUIStats.h"/>
     <ClInclude Include="..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>

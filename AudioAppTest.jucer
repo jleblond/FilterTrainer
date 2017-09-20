@@ -102,8 +102,6 @@
               file="Source/GUI/GUIStartSession.h"/>
         <FILE id="a3fST0" name="GUIExControls.h" compile="0" resource="0" file="Source/GUI/GUIExControls.h"/>
         <FILE id="bxP5Zz" name="GUIHeader.h" compile="0" resource="0" file="Source/GUI/GUIHeader.h"/>
-        <FILE id="gYjAZU" name="GUIBasicWindow.h" compile="0" resource="0"
-              file="Source/GUI/GUIBasicWindow.h"/>
         <FILE id="m1CeKS" name="GUIPlayer.h" compile="0" resource="0" file="Source/GUI/GUIPlayer.h"/>
         <FILE id="RYrQHH" name="GUIStats.h" compile="0" resource="0" file="Source/GUI/GUIStats.h"/>
       </GROUP>
