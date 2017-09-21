@@ -11,6 +11,7 @@
 
 User g_User("");
 TextButton g_StartSessionButton;
+TextButton g_EndSessionButton;
 
 double g_srcDurationInSec = 0;
 double g_currAudioPosition = 0;

@@ -10,7 +10,7 @@
 #pragma once
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-
+#include "../global.h"
 
 class GUIHeader : public Component, public Button::Listener
 {
@@ -21,21 +21,28 @@ public:
         menu1.addListener(this);
         addAndMakeVisible(menu1);
        // menu1.setEnabled(false);
+        menu1.setVisible(false);
         
         menu2.setButtonText(str_menu2);
         menu2.addListener(this);
         addAndMakeVisible(menu2);
       //  menu2.setEnabled(false);
         
-        menu3.setButtonText(str_menu3);
-        menu3.addListener(this);
-        addAndMakeVisible(menu3);
-       // menu3.setEnabled(false);
+        g_EndSessionButton.setButtonText(str_menu3);
+       // g_EndSessionButton.addListener(this);
+        addAndMakeVisible(g_EndSessionButton);
+        g_EndSessionButton.setVisible(false);
+       // g_EndSessionButton.setEnabled(false);
+        
+        
+        addAndMakeVisible(mUserLabel);
+        mUserLabel.setJustificationType(juce::Justification::right);
+       // mTitleLabel.setText("ANSWER SECTION", dontSendNotification);
     }
     
     ~GUIHeader()
     {
-        
+        delete mTextEditor;
     }
     
     void paint(Graphics& g)override
@@ -63,7 +70,9 @@ public:
         
         menu1.setBounds(0, 0, elementwidth, elementheight);
         menu2.setBounds(menuxoffset+elementwidth, 0, elementwidth, elementheight);
-        menu3.setBounds(menuxoffset+2*elementwidth, 0, elementwidth, elementheight);
+        g_EndSessionButton.setBounds(menuxoffset+2*elementwidth, 0, elementwidth, elementheight);
+        
+        mUserLabel.setBounds(0, getHeight()-20, getWidth(), elementheight);
         
         //        std::cout<<"elheight: "<<elementheight<<std::endl;
         //        std::cout<<"elwidth: "<<elementwidth<<std::endl;
@@ -86,37 +95,47 @@ public:
             infoDialogBox();
             
         }
-        else if(button == &menu3)
+        else if(button == &g_EndSessionButton)
         {
-            std::cout<<"menu3"<<std::endl;
+            std::cout<<"g_EndSessionButton"<<std::endl;
             
         }
 
     }
     
+    void displayCommentButton(bool b)
+    {
+        menu1.setVisible(b);
+    }
+    
+    void displayEndSessionButton(bool b)
+    {
+        g_EndSessionButton.setVisible(b);
+    }
+    
+    
+    void setUserLabel(String user)
+    {
+        mUserLabel.setText(user, dontSendNotification);
+    }
+    
     void commentDialogBox()
     {
 #if JUCE_MODAL_LOOPS_PERMITTED
-        AlertWindow w ("AlertWindow demo..",
-                       "This AlertWindow has a couple of extra components added to show how to add drop-down lists and text entry boxes.",
+        AlertWindow w ("Comments",
+                       "You can add comments whenever you like and they will appear in your session report.",
                        AlertWindow::NoIcon);
-        
-       // w.addTextEditor ("text", "", "Enter your comment here:");
 
         
 //        const char* options[] = { "option 1", "option 2", "option 3", "option 4", nullptr };
 //        w.addComboBox ("option", StringArray (options), "some options");
         
         
-        //tofix: getText, new section added each time opening a new comment window
-        
-        w.addCustomComponent(&mPropertyPanel);
-        mPropertyPanel.setSize(400,400);
-        
-        if( !mPropertyPanel.isEmpty() )
-            mPropertyPanel.removeSection(0);
-            
-        mPropertyPanel.addSection ("Comment", createTextEditor(), true, 0);
+        w.addCustomComponent(mTextEditor);
+        mTextEditor->setSize(300,300);
+        mTextEditor->setMultiLine(true);
+        mTextEditor->setReturnKeyStartsNewLine (true);
+       
         
         w.addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
         w.addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));
@@ -127,10 +146,15 @@ public:
             // this is the item they chose in the drop-down list..
 //            const int optaionIndexChosen = w.getComboBoxComponent ("option")->getSelectedItemIndex();
 //            ignoreUnused (optionIndexChosen);
+
             
-            // this is the text they entered..
-           // String commentText = w.getTextEditorContents ("text");
-           // (g_User.getLastSession())->addComment(commentText);
+            String commentText = mTextEditor->getText();
+            (g_User.getLastSession())->addComment(commentText);
+            (g_User.getLastSession())->printAllComments();
+            mTextEditor->clear();
+            
+
+            
         }
 #endif
     }
@@ -145,23 +169,7 @@ public:
                                           "OK");
     }
     
-    static Array<PropertyComponent*> createTextEditor()
-    {
-        Array<PropertyComponent*> comps;
-        
-//        comps.add (new TextPropertyComponent (Value (var (
-//                                                          "")),
-//                                              "Multi-line text",
-//                                              1000, true));
-        
-        comps.set(0, new TextPropertyComponent (Value (var (
-                                                                                                                      "")),
-                                                                                                          "Multi-line text",
-                                                                                                          1000, true));
-        
-        return comps;
-    }
-    
+
     
 private:
     
@@ -174,10 +182,13 @@ private:
     TextButton menu2;
     String str_menu2="INFO";
     
-    TextButton menu3;
+    //string for g_EndSessionButton
     String str_menu3="END SESSION";
     
-    PropertyPanel mPropertyPanel;
     
+    Label mUserLabel;
+
+    
+    TextEditor* mTextEditor = new TextEditor("textEditor");
     
 };

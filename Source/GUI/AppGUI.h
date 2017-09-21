@@ -11,18 +11,15 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 
-#include "GUIStartSession.h"
-#include "GUIExControls.h"
-#include "GUIHeader.h"
-#include "GUIPlayer.h"
-#include "GUIStats.h"
 
-#include "MasterVolume.h"
+#include "GUIHeader.h"
+#include "GUIStartSession.h"
+#include "GUIMainApp.h"
 
 
 //APP dimensions
 const int HEIGHT=700;
-const int WIDTH=900;
+const int WIDTH=900;    //must ensure same value GUIMainApp member called width
 
 class AppGUI : public Component,
                 public Button::Listener
@@ -37,20 +34,12 @@ public:
         
         addAndMakeVisible(mStartSession);
         
+        addAndMakeVisible(mMainApp);
+        mMainApp.setVisible(false);
+        
         g_StartSessionButton.addListener(this);
+        g_EndSessionButton.addListener(this);
         
-        
-        addAndMakeVisible (mPlayer);
-        mPlayer.setVisible(false);
-        
-        addAndMakeVisible (mExcontrols);
-        mExcontrols.setVisible(false);
-        
-        addAndMakeVisible (mStats);
-        mStats.setVisible(false);
-        
-        addAndMakeVisible (mVolume);
-        mVolume.setVisible(false);
     }
     
     ~AppGUI()
@@ -71,14 +60,10 @@ public:
         Rectangle<int> area (getLocalBounds());
         
         mHeader.setBounds (area.removeFromTop( mHeaderHeight*getHeight()));
-        Rectangle<int> rectAvail(area);
         
-        mStats.setBounds(area.removeFromBottom( mFooterHeight*getHeight() ));
-        mExcontrols.setBounds (area.removeFromLeft( mLeftSidebarWidth*getWidth() ));
-        mVolume.setBounds(area.removeFromRight( mRightSidebarWidth*getWidth() ));
-        mPlayer.setBounds(area.removeFromRight( (WIDTH-mLeftSidebarWidth)*getWidth() ));
-        
-        mStartSession.setBounds( rectAvail.removeFromTop(0.5*getHeight()) );
+        //mStartSession.setBounds( rectAvail.removeFromTop(0.5*getHeight()) );
+        mStartSession.setBounds( area );
+        mMainApp.setBounds (area);
     }
     
     void buttonClicked(Button* button) override
@@ -86,36 +71,44 @@ public:
         
         if(button == &g_StartSessionButton)
         {
+            
+            mHeader.setUserLabel(g_User.mUsername);
+            
             mStartSession.setVisible(false);
             
+            //Entering the Main APP
+            //IMPORTANT: SESSION IS ONLY CREATED AT THIS POINT
+            //everything before the audioapp regular display panel can't use any SESSION stuff
+            
             g_User.createSession(g_freqRangeValue);
-            mStats.setSession( g_User.getLastSession() );
+            bool isset = mMainApp.setSession( g_User.getLastSession() );
             
-            if(mStats.getSession() != nullptr)
+            if(isset)
             {
-                mPlayer.setVisible(true);
-                mExcontrols.setVisible(true);
-                mStats.setVisible(true);
-                mVolume.setVisible(true);
+                mMainApp.setVisible(true);
+                mHeader.displayEndSessionButton(true);
+                mHeader.displayCommentButton(true);
             }
-            
+            else
+                std::cout<<"Failure in 'mMainApp.setSession(Session*)"<<std::endl;
+
+        }
+        
+        if(button == &g_EndSessionButton)
+        {
+            mStartSession.setVisible(true);
+            mMainApp.setVisible(false);
+            mHeader.displayEndSessionButton(false);
+            mHeader.displayCommentButton(false);
         }
         
     }
 
 private:
-    GUIStartSession mStartSession;
-    GUIExControls mExcontrols;
     GUIHeader mHeader;
-    GUIPlayer mPlayer;
-    GUIStats mStats;
-    
-    
-    MasterVolume mVolume;
-    
+    GUIStartSession mStartSession;
+    GUIMainApp mMainApp;
+
     //GUI sections proportions
     const float mHeaderHeight = 0.15;
-    const float mLeftSidebarWidth = 0.3;
-    const float mRightSidebarWidth = 0.1;
-    const float mFooterHeight = 0.3;
 };

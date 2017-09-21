@@ -277,6 +277,15 @@ void MainContentComponent::openButtonClicked()
     if (chooser.browseForFileToOpen())
     {
         File file = chooser.getResult();
+        
+        if(g_User.getLastSession() != nullptr)
+        {
+            String filename = file.getFullPathName();
+            (g_User.getLastSession())->addAudioFileName(filename);
+            (g_User.getLastSession())->printAudioFileNames();
+        }
+        
+        
         AudioFormatReader* reader = formatManager.createReaderFor (file);
         
         if (reader != nullptr)

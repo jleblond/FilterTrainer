@@ -13,12 +13,12 @@
 #include <string>
 #include <typeinfo>
 
-struct Comment
-{
-    String commentText;
-    //Date date;
-    //Time time;
-};
+//struct Comment
+//{
+//    String commentText;
+//    //Date date;
+//    //Time time;
+//};
 
 
 struct FreqStats

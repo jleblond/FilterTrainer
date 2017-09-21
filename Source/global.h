@@ -14,6 +14,7 @@
 
 extern User g_User;
 extern TextButton g_StartSessionButton;
+extern TextButton g_EndSessionButton;
 
 extern double g_srcDurationInSec;
 extern double g_currAudioPosition;
