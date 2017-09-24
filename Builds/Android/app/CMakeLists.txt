@@ -75,6 +75,7 @@ add_library( ${BINARY_NAME}
     "../../../Source/MainComponent.cpp"
     "../../../Source/User.h"
     "../../../Source/Session.h"
+    "../../../Source/Comment.h"
     "../../../Source/StatsStructs.h"
     "../../../Source/Exercise.h"
     "../../../Source/ExerciseGenerator.h"
@@ -114,6 +115,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_CatmullRomInterpolator.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_CatmullRomInterpolator.h"
     "../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_Decibels.h"
+    "../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_FFT.cpp"
+    "../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_FFT.h"
     "../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_IIRFilter.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_IIRFilter.h"
     "../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_LagrangeInterpolator.cpp"
@@ -172,9 +175,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_basics/synthesisers/juce_Synthesiser.h"
     "../../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.cpp"
-    "../../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.h"
     "../../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_audio_basics/juce_audio_basics.h"
+    "../../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.h"
     "../../../JuceLibraryCode/modules/juce_audio_devices/audio_io/juce_AudioDeviceManager.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_devices/audio_io/juce_AudioDeviceManager.h"
     "../../../JuceLibraryCode/modules/juce_audio_devices/audio_io/juce_AudioIODevice.cpp"
@@ -207,9 +209,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_audio_devices/sources/juce_AudioTransportSource.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_devices/sources/juce_AudioTransportSource.h"
     "../../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.cpp"
-    "../../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.h"
     "../../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_audio_devices/juce_audio_devices.h"
+    "../../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.h"
     "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/libFLAC/include/private/all.h"
     "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/libFLAC/include/private/bitmath.h"
     "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/libFLAC/include/private/bitreader.h"
@@ -343,6 +344,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_MP3AudioFormat.h"
     "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_OggVorbisAudioFormat.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_OggVorbisAudioFormat.h"
+    "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_QuickTimeAudioFormat.cpp"
+    "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_QuickTimeAudioFormat.h"
     "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_WavAudioFormat.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_WavAudioFormat.h"
     "../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_WindowsMediaAudioFormat.cpp"
@@ -365,9 +368,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_audio_formats/sampler/juce_Sampler.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_formats/sampler/juce_Sampler.h"
     "../../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.cpp"
-    "../../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.h"
     "../../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_audio_formats/juce_audio_formats.h"
+    "../../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.h"
     "../../../JuceLibraryCode/modules/juce_audio_processors/format/juce_AudioPluginFormat.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_processors/format/juce_AudioPluginFormat.h"
     "../../../JuceLibraryCode/modules/juce_audio_processors/format/juce_AudioPluginFormatManager.cpp"
@@ -414,9 +416,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_audio_processors/utilities/juce_AudioProcessorValueTreeState.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_processors/utilities/juce_AudioProcessorValueTreeState.h"
     "../../../JuceLibraryCode/modules/juce_audio_processors/juce_audio_processors.cpp"
-    "../../../JuceLibraryCode/modules/juce_audio_processors/juce_audio_processors.h"
     "../../../JuceLibraryCode/modules/juce_audio_processors/juce_audio_processors.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_audio_processors/juce_audio_processors.h"
+    "../../../JuceLibraryCode/modules/juce_audio_processors/juce_audio_processors.h"
     "../../../JuceLibraryCode/modules/juce_audio_utils/audio_cd/juce_AudioCDBurner.h"
     "../../../JuceLibraryCode/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.h"
@@ -449,9 +450,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_audio_utils/players/juce_SoundPlayer.cpp"
     "../../../JuceLibraryCode/modules/juce_audio_utils/players/juce_SoundPlayer.h"
     "../../../JuceLibraryCode/modules/juce_audio_utils/juce_audio_utils.cpp"
-    "../../../JuceLibraryCode/modules/juce_audio_utils/juce_audio_utils.h"
     "../../../JuceLibraryCode/modules/juce_audio_utils/juce_audio_utils.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_audio_utils/juce_audio_utils.h"
+    "../../../JuceLibraryCode/modules/juce_audio_utils/juce_audio_utils.h"
     "../../../JuceLibraryCode/modules/juce_core/containers/juce_AbstractFifo.cpp"
     "../../../JuceLibraryCode/modules/juce_core/containers/juce_AbstractFifo.h"
     "../../../JuceLibraryCode/modules/juce_core/containers/juce_Array.h"
@@ -682,9 +682,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_core/zip/juce_ZipFile.cpp"
     "../../../JuceLibraryCode/modules/juce_core/zip/juce_ZipFile.h"
     "../../../JuceLibraryCode/modules/juce_core/juce_core.cpp"
-    "../../../JuceLibraryCode/modules/juce_core/juce_core.h"
     "../../../JuceLibraryCode/modules/juce_core/juce_core.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_core/juce_core.h"
+    "../../../JuceLibraryCode/modules/juce_core/juce_core.h"
     "../../../JuceLibraryCode/modules/juce_cryptography/encryption/juce_BlowFish.cpp"
     "../../../JuceLibraryCode/modules/juce_cryptography/encryption/juce_BlowFish.h"
     "../../../JuceLibraryCode/modules/juce_cryptography/encryption/juce_Primes.cpp"
@@ -698,9 +697,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_cryptography/hashing/juce_Whirlpool.cpp"
     "../../../JuceLibraryCode/modules/juce_cryptography/hashing/juce_Whirlpool.h"
     "../../../JuceLibraryCode/modules/juce_cryptography/juce_cryptography.cpp"
-    "../../../JuceLibraryCode/modules/juce_cryptography/juce_cryptography.h"
     "../../../JuceLibraryCode/modules/juce_cryptography/juce_cryptography.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_cryptography/juce_cryptography.h"
+    "../../../JuceLibraryCode/modules/juce_cryptography/juce_cryptography.h"
     "../../../JuceLibraryCode/modules/juce_data_structures/app_properties/juce_ApplicationProperties.cpp"
     "../../../JuceLibraryCode/modules/juce_data_structures/app_properties/juce_ApplicationProperties.h"
     "../../../JuceLibraryCode/modules/juce_data_structures/app_properties/juce_PropertiesFile.cpp"
@@ -717,9 +715,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_data_structures/values/juce_ValueTreeSynchroniser.cpp"
     "../../../JuceLibraryCode/modules/juce_data_structures/values/juce_ValueTreeSynchroniser.h"
     "../../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.cpp"
-    "../../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.h"
     "../../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_data_structures/juce_data_structures.h"
+    "../../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.h"
     "../../../JuceLibraryCode/modules/juce_events/broadcasters/juce_ActionBroadcaster.cpp"
     "../../../JuceLibraryCode/modules/juce_events/broadcasters/juce_ActionBroadcaster.h"
     "../../../JuceLibraryCode/modules/juce_events/broadcasters/juce_ActionListener.h"
@@ -762,9 +759,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_events/timers/juce_Timer.cpp"
     "../../../JuceLibraryCode/modules/juce_events/timers/juce_Timer.h"
     "../../../JuceLibraryCode/modules/juce_events/juce_events.cpp"
-    "../../../JuceLibraryCode/modules/juce_events/juce_events.h"
     "../../../JuceLibraryCode/modules/juce_events/juce_events.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_events/juce_events.h"
+    "../../../JuceLibraryCode/modules/juce_events/juce_events.h"
     "../../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colour.cpp"
     "../../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colour.h"
     "../../../JuceLibraryCode/modules/juce_graphics/colour/juce_ColourGradient.cpp"
@@ -927,9 +923,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_graphics/placement/juce_RectanglePlacement.cpp"
     "../../../JuceLibraryCode/modules/juce_graphics/placement/juce_RectanglePlacement.h"
     "../../../JuceLibraryCode/modules/juce_graphics/juce_graphics.cpp"
-    "../../../JuceLibraryCode/modules/juce_graphics/juce_graphics.h"
     "../../../JuceLibraryCode/modules/juce_graphics/juce_graphics.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_graphics/juce_graphics.h"
+    "../../../JuceLibraryCode/modules/juce_graphics/juce_graphics.h"
     "../../../JuceLibraryCode/modules/juce_gui_basics/application/juce_Application.cpp"
     "../../../JuceLibraryCode/modules/juce_gui_basics/application/juce_Application.h"
     "../../../JuceLibraryCode/modules/juce_gui_basics/buttons/juce_ArrowButton.cpp"
@@ -1197,9 +1192,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_TopLevelWindow.cpp"
     "../../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_TopLevelWindow.h"
     "../../../JuceLibraryCode/modules/juce_gui_basics/juce_gui_basics.cpp"
-    "../../../JuceLibraryCode/modules/juce_gui_basics/juce_gui_basics.h"
     "../../../JuceLibraryCode/modules/juce_gui_basics/juce_gui_basics.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_gui_basics/juce_gui_basics.h"
+    "../../../JuceLibraryCode/modules/juce_gui_basics/juce_gui_basics.h"
     "../../../JuceLibraryCode/modules/juce_gui_extra/code_editor/juce_CodeDocument.cpp"
     "../../../JuceLibraryCode/modules/juce_gui_extra/code_editor/juce_CodeDocument.h"
     "../../../JuceLibraryCode/modules/juce_gui_extra/code_editor/juce_CodeEditorComponent.cpp"
@@ -1252,9 +1246,8 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_gui_extra/native/juce_win32_SystemTrayIcon.cpp"
     "../../../JuceLibraryCode/modules/juce_gui_extra/native/juce_win32_WebBrowserComponent.cpp"
     "../../../JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.cpp"
-    "../../../JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.h"
     "../../../JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_gui_extra/juce_gui_extra.h"
+    "../../../JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.h"
     "../../../JuceLibraryCode/modules/juce_opengl/geometry/juce_Draggable3DOrientation.h"
     "../../../JuceLibraryCode/modules/juce_opengl/geometry/juce_Matrix3D.h"
     "../../../JuceLibraryCode/modules/juce_opengl/geometry/juce_Quaternion.h"
@@ -1286,22 +1279,27 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/modules/juce_opengl/utils/juce_OpenGLAppComponent.cpp"
     "../../../JuceLibraryCode/modules/juce_opengl/utils/juce_OpenGLAppComponent.h"
     "../../../JuceLibraryCode/modules/juce_opengl/juce_opengl.cpp"
-    "../../../JuceLibraryCode/modules/juce_opengl/juce_opengl.h"
     "../../../JuceLibraryCode/modules/juce_opengl/juce_opengl.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_opengl/juce_opengl.h"
+    "../../../JuceLibraryCode/modules/juce_opengl/juce_opengl.h"
     "../../../JuceLibraryCode/modules/juce_video/capture/juce_CameraDevice.cpp"
     "../../../JuceLibraryCode/modules/juce_video/capture/juce_CameraDevice.h"
+    "../../../JuceLibraryCode/modules/juce_video/native/juce_android_CameraDevice.cpp"
     "../../../JuceLibraryCode/modules/juce_video/native/juce_android_CameraDevice.h"
     "../../../JuceLibraryCode/modules/juce_video/native/juce_mac_CameraDevice.h"
+    "../../../JuceLibraryCode/modules/juce_video/native/juce_mac_CameraDevice.mm"
+    "../../../JuceLibraryCode/modules/juce_video/native/juce_mac_MovieComponent.mm"
     "../../../JuceLibraryCode/modules/juce_video/native/juce_mac_Video.h"
+    "../../../JuceLibraryCode/modules/juce_video/native/juce_win32_CameraDevice.cpp"
     "../../../JuceLibraryCode/modules/juce_video/native/juce_win32_CameraDevice.h"
+    "../../../JuceLibraryCode/modules/juce_video/native/juce_win32_DirectShowComponent.cpp"
     "../../../JuceLibraryCode/modules/juce_video/native/juce_win32_Video.h"
+    "../../../JuceLibraryCode/modules/juce_video/playback/juce_DirectShowComponent.h"
+    "../../../JuceLibraryCode/modules/juce_video/playback/juce_MovieComponent.h"
     "../../../JuceLibraryCode/modules/juce_video/playback/juce_VideoComponent.cpp"
     "../../../JuceLibraryCode/modules/juce_video/playback/juce_VideoComponent.h"
     "../../../JuceLibraryCode/modules/juce_video/juce_video.cpp"
-    "../../../JuceLibraryCode/modules/juce_video/juce_video.h"
     "../../../JuceLibraryCode/modules/juce_video/juce_video.mm"
-    "../../../../../../Downloads/JUCE/modules/juce_video/juce_video.h"
+    "../../../JuceLibraryCode/modules/juce_video/juce_video.h"
     "../../../JuceLibraryCode/AppConfig.h"
     "../../../JuceLibraryCode/include_juce_audio_basics.cpp"
     "../../../JuceLibraryCode/include_juce_audio_devices.cpp"
@@ -1347,6 +1345,7 @@ set_source_files_properties("../../../Source/global.h" PROPERTIES HEADER_FILE_ON
 set_source_files_properties("../../../Source/MainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/User.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/Session.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../Source/Comment.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/StatsStructs.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/Exercise.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../Source/ExerciseGenerator.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1384,6 +1383,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_CatmullRomInterpolator.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_CatmullRomInterpolator.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_Decibels.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_FFT.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_FFT.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_IIRFilter.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_IIRFilter.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/effects/juce_LagrangeInterpolator.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1442,9 +1443,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/synthesisers/juce_Synthesiser.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_audio_basics/juce_audio_basics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices/audio_io/juce_AudioDeviceManager.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices/audio_io/juce_AudioDeviceManager.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices/audio_io/juce_AudioIODevice.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1477,9 +1477,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices/sources/juce_AudioTransportSource.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices/sources/juce_AudioTransportSource.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_audio_devices/juce_audio_devices.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/libFLAC/include/private/all.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/libFLAC/include/private/bitmath.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/libFLAC/include/private/bitreader.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1613,6 +1612,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_MP3AudioFormat.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_OggVorbisAudioFormat.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_OggVorbisAudioFormat.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_QuickTimeAudioFormat.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_QuickTimeAudioFormat.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_WavAudioFormat.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_WavAudioFormat.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_WindowsMediaAudioFormat.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1635,9 +1636,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/sampler/juce_Sampler.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/sampler/juce_Sampler.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_audio_formats/juce_audio_formats.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_processors/format/juce_AudioPluginFormat.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_processors/format/juce_AudioPluginFormat.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_processors/format/juce_AudioPluginFormatManager.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1684,9 +1684,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_process
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_processors/utilities/juce_AudioProcessorValueTreeState.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_processors/utilities/juce_AudioProcessorValueTreeState.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_processors/juce_audio_processors.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_processors/juce_audio_processors.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_processors/juce_audio_processors.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_audio_processors/juce_audio_processors.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_processors/juce_audio_processors.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/audio_cd/juce_AudioCDBurner.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1719,9 +1718,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/p
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/players/juce_SoundPlayer.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/players/juce_SoundPlayer.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/juce_audio_utils.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/juce_audio_utils.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/juce_audio_utils.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_audio_utils/juce_audio_utils.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_audio_utils/juce_audio_utils.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/containers/juce_AbstractFifo.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/containers/juce_AbstractFifo.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/containers/juce_Array.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1952,9 +1950,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/zip/juce
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/zip/juce_ZipFile.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/zip/juce_ZipFile.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/juce_core.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/juce_core.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/juce_core.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_core/juce_core.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_core/juce_core.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/encryption/juce_BlowFish.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/encryption/juce_BlowFish.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/encryption/juce_Primes.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1968,9 +1965,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/hashing/juce_Whirlpool.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/hashing/juce_Whirlpool.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/juce_cryptography.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/juce_cryptography.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/juce_cryptography.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_cryptography/juce_cryptography.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_cryptography/juce_cryptography.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structures/app_properties/juce_ApplicationProperties.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structures/app_properties/juce_ApplicationProperties.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structures/app_properties/juce_PropertiesFile.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -1987,9 +1983,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structur
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structures/values/juce_ValueTreeSynchroniser.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structures/values/juce_ValueTreeSynchroniser.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_data_structures/juce_data_structures.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/broadcasters/juce_ActionBroadcaster.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/broadcasters/juce_ActionBroadcaster.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/broadcasters/juce_ActionListener.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2032,9 +2027,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/timers
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/timers/juce_Timer.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/timers/juce_Timer.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/juce_events.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/juce_events.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/juce_events.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_events/juce_events.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_events/juce_events.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colour.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colour.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/colour/juce_ColourGradient.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2197,9 +2191,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/plac
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/placement/juce_RectanglePlacement.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/placement/juce_RectanglePlacement.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/juce_graphics.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/juce_graphics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/juce_graphics.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_graphics/juce_graphics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_graphics/juce_graphics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/application/juce_Application.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/application/juce_Application.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/buttons/juce_ArrowButton.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2467,9 +2460,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/wi
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_TopLevelWindow.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_TopLevelWindow.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/juce_gui_basics.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/juce_gui_basics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/juce_gui_basics.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_gui_basics/juce_gui_basics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_basics/juce_gui_basics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/code_editor/juce_CodeDocument.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/code_editor/juce_CodeDocument.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/code_editor/juce_CodeEditorComponent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2522,9 +2514,8 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/nat
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/native/juce_win32_SystemTrayIcon.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/native/juce_win32_WebBrowserComponent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_gui_extra/juce_gui_extra.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/geometry/juce_Draggable3DOrientation.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/geometry/juce_Matrix3D.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/geometry/juce_Quaternion.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2556,22 +2547,27 @@ set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/opengl
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/utils/juce_OpenGLAppComponent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/utils/juce_OpenGLAppComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/juce_opengl.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/juce_opengl.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/juce_opengl.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_opengl/juce_opengl.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_opengl/juce_opengl.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/capture/juce_CameraDevice.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/capture/juce_CameraDevice.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_android_CameraDevice.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_android_CameraDevice.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_mac_CameraDevice.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_mac_CameraDevice.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_mac_MovieComponent.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_mac_Video.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_win32_CameraDevice.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_win32_CameraDevice.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_win32_DirectShowComponent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/native/juce_win32_Video.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/playback/juce_DirectShowComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/playback/juce_MovieComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/playback/juce_VideoComponent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/playback/juce_VideoComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/juce_video.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/juce_video.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/juce_video.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../../Downloads/JUCE/modules/juce_video/juce_video.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../JuceLibraryCode/modules/juce_video/juce_video.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/AppConfig.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../JuceLibraryCode/JuceHeader.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 

@@ -10,8 +10,6 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Session.h"
-#include "StatsStructs.h"
-#include "global.h"
 
 
 class User

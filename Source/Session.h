@@ -10,36 +10,10 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "StatsStructs.h"
-#include "global.h"
-#include "Report.h"
+#include "Comment.h"
+
 #include <vector>
-
-
-class Comment
-{
-public:
-    Comment(String ctext){
-        mText = ctext;
-    }
-    
-    ~Comment()
-    {
-        
-    }
-    void changeText(String ctext)
-    {
-        mText = ctext;
-    }
-    
-    String getText()
-    {
-        return mText;
-    }
-    
-private:
-    String mText="";
-};
-
+#include <ctime>
 
 
 class Session
@@ -78,6 +52,15 @@ public:
 
    }
     
+    String getStrCurrentTime()
+    {
+        // current date/time based on current system
+        time_t now = time(0);
+        // convert now to string form
+        char* dt = ctime(&now);
+        
+        return dt;
+    }
     
     int getRange()
     {
@@ -109,7 +92,9 @@ public:
     
     void addComment(String ctext)
     {
-        Comment c(ctext);
+        Comment c;
+        c.mText = ctext;
+        c.mDate = getStrCurrentTime();
         mVecComments.push_back(c);
       
     }
@@ -138,6 +123,43 @@ public:
         return mAudioFileNames;
     }
     
+    int getQuestionsCount()
+    {
+        return mQuestionsCount;
+    }
+    
+    String getStrRange()
+    {
+        String s = "";
+        
+        switch(mRange)
+        {
+            case all:
+                s = "All";
+                break;
+            case high:
+                s = "High";
+                break;
+            case mid:
+                s = "Mid";
+                break;
+            case low:
+                s = "Low";
+                break;
+            case mid8:
+                s = "Mid8";
+                break;
+                
+        }
+        
+        return s;
+    }
+    
+    
+    std::vector<Comment>& getComments()
+    {
+        return mVecComments;
+    }
     
     void updateStats(float centerFreq, float centerFreqAnswered,
                      int answerDistance)   //update mSessionStats
@@ -165,6 +187,16 @@ public:
         
     }
     
+    void setDuration(double duration)
+    {
+        mDuration = static_cast<int>(duration);
+    }
+    
+    int getDuration()
+    {
+        return mDuration;
+    }
+    
     void printStats()
     {
         mSessionStats.print();
@@ -175,7 +207,7 @@ public:
         std::cout<<"Session - Print All Comments"<<std::endl;
         for(int i=0;i<mVecComments.size();i++)
         {
-            std::cout<<i<<": "<<mVecComments[i].getText()<<std::endl;
+            std::cout<<i<<": "<<mVecComments[i].mText<<std::endl;
         }
     }
     
@@ -188,9 +220,9 @@ public:
         }
     }
     
+
     
 private:
-    Report mReport;
     std::vector<Comment>  mVecComments;
     std::vector<String> mAudioFileNames;
     
@@ -202,4 +234,6 @@ private:
     
     //Date date;
     //Time time;
+    
+    int mDuration = 0;
 };

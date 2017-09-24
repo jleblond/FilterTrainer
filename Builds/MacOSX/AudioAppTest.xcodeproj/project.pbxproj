@@ -141,6 +141,7 @@
 		A7CF1901276E6D3C4995F4D2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PositionOverlay.h; path = ../../Source/GUI/PositionOverlay.h; sourceTree = "SOURCE_ROOT"; };
 		AC7921BACF7333BD93A818BE = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Dsp.h; path = ../../DspFilters/DspFilters/Dsp.h; sourceTree = "SOURCE_ROOT"; };
 		AD5D5F6CDC5CEBFCD9CD5490 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_graphics.mm"; path = "../../JuceLibraryCode/include_juce_graphics.mm"; sourceTree = "SOURCE_ROOT"; };
+		AE3A97BE8C4AF873B133B4B9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = ../../Source/Comment.h; sourceTree = "SOURCE_ROOT"; };
 		AE5D5815B14EB92F0486A9B0 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MainComponent.h; path = ../../Source/MainComponent.h; sourceTree = "SOURCE_ROOT"; };
 		B4656749501035E0EE71EFF5 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Legendre.h; path = ../../DspFilters/DspFilters/Legendre.h; sourceTree = "SOURCE_ROOT"; };
 		B4D537757090F56CE3FCD573 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Cascade.h; path = ../../DspFilters/DspFilters/Cascade.h; sourceTree = "SOURCE_ROOT"; };
@@ -254,6 +255,7 @@
 					2D0D6F23999832CB78C66868,
 					ECC060C8891B61AD63C229EB,
 					1F8D40FF51A838509562E20F,
+					AE3A97BE8C4AF873B133B4B9,
 					5075C4AA705D2DABDB062E2C,
 					72292EF6111A877963BA8D6A,
 					F065C7DE7EFF39E71A70376C,

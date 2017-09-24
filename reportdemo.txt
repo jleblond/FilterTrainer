@@ -1,0 +1,67 @@
+
+		*************************
+			FILTER TRAINER
+			REPORT
+		*************************
+
+			User [Jasmine]
+			Date [17/09/18]
+			Time [10:24 PM]
+
+
+
+	***SESSION INFORMATION***
+
+
+Time practiced [2h10m]
+
+Exercise settings
+	Frequency range [Mid-8]
+	Amplification/Attenuation (dB) [+12,-12]
+
+
+Name(s) of audo file(s) loaded
+[nameofaudiofile.mp3]
+[otherfile.wav]
+[blablabla.wav]
+
+
+Total number of questions asked [47]
+
+
+
+	***GRAPH***
+
+center
+freq      score (%)
+————————————————————————-
+ 31  Hz  |——————————
+ 63  Hz  |——-
+ 125 Hz  |—————
+ 250 Hz
+ 500 Hz
+ 1  kHz
+ 2  kHz
+ 4  kHz
+ 8  kHz
+16  kHz
+
+
+
+	***USER COMMENTS SECTION***
+
+[9:47PM]
+	[lorem ipsum]
+
+
+[9:56PM]
+	[test text blablablablalbalbal]
+
+
+
+
+
+
+button ‘end session’   -> generate txt file report
+
+

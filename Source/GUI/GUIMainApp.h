@@ -74,7 +74,10 @@ public:
         }
     }
     
-
+    void resetExControlsPanel()
+    {
+        mExcontrols.changePanelVisibility(true, false, false);
+    }
     
 private:
     GUIExControls mExcontrols;

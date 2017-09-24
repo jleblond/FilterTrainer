@@ -16,6 +16,13 @@
 #include "GUIStartSession.h"
 #include "GUIMainApp.h"
 
+#include "../ReportGenerator.h"
+
+#include <ctime>
+#include <ratio>
+#include <chrono>
+
+using namespace std::chrono;
 
 //APP dimensions
 const int HEIGHT=700;
@@ -91,18 +98,47 @@ public:
             }
             else
                 std::cout<<"Failure in 'mMainApp.setSession(Session*)"<<std::endl;
+            
+            
+            t1 = steady_clock::now();
+            
+  
 
         }
         
         if(button == &g_EndSessionButton)
         {
-            mStartSession.setVisible(true);
-            mMainApp.setVisible(false);
-            mHeader.displayEndSessionButton(false);
-            mHeader.displayCommentButton(false);
+            
+            t2 = steady_clock::now();
+            
+            duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+            double timeInSeconds = time_span.count();
+            
+            (g_User.getLastSession())->setDuration(timeInSeconds);
+            
+            Report report = ( ReportGenerator::Instance().createReport(
+                                                               *(g_User.getLastSession()),
+                                                                 g_User
+                                                                      )
+                             );
+            report.print();
+            
+            
+            if (ReportGenerator::Instance().generateReportFile(report) )
+            {
+                mStartSession.setVisible(true);
+                mMainApp.setVisible(false);
+                mHeader.displayEndSessionButton(false);
+                mHeader.displayCommentButton(false);
+                
+                mMainApp.resetExControlsPanel();
+            }
+            
         }
         
     }
+    
+    
 
 private:
     GUIHeader mHeader;
@@ -111,4 +147,6 @@ private:
 
     //GUI sections proportions
     const float mHeaderHeight = 0.15;
+    
+    steady_clock::time_point t1, t2;
 };

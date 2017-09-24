@@ -280,7 +280,7 @@ void MainContentComponent::openButtonClicked()
         
         if(g_User.getLastSession() != nullptr)
         {
-            String filename = file.getFullPathName();
+            String filename = file.getFileName();
             (g_User.getLastSession())->addAudioFileName(filename);
             (g_User.getLastSession())->printAudioFileNames();
         }
