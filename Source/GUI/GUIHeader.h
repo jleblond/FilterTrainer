@@ -68,11 +68,14 @@ public:
         
         Rectangle<int> area = getLocalBounds();
         
-        menu1.setBounds(0, 0, elementwidth, elementheight);
-        menu2.setBounds(menuxoffset+elementwidth, 0, elementwidth, elementheight);
+        //INFO
+        menu2.setBounds(0, 0, elementwidth, elementheight);
+        //ADD COMMENT
+        menu1.setBounds(elementwidth, 0, elementwidth, elementheight);
+        //USERNAME
+        mUserLabel.setBounds(menuxoffset, 0, 2*elementwidth, elementheight);
+        //END SESSION
         g_EndSessionButton.setBounds(menuxoffset+2*elementwidth, 0, elementwidth, elementheight);
-        
-        mUserLabel.setBounds(0, getHeight()-20, getWidth(), elementheight);
         
         //        std::cout<<"elheight: "<<elementheight<<std::endl;
         //        std::cout<<"elwidth: "<<elementwidth<<std::endl;
@@ -123,13 +126,8 @@ public:
     {
 #if JUCE_MODAL_LOOPS_PERMITTED
         AlertWindow w ("Comments",
-                       "You can add comments whenever you like and they will appear in your session report.",
+                       "This will be added to your session report.",
                        AlertWindow::NoIcon);
-
-        
-//        const char* options[] = { "option 1", "option 2", "option 3", "option 4", nullptr };
-//        w.addComboBox ("option", StringArray (options), "some options");
-        
         
         w.addCustomComponent(mTextEditor);
         mTextEditor->setSize(300,300);
@@ -143,10 +141,6 @@ public:
         
         if (w.runModalLoop() != 0) // is they picked 'ok'
         {
-            // this is the item they chose in the drop-down list..
-//            const int optaionIndexChosen = w.getComboBoxComponent ("option")->getSelectedItemIndex();
-//            ignoreUnused (optionIndexChosen);
-
             
             String commentText = mTextEditor->getText();
             (g_User.getLastSession())->addComment(commentText);
@@ -164,8 +158,8 @@ public:
         AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
         
         AlertWindow::showMessageBoxAsync (icon,
-                                          "This is an AlertWindow",
-                                          "And this is the AlertWindow's message. Blah blah blah blah blah blah blah blah blah blah blah blah blah.",
+                                          "FilterTrainer",
+                                          "Filter ear training tool based on Golden Ears",
                                           "OK");
     }
     
@@ -177,7 +171,7 @@ private:
     String str_subtitle=""; 
     
     TextButton menu1;
-    String str_menu1="Add a comment";
+    String str_menu1="Add Comment";
     
     TextButton menu2;
     String str_menu2="INFO";
@@ -189,6 +183,6 @@ private:
     Label mUserLabel;
 
     
-    TextEditor* mTextEditor = new TextEditor("textEditor");
+    TextEditor* mTextEditor = new TextEditor("Enter your comment here: ");
     
 };

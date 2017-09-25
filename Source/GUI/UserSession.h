@@ -20,21 +20,22 @@ private TextEditor::Listener
 public:
     UserSession()
     {
-        
+        addAndMakeVisible(mTxtFieldLabel);
+        mTxtFieldLabel.setText("Username: ", dontSendNotification);
+        mTxtFieldLabel.setBounds(250, 250, 60, 30);
         addAndMakeVisible(mTextField);
         
-        mTextField.setBounds(10, 50, 180, 24);
+        mTextField.setBounds(375, 250, 250, 30);
         mTextField.setColour(juce::TextEditor::textColourId, Colours::black);
         mTextField.setColour(juce::TextEditor::outlineColourId, juce::Colour::fromRGB(0,0,0));
         mTextField.setColour(juce::TextEditor::backgroundColourId, juce::Colour::fromRGB(247, 249, 252));
         mTextField.setColour(juce::TextEditor::focusedOutlineColourId, juce::Colour::fromRGB(0,0,0));
-        mTextField.setText("username");
+        mTextField.setText(" ");
         
     }
     
     ~UserSession()
     {
-        //delete mUser;
     }
     
     void paint (Graphics& g) override
@@ -67,7 +68,7 @@ public:
     
     
 private:
-    //User* mUser = new User("");
     TextEditor mTextField;
+    Label mTxtFieldLabel;
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GUIStartSession)
 };

@@ -71,7 +71,7 @@ String ReportGenerator::convertTimeStr(int timeInSeconds)
     return durationStr;
 }
 
-std::vector<int>& ReportGenerator::setGainFactors(Session& session)
+std::vector<int> ReportGenerator::setGainFactors(Session& session)
 {
     std::vector<int> gainVec;
     if(g_gainAmplification)
@@ -121,7 +121,7 @@ bool ReportGenerator::generateReportFile(Report& report)
         {
             File chosenDirectory = fc.getResult();
             String reportFilePath =
-            chosenDirectory.getFullPathName()+"/reports/"+getStrFormatCurrentTime()+".txt";
+                chosenDirectory.getFullPathName()+"/report_"+getStrFormatCurrentTime()+".txt";
             
             File reportFile(reportFilePath);
             reportFile.create();
@@ -164,8 +164,73 @@ String ReportGenerator::gainStr(Report& report)
     return s;
 }
 
+String ReportGenerator::linesPercent(float percent)
+{
+    String s = "";
+    
+    int nblines = static_cast<int>(percent*100)/2;
+    
+    for(int i=0;i<nblines;i++)
+    {
+        s +="-";
+    }
+    
+    std::cout<<s<<std::endl;
+    return s;
+}
+
+String ReportGenerator::freqRowStr(FreqStats& fs, float freq)
+{
+    String s ="Hz\t["+static_cast<String>(fs.count[freq])+"]\t\t|"+linesPercent(fs.getPercent(freq))+" "+
+    static_cast<String>(fs.getPercent(freq)*100)+"% \n";
+    
+    return s;
+}
+
+String ReportGenerator::freqChartStr(Report& report)
+{
+    String range = report.freqRange;
+    
+    String s = "";
+
+    if(range == "All" || range == "Low")
+        s+=" 31.25"+freqRowStr(report.freqstats, 31.25);
+    
+    if(range == "All" || range == "Mid8" || range == "Low")
+        s+=" 62.5 "+freqRowStr(report.freqstats, 62.5);
+
+    if(range == "All" || range == "Mid8" || range == "Low")
+        s+=" 125  "+freqRowStr(report.freqstats, 125);
+
+    if(range == "All" || range == "Mid8" || range == "Mid" || range == "Low")
+        s+=" 250  "+freqRowStr(report.freqstats, 250);
+
+    if(range == "All" || range == "Mid8" || range == "Mid" || range == "Low")
+        s+=" 500  "+freqRowStr(report.freqstats, 500);
+
+    if(range == "All" || range == "Mid8" || range == "High" || range == "Mid")
+        s+=" 1   k"+freqRowStr(report.freqstats, 1000);
+
+    if(range == "All" || range == "Mid8" || range == "High" || range == "Mid")
+        s+=" 2   k"+freqRowStr(report.freqstats, 2000);
+
+    if(range == "All" || range == "Mid8" || range == "High" || range == "Mid")
+        s+=" 4   k"+freqRowStr(report.freqstats, 4000);
+
+    if(range == "All" || range == "Mid8" || range == "High")
+        s+=" 8   k"+freqRowStr(report.freqstats, 8000);
+
+    if(range == "All" || range == "High")
+        s+="16   k"+freqRowStr(report.freqstats, 16000);
+
+
+    return s;
+}
+
 String ReportGenerator::reportTxtContent(Report& report)
 {
+
+    
     String s = "\n";
     s+= "\t\t \n";
     s+="\t\t\tFILTER TRAINER\n";
@@ -201,19 +266,10 @@ String ReportGenerator::reportTxtContent(Report& report)
     s+="\n";
     s+="\t***GRAPH***\n";
     s+="\n";
-    s+="center\n";
-    s+="freq      score (%)\n";
-    s+="————————————————————————-\n";
-    s+=" 31  Hz  |——————————\n";
-    s+=" 63  Hz  |——-\n";
-    s+=" 125 Hz  |—————\n";
-    s+=" 250 Hz\n";
-    s+=" 500 Hz\n";
-    s+=" 1  kHz\n";
-    s+=" 2  kHz\n";
-    s+=" 4  kHz\n";
-    s+=" 8  kHz\n";
-    s+="16  kHz\n";
+    s+="center\     #times  \n";
+    s+="freq        involved         score (%)\n";
+    s+="————————————————————————--------------\n";
+    s+=freqChartStr(report);
     s+="\n";
     s+="\n";
     s+="\n";

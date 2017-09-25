@@ -31,7 +31,7 @@ private:
     
     static ReportGenerator reportgenerator;
     
-    std::vector<int>& setGainFactors(Session& session);
+    std::vector<int> setGainFactors(Session& session);
     
     String getStrCurrentTime();
     
@@ -40,6 +40,12 @@ private:
     String convertTimeStr(int timeInSeconds);
     
     String gainStr(Report& report);
+    
+    String linesPercent(float percent);
+    
+    String freqRowStr(FreqStats& fs, float freq);
+    
+    String freqChartStr(Report& report);
     
     String reportTxtContent(Report& report);
     

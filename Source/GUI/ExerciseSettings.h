@@ -21,7 +21,7 @@ public:
     ExerciseSettings()
     {
         addAndMakeVisible(mTitleLabel);
-        mTitleLabel.setText("Generate a new question", dontSendNotification);
+        mTitleLabel.setText("Generate new question", dontSendNotification);
         
 //        addAndMakeVisible(mFreqRangeLabel);
 //        mFreqRangeLabel.setText("Frequency Range", dontSendNotification);
