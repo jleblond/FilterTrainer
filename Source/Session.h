@@ -16,6 +16,8 @@
 #include <ctime>
 
 
+//gain factors only avail to ReportGenerator (due to global being above Session.h in the file hierarchy)
+
 class Session
 {
 public:
@@ -196,6 +198,7 @@ public:
     {
         return mDuration;
     }
+    
     
     void printStats()
     {

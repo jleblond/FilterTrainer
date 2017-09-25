@@ -31,11 +31,15 @@ private:
     
     static ReportGenerator reportgenerator;
     
+    std::vector<int>& setGainFactors(Session& session);
+    
     String getStrCurrentTime();
     
     String getStrFormatCurrentTime();
     
     String convertTimeStr(int timeInSeconds);
+    
+    String gainStr(Report& report);
     
     String reportTxtContent(Report& report);
     

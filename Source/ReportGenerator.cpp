@@ -16,7 +16,6 @@
 ReportGenerator ReportGenerator::reportgenerator = ReportGenerator();
 
 
-
 ReportGenerator& ReportGenerator::Instance()
 {
     return reportgenerator;
@@ -72,6 +71,17 @@ String ReportGenerator::convertTimeStr(int timeInSeconds)
     return durationStr;
 }
 
+std::vector<int>& ReportGenerator::setGainFactors(Session& session)
+{
+    std::vector<int> gainVec;
+    if(g_gainAmplification)
+        gainVec.push_back(g_gainFactor);
+    if(g_gainAttenuation)
+        gainVec.push_back(-(g_gainFactor));
+    
+    return gainVec;
+}
+
 
 Report ReportGenerator::createReport(Session session, User& user)
 {
@@ -81,7 +91,7 @@ Report ReportGenerator::createReport(Session session, User& user)
     r.date = getStrCurrentTime();
     r.timePractised = convertTimeStr(session.getDuration() );
     r.freqRange = session.getStrRange();
-    std::vector<int> gainFactor;            //**
+    r.gainFactor = setGainFactors(session);
     r.audioFiles = session.getAudioFileNames();
     r.nbQuestions = session.getQuestionsCount();
     r.comments = session.getComments();
@@ -142,37 +152,50 @@ bool ReportGenerator::generateReportFile(Report& report)
    
 }
 
+String ReportGenerator::gainStr(Report& report)
+{
+    
+    String s="";
+    for(int i=0;i<(report.gainFactor).size();i++)
+    {
+        s += static_cast<String>(report.gainFactor[i])+" ";
+        std::cout<<report.gainFactor[i]<<std::endl;
+    }
+    return s;
+}
+
 String ReportGenerator::reportTxtContent(Report& report)
 {
     String s = "\n";
     s+= "\t\t \n";
     s+="\t\t\tFILTER TRAINER\n";
     s+="\t\t\tREPORT\n";
-    s+="\t\t*************************\n";
+    s+="\t\t*********************************************\n";
     s+="\n";
-    s+="\t\t\tUser [Jasmine]\n";
-    s+="\t\t\tDate [17/09/18]\n";
-    s+="\t\t\tTime [10:24 PM]\n";
+    s+="\t\t\tUser ["+report.username+"]\n";
+    s+="\t\t\tDate: "+report.date+"\n";
     s+="\n";
     s+="\n";
     s+="\n";
     s+="\t***SESSION INFORMATION***\n";
     s+="\n";
     s+="\n";
-    s+="Time practiced [2h10m]\n";
+    s+="Time practiced ["+report.timePractised+"]\n";
     s+="\n";
     s+="Exercise settings\n";
-    s+="\tFrequency range [Mid-8]\n";
-    s+="\tAmplification/Attenuation (dB) [+12,-12]\n";
+    s+="\tFrequency range ["+report.freqRange+"]\n";
+    s+="\tAmplification or Attenuation (dB) ["+gainStr(report)+"]\n";
     s+="\n";
     s+="\n";
     s+="Name(s) of audo file(s) loaded\n";
-    s+="[nameofaudiofile.mp3]\n";
-    s+="[otherfile.wav]\n";
-    s+="[blablabla.wav]\n";
+    
+    for(int i=0;i<(report.audioFiles).size();i++)
+    {
+         s+="\t["+report.audioFiles[i]+"]\n";
+    }
     s+="\n";
     s+="\n";
-    s+="Total number of questions asked [47]\n";
+    s+="Total number of questions asked ["+ static_cast<String>(report.nbQuestions) +"]\n";
     s+="\n";
     s+="\n";
     s+="\n";
@@ -196,12 +219,13 @@ String ReportGenerator::reportTxtContent(Report& report)
     s+="\n";
     s+="\t***USER COMMENTS SECTION***\n";
     s+="\n";
-    s+="[9:47PM]\n";
-    s+="\t[lorem ipsum]\n";
-    s+="\n";
-    s+="\n";
-    s+="[9:56PM]\n";
-    s+="\t[test text blablablablalbalbal]\n";
+    for(int i=0;i<(report.comments).size();i++)
+    {
+        s+="[["+(report.comments[i]).mDate+"\n";
+        s+="\t["+(report.comments[i]).mText+"]\n";
+        s+="\n";
+        s+="\n";
+    }
     s+="\n";
     
     return s;

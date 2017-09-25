@@ -32,6 +32,11 @@ struct Report
             std::cout<<"Time practised: "<<timePractised<<std::endl; //****
             std::cout<<freqRange<<std::endl;
             
+            for(int i=0;i<gainFactor.size();i++)
+            {
+                std::cout<<static_cast<String>(gainFactor[i])<<std::endl;
+            }
+            
             for(int i=0;i<audioFiles.size();i++)
             {
                 std::cout<<audioFiles[i]<<std::endl;
