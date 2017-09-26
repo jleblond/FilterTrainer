@@ -127,20 +127,9 @@ bool ReportGenerator::generateReportFile(Report& report)
             reportFile.create();
             reportFile.appendText( reportTxtContent(report) );
             
-            AlertWindow w ("**Report Generator**",
-                           "File saved as...\n" + reportFilePath,
-                           AlertWindow::NoIcon);
+            alert.addTextBlock("File saved as...\n" + reportFilePath);
             
-            
-            w.addButton ("Open File",     1, KeyPress (KeyPress::returnKey, 0, 0));
-            w.addButton ("Continue", 0, KeyPress (KeyPress::escapeKey, 0, 0));
-            
-            
-            if (w.runModalLoop() != 0) // is they picked 'ok'
-            {
-                reportFile.revealToUser();
-                
-            }
+            reportFile.revealToUser();
             
             return true;
       
@@ -252,7 +241,7 @@ String ReportGenerator::reportTxtContent(Report& report)
     s+="\tAmplification or Attenuation (dB) ["+gainStr(report)+"]\n";
     s+="\n";
     s+="\n";
-    s+="Name(s) of audo file(s) loaded\n";
+    s+="Name(s) of audio file(s) played\n";
     
     for(int i=0;i<(report.audioFiles).size();i++)
     {

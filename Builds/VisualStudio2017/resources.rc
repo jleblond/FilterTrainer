@@ -13,9 +13,9 @@ BEGIN
   BEGIN
     BLOCK "040904E4"
     BEGIN
-      VALUE "FileDescription",  "AudioAppTest\0"
+      VALUE "FileDescription",  "FilterTrainer\0"
       VALUE "FileVersion",  "1.0.0\0"
-      VALUE "ProductName",  "AudioAppTest\0"
+      VALUE "ProductName",  "FilterTrainer\0"
       VALUE "ProductVersion",  "1.0.0\0"
     END
   END

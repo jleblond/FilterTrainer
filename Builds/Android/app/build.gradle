@@ -19,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.yourcompany.audioapptest"
+        applicationId "com.jleblondc.filtertrainer"
         minSdkVersion    10
         targetSdkVersion 10
         externalNativeBuild {

@@ -92,6 +92,7 @@ private:
     
     void transportSourceChanged();
     
+    void addAudioFileNameSession();
     
     //==========================================================================
 
@@ -99,6 +100,8 @@ private:
     
     double mSampleRate = 0;
     float mLastGain = 1.0f;
+    
+    String mCurrAudioFile = "";
     
     AudioFormatManager formatManager;
     ScopedPointer<LoopingAudioFormatReaderSource> readerSource;

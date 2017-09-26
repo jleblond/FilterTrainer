@@ -158,8 +158,8 @@ public:
         AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
         
         AlertWindow::showMessageBoxAsync (icon,
-                                          "FilterTrainer",
-                                          "Filter ear training tool based on Golden Ears",
+                                          "FilterTrainer 1.0 (for MacOSX)",
+                                          "Filter ear training tool written by Jasmine Leblond-Chartrand \nfor Concordia Music Department, Montreal, September 2017  ",
                                           "OK");
     }
     

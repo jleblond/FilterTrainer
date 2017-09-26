@@ -10,9 +10,9 @@
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>CFBundleName</key>
-    <string>AudioAppTest</string>
+    <string>FilterTrainer</string>
     <key>CFBundleDisplayName</key>
-    <string>AudioAppTest</string>
+    <string>FilterTrainer</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>

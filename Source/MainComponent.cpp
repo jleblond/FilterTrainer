@@ -13,10 +13,10 @@
 
 
 MainContentComponent::MainContentComponent()
-    :   state (Stopped),
-        peakfilter(2),
-        thumbnailCache (5),
-        waveform( 512, formatManager, thumbnailCache, transportSource )
+:   state (Stopped),
+peakfilter(2),
+thumbnailCache (5),
+waveform( 512, formatManager, thumbnailCache, transportSource )
 
 {
     //GUIExControls.h g_questionButton Listener
@@ -34,7 +34,7 @@ MainContentComponent::MainContentComponent()
     
     addAndMakeVisible (g_ZoomOutButton);
     g_ZoomOutButton.setButtonText ("-");
-   // g_ZoomOutButton.setEnabled(false);
+    // g_ZoomOutButton.setEnabled(false);
     
     //CurrentPosition
     addAndMakeVisible (&currentPositionLabel);
@@ -49,7 +49,7 @@ MainContentComponent::MainContentComponent()
     g_stopButton.addListener (this);
     g_loopingButton.addListener (this);
     g_filterButton.addListener (this);
- 
+    
     
     
     formatManager.registerBasicFormats();
@@ -73,7 +73,7 @@ void MainContentComponent::prepareToPlay ( int samplesPerBlockExpected, double s
     this->mSampleRate=sampleRate;
     
     transportSource.prepareToPlay (samplesPerBlockExpected, sampleRate);
- 
+    
     peakfilter.reset();
     peakfilter.changeParam(sampleRate, g_centreFrequency, g_Q, g_gainFactor);
     
@@ -89,11 +89,11 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
         bufferToFill.clearActiveBufferRegion();
         return;
     }
-
+    
     
     //Regular audio playback
     transportSource.getNextAudioBlock (bufferToFill);
-
+    
     
     // Filter processing
     if(g_filterOn)
@@ -102,7 +102,7 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
         peakfilter.process( *bufferToFill.buffer );
 #else
         bandshelf.process( (*bufferToFill.buffer).getNumSamples(),
-                           (*bufferToFill.buffer).getArrayOfWritePointers() );
+                          (*bufferToFill.buffer).getArrayOfWritePointers() );
 #endif
     }
     
@@ -111,7 +111,7 @@ void MainContentComponent::getNextAudioBlock (const AudioSourceChannelInfo& buff
     bufferToFill.buffer->applyGainRamp( bufferToFill.startSample, bufferToFill.numSamples,
                                        mLastGain, g_mainVolume);
     mLastGain = g_mainVolume;
-
+    
     
 }
 
@@ -133,7 +133,7 @@ void MainContentComponent::resized()
     
     const Rectangle<int> thumbnailBounds (10, 50, getWidth() - 20, getHeight() - 50);
     waveform.setBounds (thumbnailBounds);
-
+    
 }
 
 
@@ -161,7 +161,7 @@ void MainContentComponent::timerCallback()
 {
     g_currAudioPosition = transportSource.getCurrentPosition();
     g_currDrawPosition = ( g_currAudioPosition / g_srcDurationInSec )
-                                            * waveform.getThumbnailWidth();
+    * waveform.getThumbnailWidth();
     
     
     if (transportSource.isPlaying())
@@ -264,7 +264,7 @@ void MainContentComponent::questionButtonChanged()
     
     assert(this->mSampleRate != 0);
     bandshelf.setup( 2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1 );
-
+    
 }
 
 
@@ -277,13 +277,7 @@ void MainContentComponent::openButtonClicked()
     if (chooser.browseForFileToOpen())
     {
         File file = chooser.getResult();
-        
-        if(g_User.getLastSession() != nullptr)
-        {
-            String filename = file.getFileName();
-            (g_User.getLastSession())->addAudioFileName(filename);
-            (g_User.getLastSession())->printAudioFileNames();
-        }
+        mCurrAudioFile = file.getFileName();
         
         
         AudioFormatReader* reader = formatManager.createReaderFor (file);
@@ -291,7 +285,7 @@ void MainContentComponent::openButtonClicked()
         if (reader != nullptr)
         {
             ScopedPointer<LoopingAudioFormatReaderSource> newSource =
-                                                new LoopingAudioFormatReaderSource ( reader, true );
+            new LoopingAudioFormatReaderSource ( reader, true );
             
             transportSource.setSource ( newSource, 0, nullptr, reader->sampleRate );
             newSource->setLooping(false);   //(required?)
@@ -321,6 +315,20 @@ void MainContentComponent::playButtonClicked()
     else if (state == Playing)
         changeState (Pausing);
     
+    
+    if(g_User.getLastSession() != nullptr)
+    {
+        if( (g_User.getLastSession())->getAudioFileNames().size() > 0 )
+        {
+            if( (g_User.getLastSession())->getAudioFileNames().back()  != mCurrAudioFile )
+                addAudioFileNameSession();
+        }
+        else
+        {
+            addAudioFileNameSession();
+        }
+    }
+    
 }
 
 
@@ -348,7 +356,7 @@ void MainContentComponent::filterButtonClicked()
     {
         g_filterButton.setButtonText ("Filter is OFF");
         g_filterButton.setColour(TextButton::buttonColourId,
-                               getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
+                                 getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
     }
 }
 
@@ -361,6 +369,17 @@ void MainContentComponent::transportSourceChanged()
         changeState (Stopped);
     else if (Pausing == state)
         changeState (Paused);
+}
+
+
+void MainContentComponent::addAudioFileNameSession()
+{
+    if(g_User.getLastSession() != nullptr  &&  mCurrAudioFile != "")
+    {
+        (g_User.getLastSession())->addAudioFileName(mCurrAudioFile);
+        (g_User.getLastSession())->printAudioFileNames();
+    }
+    
 }
 
 
