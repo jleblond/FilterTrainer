@@ -78,6 +78,8 @@ private:
     
     void changeState (TransportState newState);
     
+    void changeFilterSettings(double cFreq, double q, float gainFctr);
+    
     void questionButtonChanged();
     
     void openButtonClicked();

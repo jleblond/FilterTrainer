@@ -50,7 +50,8 @@ waveform( 512, formatManager, thumbnailCache, transportSource )
     g_loopingButton.addListener (this);
     g_filterButton.addListener (this);
     
-    
+    //in order to stop audio when session ended
+    g_EndSessionButton.addListener (this);
     
     formatManager.registerBasicFormats();
     transportSource.addChangeListener (this);
@@ -154,6 +155,7 @@ void MainContentComponent::buttonClicked (Button* button)
     if (button == &g_stopButton)  stopButtonClicked();
     if (button == &g_filterButton) filterButtonClicked();
     if (button == &g_questionButton) questionButtonChanged();
+    if (button == &g_EndSessionButton)   stopButtonClicked();
 }
 
 
@@ -255,15 +257,20 @@ void MainContentComponent::changeState (TransportState newState)
     }
 }
 
+void MainContentComponent::changeFilterSettings(double cFreq, double q, float gainFactor)
+{
+    peakfilter.updateCoeff( cFreq, q, gainFactor );
+    
+    assert(this->mSampleRate != 0);
+    bandshelf.setup( 2, mSampleRate, cFreq, cFreq/q, gainFactor, 1 );
+}
 
 void MainContentComponent::questionButtonChanged()
 {
     ExerciseGenerator::Instance().createExercise( g_freqRangeValue, g_filterGainValue,                                 g_gainAmplification, g_gainAttenuation);
     
-    peakfilter.updateCoeff( g_centreFrequency, g_Q, g_gainFactor );
     
-    assert(this->mSampleRate != 0);
-    bandshelf.setup( 2, mSampleRate, g_centreFrequency, g_centreFrequency/g_Q, g_gainFactor, 1 );
+    changeFilterSettings(g_centreFrequency, g_Q, g_gainFactor);
     
 }
 
