@@ -103,6 +103,9 @@ public:
         mCurrFreqLabel.setText( "Your answer: " + freqanswered , dontSendNotification);
         mCorrectAnswerLabel.setText( "Correct answer: " + correctanswer , dontSendNotification);
         mFreqBoostLabel.setText( "Boost Amount (dB): " + freqboost, dontSendNotification );
+        
+        
+        updateSliderCursorPos(g_exerciseCentreFrequency);
     }
     
     void buttonClicked(Button* button) override
@@ -147,6 +150,7 @@ public:
         else //including range==1
             return g_AllRange;
     }
+
     
     
     //valid?
@@ -159,6 +163,12 @@ public:
         mFreqLabel.setText("", dontSendNotification);
         
     }
+    
+    void updateSliderCursorPos(float freq)
+    {
+        int val = getFreqValue(freq, g_freqRangeValue);
+        mFreqSlider.setValue(val);
+    };
     
     double getFreq(int freqValue)
     {
@@ -178,9 +188,43 @@ public:
             return  g_AllRange[index];
     }
     
-   
+    int getFreqValue(float freq, int range)
+    {
+        int value = 1; //arbitrary default value 1
+        switch(range)
+        {
+            case 2:
+                value = matchFreqinRangeVec(g_HighRange, freq);
+                break;
+            case 3:
+                value = matchFreqinRangeVec(g_MidRange, freq);
+                break;
+            case 4:
+                value = matchFreqinRangeVec(g_LowRange, freq);
+                break;
+            case 5:
+                value = matchFreqinRangeVec(g_Mid8Range, freq);
+                break;
+            default:
+                value = matchFreqinRangeVec(g_AllRange, freq);
+        };
+        
+        return value;
+        
+    }
   
-    
+    int matchFreqinRangeVec(std::vector<float>& g_RangeVec, float freq)
+    {
+        for(int i=0;i<g_RangeVec.size();i++)
+        {
+            if(freq == g_RangeVec[i])
+                return i+1;  //values range [1..n]
+        }
+        
+        
+        //in case end reached (should not be the case)
+        return 1;
+    }
     
 private:
     Label mCurrFreqLabel;

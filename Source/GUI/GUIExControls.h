@@ -112,9 +112,11 @@ public:
             mExerciseAnswering.answer();
             
             mExerciseCorrection.update();
+            //mExerciseCorrection.updateSliderCursorPos(g_exerciseCentreFrequency);
             
             g_filterButton.setVisible(false);
             g_dummyFilterButton.setVisible(false);
+            
             
             changePanelVisibility(false, false, true);
         }
