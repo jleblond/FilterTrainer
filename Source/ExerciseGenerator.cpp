@@ -39,9 +39,10 @@ void ExerciseGenerator::createExercise( int freqrange, int absfreqboost,
     
     ExerciseGenerator::listexercises.push_back( new Exercise(centerfreq, freqboost) );
     
-    
+    g_exerciseCentreFrequency = static_cast<double>(centerfreq);
     g_centreFrequency = static_cast<double>(centerfreq);
     
+    g_exerciseGainFactor = static_cast<float>(freqboost);
     g_gainFactor = static_cast<float>(freqboost);
     
 }

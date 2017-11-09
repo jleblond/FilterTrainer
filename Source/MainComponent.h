@@ -90,6 +90,8 @@ private:
     
     void filterButtonClicked();
     
+    void filterCorrectionButtonClicked();
+    
     void loopingButtonClicked();
     
     void transportSourceChanged();

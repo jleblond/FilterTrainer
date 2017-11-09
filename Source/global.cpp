@@ -22,10 +22,13 @@ TextButton g_questionButton;
 TextButton g_answerButton;
 TextButton g_correctionButton;
 
+TextButton g_filterCorrectionButton;
+
 TextButton g_openButton;
 TextButton g_playButton;
 TextButton g_stopButton;
 TextButton g_filterButton;
+TextButton g_dummyFilterButton; // for cases when ExerciseSettings panel is shown (in which case g_filterButton setVisibility is false)
 TextButton g_loopingButton;
 TextButton g_loopingToggle; //kept for state (check?)
 TextButton g_ZoomInButton;
@@ -34,7 +37,7 @@ TextButton g_ZoomOutButton;
 double g_scaleZoomWaveform = 1;
 
 //Playback settings
-float g_mainVolume = 1.0f;
+float g_mainVolume = 0.5f;
 String g_pausedTime;
 bool g_filterOn = false;
 
@@ -45,10 +48,15 @@ double g_loopStartPos = 0 ;
 double g_loopEndPos = 0;
 
 
-//Filter settings
+//Actual filter settings
 double g_centreFrequency = 20000;
 double g_Q = 1.4;
 float g_gainFactor = 6;
+
+//Exercise settings for the filter
+ double g_exerciseCentreFrequency;
+ double g_exerciseQ;
+ float g_exerciseGainFactor;
 
 //Exercise settings
 int g_freqRangeValue = 0;

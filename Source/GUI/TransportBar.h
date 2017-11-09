@@ -39,11 +39,11 @@ public:
         
         
         
-        addAndMakeVisible (mDummyFilterButton);
-        mDummyFilterButton.setButtonText ("Filter is OFF");
-        mDummyFilterButton.setColour (TextButton::buttonColourId,
+        addAndMakeVisible (g_dummyFilterButton);
+        g_dummyFilterButton.setButtonText ("Filter is OFF");
+        g_dummyFilterButton.setColour (TextButton::buttonColourId,
                                   getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-        mDummyFilterButton.setEnabled (false);
+        g_dummyFilterButton.setEnabled (false);
         
         
         addAndMakeVisible (g_filterButton);
@@ -65,7 +65,7 @@ public:
     
     void resized() override
     {
-        mDummyFilterButton.setBounds (10, mTransportHeight, 120, 30);
+        g_dummyFilterButton.setBounds (10, mTransportHeight, 120, 30);
         g_filterButton.setBounds (10, mTransportHeight, 120, 30);
         //-10 + getWidth() - 80
         
@@ -81,7 +81,7 @@ public:
 
 private:
     int mTransportHeight = 10;
-    TextButton mDummyFilterButton; // for cases when ExerciseSettings panel is shown (in which case g_filterButton setVisibility is false)
+
     
     
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TransportBar)

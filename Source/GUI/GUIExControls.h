@@ -45,6 +45,8 @@ public:
         g_correctionButton.addListener(this);
         addAndMakeVisible(g_correctionButton);
         g_correctionButton.setVisible(false);
+        
+        g_dummyFilterButton.addListener(this);
     }
     
     ~GUIExControls()
@@ -111,23 +113,32 @@ public:
             
             mExerciseCorrection.update();
             
-           
+            g_filterButton.setVisible(false);
+            g_dummyFilterButton.setVisible(false);
+            
             changePanelVisibility(false, false, true);
         }
         
         
         if( button == &g_correctionButton )
         {
+            g_dummyFilterButton.setVisible(true);
+            
             changePanelVisibility(true, false, false);
             
             if( g_filterOn == true )
             {
                 g_filterButton.triggerClick();
             }
-            g_filterButton.setVisible(false);
+            
             
         }
         
+    }
+    
+   void updateExCorrectionSlider()
+    {
+        mExerciseCorrection.updateSliderRange();
     }
 
     

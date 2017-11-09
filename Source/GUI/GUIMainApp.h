@@ -79,6 +79,11 @@ public:
         mExcontrols.changePanelVisibility(true, false, false);
     }
     
+    void updateExCorrectionSlider()
+    {
+        mExcontrols.updateExCorrectionSlider();
+    }
+    
 private:
     GUIExControls mExcontrols;
     GUIPlayer mPlayer;

@@ -25,10 +25,13 @@ extern TextButton g_questionButton;
 extern TextButton g_answerButton;
 extern TextButton g_correctionButton;
 
+extern TextButton g_filterCorrectionButton;
+
 extern TextButton g_openButton;
 extern TextButton g_playButton;
 extern TextButton g_stopButton;
 extern TextButton g_filterButton;
+extern TextButton g_dummyFilterButton; // for cases when ExerciseSettings panel is shown (in which case g_filterButton setVisibility is false)
 extern TextButton g_loopingButton;
 extern TextButton g_loopingToggle; //kept for state (check?)
 extern TextButton g_ZoomInButton;
@@ -51,10 +54,15 @@ extern double g_loopMinDuration;
 extern double g_loopStartPos;
 extern double g_loopEndPos;
 
-//Filter settings
+//Actual filter settings
 extern double g_centreFrequency;
 extern double g_Q;
 extern float g_gainFactor;
+
+//Exercise settings for the filter
+extern double g_exerciseCentreFrequency;
+extern double g_exerciseQ;
+extern float g_exerciseGainFactor;
 
 //Exercise settings
 extern int g_freqRangeValue;

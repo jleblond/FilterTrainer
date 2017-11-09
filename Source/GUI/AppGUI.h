@@ -102,7 +102,8 @@ public:
             
             t1 = steady_clock::now();
             
-  
+            
+            mMainApp.updateExCorrectionSlider();
 
         }
         

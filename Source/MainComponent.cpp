@@ -19,8 +19,9 @@ thumbnailCache (5),
 waveform( 512, formatManager, thumbnailCache, transportSource )
 
 {
-    //GUIExControls.h g_questionButton Listener
+    //Static button Listeners
     g_questionButton.addListener(this);
+    g_filterCorrectionButton.addListener(this);
     
     //Open Button
     addAndMakeVisible (g_openButton);
@@ -156,6 +157,9 @@ void MainContentComponent::buttonClicked (Button* button)
     if (button == &g_filterButton) filterButtonClicked();
     if (button == &g_questionButton) questionButtonChanged();
     if (button == &g_EndSessionButton)   stopButtonClicked();
+    
+    if (button == &g_filterCorrectionButton) filterCorrectionButtonClicked();
+    
 }
 
 
@@ -365,6 +369,27 @@ void MainContentComponent::filterButtonClicked()
         g_filterButton.setColour(TextButton::buttonColourId,
                                  getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
     }
+}
+
+void MainContentComponent::filterCorrectionButtonClicked()
+{
+    g_filterOn = !g_filterOn;
+    
+    if(g_filterOn)
+    {
+        g_filterCorrectionButton.setButtonText ("Filter is ON");
+        g_filterCorrectionButton.setColour(TextButton::buttonColourId, Colours::blue);
+        
+        changeFilterSettings(g_centreFrequency, g_Q, g_gainFactor);
+    }
+    else
+    {
+        g_filterCorrectionButton.setButtonText ("Filter is OFF");
+        g_filterCorrectionButton.setColour(TextButton::buttonColourId,
+                                           getLookAndFeel().findColour (ResizableWindow::backgroundColourId) );
+    }
+    
+    
 }
 
 
