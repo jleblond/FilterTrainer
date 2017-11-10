@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="f5NIlT" name="FilterTrainer" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark" projectType="guiapp" version="1.0.0"
+<JUCERPROJECT id="f5NIlT" name="InnerEar" displaySplashScreen="1" reportAppUsage="1"
+              splashScreenColour="Dark" projectType="guiapp" version="1.1.0"
               bundleIdentifier="com.jleblondc.FilterTrainer" includeBinaryInAppConfig="1"
               jucerVersion="5.1.2" cppLanguageStandard="11">
-  <MAINGROUP id="Ou4Fp1" name="FilterTrainer">
+  <MAINGROUP id="Ou4Fp1" name="InnerEar">
     <GROUP id="{2FBB8473-082C-4AAA-4C05-36CACAAC1C17}" name="DspFilters">
       <GROUP id="{18A016FB-0364-B53D-1DAD-7F0D62CB3CE6}" name="DspFilters">
         <FILE id="QT0Fqc" name="Bessel.h" compile="0" resource="0" file="DspFilters/DspFilters/Bessel.h"/>

@@ -51,11 +51,11 @@ public:
         
         g.setColour (Colours::white);
         
-        g.setFont (22.0f);
+        g.setFont (16.0f);
         g.drawText (str_title, 0, getHeight()/2, getWidth(), getHeight()/2,
                     Justification::centred, true);
         
-        g.setFont (16.0f);
+        g.setFont (30.0f);
         g.drawText (str_subtitle, getLocalBounds(),
                     Justification::centred, true);
     }
@@ -158,8 +158,8 @@ public:
         AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
         
         AlertWindow::showMessageBoxAsync (icon,
-                                          "FilterTrainer 1.0 (for MacOSX)",
-                                          "Filter ear training tool written by Jasmine Leblond-Chartrand \nfor Concordia Music Department, Montreal, September 2017  ",
+                                          "InnerEar [filter module] 1.1 (for MacOSX)",
+                                          "Filter ear training tool implemented by Jasmine Leblond-Chartrand \nfor Concordia Music Department, Montreal, September 2017  ",
                                           "OK");
     }
     
@@ -167,8 +167,8 @@ public:
     
 private:
     
-    String str_title="FILTER ";
-    String str_subtitle=""; 
+    String str_title="[filter module] ";
+    String str_subtitle="INNER EAR";
     
     TextButton menu1;
     String str_menu1="Add Comment";

@@ -23,11 +23,19 @@ public:
         addAndMakeVisible(mTitleLabel);
         mTitleLabel.setText("EXERCISE FEEDBACK", dontSendNotification);
         
-        addAndMakeVisible(mCurrFreqLabel);
-        mCurrFreqLabel.setText("", dontSendNotification);
+        addAndMakeVisible(mFreqAnsweredLabel);
+        mFreqAnsweredLabel.setText("", dontSendNotification);
+        
+        addAndMakeVisible(mFreqAnsweredButton);
+        mFreqAnsweredButton.setButtonText("");
+        mFreqAnsweredButton.addListener(this);
         
         addAndMakeVisible(mCorrectAnswerLabel);
         mCorrectAnswerLabel.setText("", dontSendNotification);
+        
+        addAndMakeVisible(mCorrectAnswerButton);
+        mCorrectAnswerButton.setButtonText("");
+        mCorrectAnswerButton.addListener(this);
         
         addAndMakeVisible(mFreqBoostLabel);
         mFreqBoostLabel.setText("", dontSendNotification);
@@ -52,9 +60,13 @@ public:
         mFreqSlider.setValue(1);
         mFreqSlider.addListener(this);
         
-        
         addAndMakeVisible(mFreqLabel);
-        mFreqLabel.setText("", dontSendNotification);
+        mFreqLabel.setText("Hz ", dontSendNotification);
+        
+        addAndMakeVisible(mNoSliderLabel);
+        mNoSliderLabel.setText("(bypass the filter to modify the freq)", dontSendNotification);
+        mNoSliderLabel.setVisible(false);
+    
         
     }
     
@@ -71,38 +83,47 @@ public:
     {
         mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
 
-        mCurrFreqLabel.setBounds ( 0.1*getWidth(), 0.2*getHeight(), 80, 60 );
-        mCorrectAnswerLabel.setBounds (0.4*getWidth(), 0.2*getHeight(), 80, 60 );
+        mFreqAnsweredLabel.setBounds ( 0.05*getWidth(), 0.2*getHeight(), 80, 40 );
+        mFreqAnsweredButton.setBounds(0.1*getWidth(), 0.3*getHeight(), 60, 30 );
+        
+        mCorrectAnswerLabel.setBounds (0.35*getWidth(), 0.2*getHeight(), 90, 40 );
+        mCorrectAnswerButton.setBounds(0.4*getWidth(), 0.3*getHeight(), 60, 30);
+        
         mFreqBoostLabel.setBounds (0.7*getWidth(), 0.2*getHeight(), 80, 60 );
         
-        mTestFreqTitleLabel.setBounds(0.25*getWidth(), 0.4*getHeight(), 0.6*getWidth(), 70);
-        g_filterCorrectionButton.setBounds (0.3*getWidth(), 0.6*getHeight(), 100, 30 );
-        mFreqLabel.setBounds (0.1*getWidth(), 0.7*getHeight(), 60, 60 );
-        mFreqSlider.setBounds (0.3*getWidth(), 0.7*getHeight(), 0.6*getWidth(), 60 );
+        
+        mTestFreqTitleLabel.setBounds(0.25*getWidth(), 0.45*getHeight(), 0.6*getWidth(), 70);
+        g_filterCorrectionButton.setBounds (0.3*getWidth(), 0.65*getHeight(), 100, 30 );
+        mFreqLabel.setBounds (0.1*getWidth(), 0.75*getHeight(), 60, 60 );
+        mFreqSlider.setBounds (0.3*getWidth(), 0.75*getHeight(), 0.6*getWidth(), 60 );
+        mNoSliderLabel.setBounds (0.35*getWidth(), 0.75*getHeight(), 0.6*getWidth(), 60);
     }
     
     void update()
     {
-        String freqanswered = "";
-        String correctanswer = static_cast<String>( g_exerciseCentreFrequency );
-        String freqboost = "";
+        mCorrectAnswer =  g_exerciseCentreFrequency ;
         
         
         if( ExerciseGenerator::listexercises.size() > 0 )
         {
-            freqanswered = static_cast<String> (
-                             (ExerciseGenerator::listexercises.back() )-> getCenterFreqAnswered()
-                                                );
+            mFreqAnswered =  (ExerciseGenerator::listexercises.back() )-> getCenterFreqAnswered();
             
-            freqboost = static_cast<String> (
-                            (ExerciseGenerator::listexercises.back() )-> getFreqBoost()
-                                            );
+            mFreqBoost =  (ExerciseGenerator::listexercises.back() )-> getFreqBoost();
         }
         
         
-        mCurrFreqLabel.setText( "Your answer: " + freqanswered , dontSendNotification);
-        mCorrectAnswerLabel.setText( "Correct answer: " + correctanswer , dontSendNotification);
-        mFreqBoostLabel.setText( "Boost Amount (dB): " + freqboost, dontSendNotification );
+        mFreqAnsweredLabel.setText( "Your answer: ", dontSendNotification);
+        mFreqAnsweredButton.setButtonText(
+            static_cast<String> (mFreqAnswered) + "Hz" );
+        
+        mCorrectAnswerLabel.setText( "Correct answer: " , dontSendNotification);
+        mCorrectAnswerButton.setButtonText(
+            static_cast<String> (mCorrectAnswer) + "Hz");
+        
+        
+        mFreqBoostLabel.setText( "Boost Amount: " +
+            static_cast<String> (mFreqBoost) + "dB",
+                                dontSendNotification );
         
         
         updateSliderCursorPos(g_exerciseCentreFrequency);
@@ -113,10 +134,32 @@ public:
         if( button == &g_filterCorrectionButton)
         {
            if(g_filterOn)
+           {
                mFreqSlider.setVisible(false);
+               mNoSliderLabel.setVisible(true);
+               mFreqAnsweredButton.setEnabled(false);
+               mCorrectAnswerButton.setEnabled(false);
+               
+           }
             else
+            {
                 mFreqSlider.setVisible(true);
+                mNoSliderLabel.setVisible(false);
+                mFreqAnsweredButton.setEnabled(true);
+                mCorrectAnswerButton.setEnabled(true);
+            }
             
+        }
+        
+        if ( button == &mFreqAnsweredButton)
+        {
+            updateSliderCursorPos(mFreqAnswered);
+            
+        }
+        
+        if ( button == &mCorrectAnswerButton )
+        {
+            updateSliderCursorPos(mCorrectAnswer);
         }
     }
     
@@ -129,7 +172,7 @@ public:
                     g_centreFrequency = getFreq(freqValue);
                     
                     
-                    String freqStr = static_cast<String>(g_centreFrequency)+" Hz";
+                    String freqStr = "[" + static_cast<String>(g_centreFrequency)+" Hz]";
                     mFreqLabel.setText(freqStr, dontSendNotification);
                     
                 }
@@ -168,6 +211,18 @@ public:
     {
         int val = getFreqValue(freq, g_freqRangeValue);
         mFreqSlider.setValue(val);
+        
+        int currSliderValue = mFreqSlider.getValue();
+
+        //in case, when program is first loaded, no freqlabel value ("") is displayed because correct centrefreq value = 1
+        if( currSliderValue == val )
+        {
+            String freqStr = "[" + static_cast<String>(freq)+" Hz]";
+            mFreqLabel.setText(freqStr, dontSendNotification);
+        }
+        
+
+        
     };
     
     double getFreq(int freqValue)
@@ -227,14 +282,22 @@ public:
     }
     
 private:
-    Label mCurrFreqLabel;
+    Label mFreqAnsweredLabel;
+    TextButton mFreqAnsweredButton;
     Label mCorrectAnswerLabel;
+    TextButton mCorrectAnswerButton;
     Label mFreqBoostLabel;
     Label mTitleLabel;
+    Label mNoSliderLabel;
     
     Slider mFreqSlider;
     Label mFreqLabel;
     Label mTestFreqTitleLabel;
+    
+    //arbitrary default values
+    float mFreqAnswered = 20000;
+    float mCorrectAnswer = 20000;
+    float mFreqBoost = 12;
     
 };
 
