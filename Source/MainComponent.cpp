@@ -156,7 +156,7 @@ void MainContentComponent::buttonClicked (Button* button)
     if (button == &g_stopButton)  stopButtonClicked();
     if (button == &g_filterButton) filterButtonClicked();
     if (button == &g_questionButton) questionButtonChanged();
-    if (button == &g_EndSessionButton)   stopButtonClicked();
+    if (button == &g_EndSessionButton)   endSessionStopButtonClicked();
     
     if (button == &g_filterCorrectionButton) filterCorrectionButtonClicked();
     
@@ -326,6 +326,20 @@ void MainContentComponent::playButtonClicked()
     else if (state == Playing)
         changeState (Pausing);
     
+//    if (state == Starting)
+//        std::cout<<"Starting"<<std::endl;
+//    else if(state == Stopping)
+//        std::cout<<"Stopping"<<std::endl;
+//    else if(state == Stopped)
+//        std::cout<<"Stopped"<<std::endl;
+//    else if(state == Paused)
+//        std::cout<<"Paused"<<std::endl;
+//    else if(state == Pausing)
+//        std::cout<<"Pausing"<<std::endl;
+//    else if(state == Playing)
+//        std::cout<<"Playing"<<std::endl;
+//    else
+//        std::cout<<"UnknownState"<<std::endl;
     
     if(g_User.getLastSession() != nullptr)
     {
@@ -350,6 +364,16 @@ void MainContentComponent::stopButtonClicked()
         changeState (Stopped);
     else
         changeState (Stopping);
+}
+
+void MainContentComponent::endSessionStopButtonClicked()
+{
+    if (state == Playing)
+        playButtonClicked();
+    else if (state == Paused)
+        ;
+    else if (state == Stopped)
+        ;
 }
 
 

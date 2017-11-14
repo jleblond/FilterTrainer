@@ -175,6 +175,7 @@ public:
                     String freqStr = "[" + static_cast<String>(g_centreFrequency)+" Hz]";
                     mFreqLabel.setText(freqStr, dontSendNotification);
                     
+                    buttonValueSameSliderValue();
                 }
         
     }
@@ -195,8 +196,7 @@ public:
     }
 
     
-    
-    //valid?
+
     void updateSliderRange()
     {
         int numberFreqs = static_cast<int> (
@@ -210,10 +210,8 @@ public:
     void updateSliderCursorPos(float freq)
     {
         int val = getFreqValue(freq, g_freqRangeValue);
-        mFreqSlider.setValue(val);
-        
         int currSliderValue = mFreqSlider.getValue();
-
+        
         //in case, when program is first loaded, no freqlabel value ("") is displayed because correct centrefreq value = 1
         if( currSliderValue == val )
         {
@@ -221,9 +219,41 @@ public:
             mFreqLabel.setText(freqStr, dontSendNotification);
         }
         
-
         
+        mFreqSlider.setValue(val);
+
+        buttonValueSameSliderValue();
     };
+    
+    
+    //in case the user answered correctly (displayed freq is the same as the one suggested by default by the slider when the exercise control panel is updated)
+    void buttonValueSameSliderValue()
+    {
+        int currSliderValue = mFreqSlider.getValue();
+        
+        if ( getFreqValue(mFreqAnswered, g_freqRangeValue) ==
+                getFreqValue( mCorrectAnswer, g_freqRangeValue) )
+        {
+            mCorrectAnswerButton.setEnabled(false);
+            mFreqAnsweredButton.setEnabled(false);
+        }
+        if( currSliderValue == getFreqValue(mFreqAnswered, g_freqRangeValue))
+        {
+            mCorrectAnswerButton.setEnabled(true);
+            mFreqAnsweredButton.setEnabled(false);
+        }
+        else if (currSliderValue == getFreqValue( mCorrectAnswer, g_freqRangeValue) )
+        {
+            mCorrectAnswerButton.setEnabled(false);
+            mFreqAnsweredButton.setEnabled(true);
+        }
+        else
+        {
+            mCorrectAnswerButton.setEnabled(true);
+            mFreqAnsweredButton.setEnabled(true);
+        }
+    }
+    
     
     double getFreq(int freqValue)
     {

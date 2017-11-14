@@ -88,6 +88,8 @@ private:
     
     void stopButtonClicked();
     
+    void endSessionStopButtonClicked();
+    
     void filterButtonClicked();
     
     void filterCorrectionButtonClicked();
