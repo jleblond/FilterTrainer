@@ -117,7 +117,10 @@ public:
             g_filterButton.setVisible(false);
             g_dummyFilterButton.setVisible(false);
             
-
+            if( g_filterOn == true )
+            {
+                g_filterButton.triggerClick();
+            }
             
             changePanelVisibility(false, false, true);
         }
@@ -131,7 +134,7 @@ public:
             
             if( g_filterOn == true )
             {
-                g_filterButton.triggerClick();
+                g_filterCorrectionButton.triggerClick();
             }
             
             

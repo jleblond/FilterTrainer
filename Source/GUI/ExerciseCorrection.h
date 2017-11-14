@@ -69,6 +69,11 @@ public:
         mNoSliderLabel.setVisible(false);
  
         
+        //Amplification Atttenuation Toggle Text Buttons Section
+        addAndMakeVisible(mAmpAttLabel);
+        mAmpAttLabel.setText("[Amplify / Attenuate]", dontSendNotification);
+        mAmpAttLabel.setVisible(false);
+        
         addAndMakeVisible(mAmpToggleButton);
         mAmpToggleButton.setButtonText("+");
         mAmpToggleButton.setClickingTogglesState (true);
@@ -125,11 +130,12 @@ public:
         
         
         mTestFreqTitleLabel.setBounds(0.15*getWidth(), 0.45*getHeight(), 0.4*getWidth(), 70);
-        g_filterCorrectionButton.setBounds (0.65*getWidth(), 0.55*getHeight(), 80, 40 );
-        mFreqLabel.setBounds (0.1*getWidth(), 0.65*getHeight(), 60, 60 );
-        mFreqSlider.setBounds (0.3*getWidth(), 0.65*getHeight(), 0.6*getWidth(), 60 );
+        g_filterCorrectionButton.setBounds (0.55*getWidth(), 0.55*getHeight(), 80, 40 );
+        mFreqLabel.setBounds (0.1*getWidth(), 0.65*getHeight(), 65, 60 );
+        mFreqSlider.setBounds (0.35*getWidth(), 0.65*getHeight(), 0.6*getWidth(), 60 );
         mNoSliderLabel.setBounds (0.35*getWidth(), 0.7*getHeight(), 0.65*getWidth(), 80);
         
+        mAmpAttLabel.setBounds(0.1*getWidth(), 0.8*getHeight(), 65, 60);
         mAmpToggleButton.setBounds (0.5*getWidth(), 0.8*getHeight(), 40, 30 );
         mAttToggleButton.setBounds (0.65*getWidth(), 0.8*getHeight(), 40, 30) ;
     }
@@ -167,11 +173,13 @@ public:
         {
             mAmpToggleButton.setVisible(true);
             mAttToggleButton.setVisible(true);
+            mAmpAttLabel.setVisible(true);
         }
         else
         {
             mAmpToggleButton.setVisible(false);
             mAttToggleButton.setVisible(false);
+            mAmpAttLabel.setVisible(false);
         }
         
         if(mFreqBoost>0)
@@ -400,6 +408,7 @@ private:
     Label mFreqLabel;
     Label mTestFreqTitleLabel;
     
+    Label mAmpAttLabel;
     TextButton mAmpToggleButton;
     TextButton mAttToggleButton;
         
