@@ -36,6 +36,8 @@ public:
     {
         setSize (WIDTH, HEIGHT);
         
+
+        setLookAndFeel( mLF );
         
         addAndMakeVisible (mHeader);
         
@@ -47,11 +49,12 @@ public:
         g_StartSessionButton.addListener(this);
         g_EndSessionButton.addListener(this);
         
+        
     }
     
     ~AppGUI()
     {
-        
+        delete mLF;
     }
     
     void paint(Graphics& g)override
@@ -145,7 +148,10 @@ private:
     GUIHeader mHeader;
     GUIStartSession mStartSession;
     GUIMainApp mMainApp;
-
+                       
+    LookAndFeel *mLF = new LookAndFeel_V4( (LookAndFeel_V4::getGreyColourScheme() ) );
+  
+    
     //GUI sections proportions
     const float mHeaderHeight = 0.15;
     

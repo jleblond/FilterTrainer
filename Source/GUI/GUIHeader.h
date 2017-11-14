@@ -156,7 +156,7 @@ public:
     void infoDialogBox()
     {
         AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
-        String creditsStr = String(CharPointer_UTF8 ("Ear Training software implemented by Jasmine Leblond-Chartrand\nfor Concordia Music Department, Montreal (2017)\n\nThe Inner Ear Project is supervised by Dr. Eldad Tsabary at Concordia University\nin collaboration with Dr. David Ogborn at McMaster University\nand Dr. Andrea Szigetvári at Liszt Academy of Music."));
+        String creditsStr = String(CharPointer_UTF8 ("Ear Training software implemented by Jasmine Leblond-Chartrand\nfor Concordia's Music Department, Montreal (2017)\n\nThe Inner Ear Project is supervised by Dr. Eldad Tsabary at Concordia University\nin collaboration with Dr. David Ogborn at McMaster University\nand Dr. Andrea Szigetvári at Liszt Academy of Music."));
        
         AlertWindow::showMessageBoxAsync (icon,
                                           "Inner Ear [filter module] 1.1 (MacOSX version)",

@@ -58,13 +58,13 @@ public:
         
         
         amplify.setButtonText("+");
-        amplify.setColour(TextButton::buttonColourId, Colours::darkgrey);
+        amplify.setColour(TextButton::buttonColourId, Colours::lightgrey);
         amplify.addListener(this);
         addAndMakeVisible(amplify);
         
         attenuate.setButtonText("-");
         attenuate.setColour (TextButton::buttonColourId,
-                             getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+                             Colours::darkgrey);
         attenuate.addListener(this);
         addAndMakeVisible(attenuate);
         
@@ -168,13 +168,13 @@ public:
         
         if(g_gainAmplification)
         {
-            amplify.setColour(TextButton::buttonColourId, Colours::darkgrey);
+            amplify.setColour(TextButton::buttonColourId, Colours::lightgrey);
             
         }
         else
         {
             amplify.setColour (TextButton::buttonColourId,
-                               getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+                               Colours::darkgrey);
         }
         
     }
@@ -187,13 +187,13 @@ public:
         
         if(g_gainAttenuation)
         {
-            attenuate.setColour(TextButton::buttonColourId, Colours::darkgrey);
+            attenuate.setColour(TextButton::buttonColourId, Colours::lightgrey);
             
         }
         else
         {
             attenuate.setColour (TextButton::buttonColourId,
-                                 getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+                                 Colours::darkgrey);
         }
         
         mdBAmpValueLabel.setText( dBAmpCurrValue(), dontSendNotification);
