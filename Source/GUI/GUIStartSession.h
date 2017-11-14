@@ -87,6 +87,8 @@ public:
             g_StartSessionButton.setVisible(true);
             
             g_User.changeUsername( mUserSession.getTextFieldValue() ) ;
+            
+            
         }
         
     }

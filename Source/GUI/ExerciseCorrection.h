@@ -13,6 +13,7 @@
 #include "../ExerciseGenerator.h"
 #include "../global.h"
 
+#include <math.h>       /* fabs */
 
 class ExerciseCorrection : public Component,
 public Button::Listener, Slider::Listener
@@ -44,7 +45,7 @@ public:
         //SLIDER REGION
         
         addAndMakeVisible(mTestFreqTitleLabel);
-        mTestFreqTitleLabel.setText("Try out other frequencies!", dontSendNotification);
+        mTestFreqTitleLabel.setText("Try out other frequencies: ", dontSendNotification);
         
         addAndMakeVisible (g_filterCorrectionButton);
         g_filterCorrectionButton.setButtonText ("Filter is OFF");
@@ -64,10 +65,41 @@ public:
         mFreqLabel.setText("Hz ", dontSendNotification);
         
         addAndMakeVisible(mNoSliderLabel);
-        mNoSliderLabel.setText("(bypass the filter to modify the freq)", dontSendNotification);
+        mNoSliderLabel.setText("(bypass the filter to modify the parameters)", dontSendNotification);
         mNoSliderLabel.setVisible(false);
-    
+ 
         
+        addAndMakeVisible(mAmpToggleButton);
+        mAmpToggleButton.setButtonText("+");
+        mAmpToggleButton.setClickingTogglesState (true);
+        mAmpToggleButton.setRadioGroupId (1);
+        mAmpToggleButton.setColour (TextButton::textColourOffId, Colours::white);
+        mAmpToggleButton.setColour (TextButton::textColourOnId, Colours::black);
+        mAmpToggleButton.setColour (TextButton::buttonColourId, getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        mAmpToggleButton.setColour (TextButton::buttonOnColourId, (getLookAndFeel().findColour (ResizableWindow::backgroundColourId)).brighter());
+        mAmpToggleButton.setToggleState (true, dontSendNotification);
+        mAmpToggleButton.addListener(this);
+        
+        addAndMakeVisible(mAttToggleButton);
+        mAttToggleButton.setButtonText("-");
+        mAttToggleButton.setClickingTogglesState (true);
+        mAttToggleButton.setRadioGroupId (1);
+        mAttToggleButton.setColour (TextButton::textColourOffId, Colours::white);
+        mAttToggleButton.setColour (TextButton::textColourOnId, Colours::black);
+        mAttToggleButton.setColour (TextButton::buttonColourId, getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        mAttToggleButton.setColour (TextButton::buttonOnColourId, (getLookAndFeel().findColour (ResizableWindow::backgroundColourId)).brighter());
+        mAttToggleButton.setToggleState (false, dontSendNotification);
+        mAttToggleButton.addListener(this);
+        
+//        mAmpToggleButton.setConnectedEdges (((i != 0) ? Button::ConnectedOnLeft : 0)
+//                               | ((i != 3) ? Button::ConnectedOnRight : 0));
+
+        
+    }
+    
+    ~ExerciseCorrection()
+    {
+  
     }
     
     
@@ -92,11 +124,14 @@ public:
         mFreqBoostLabel.setBounds (0.7*getWidth(), 0.2*getHeight(), 80, 60 );
         
         
-        mTestFreqTitleLabel.setBounds(0.25*getWidth(), 0.45*getHeight(), 0.6*getWidth(), 70);
-        g_filterCorrectionButton.setBounds (0.3*getWidth(), 0.65*getHeight(), 100, 30 );
-        mFreqLabel.setBounds (0.1*getWidth(), 0.75*getHeight(), 60, 60 );
-        mFreqSlider.setBounds (0.3*getWidth(), 0.75*getHeight(), 0.6*getWidth(), 60 );
-        mNoSliderLabel.setBounds (0.35*getWidth(), 0.75*getHeight(), 0.6*getWidth(), 60);
+        mTestFreqTitleLabel.setBounds(0.15*getWidth(), 0.45*getHeight(), 0.4*getWidth(), 70);
+        g_filterCorrectionButton.setBounds (0.65*getWidth(), 0.55*getHeight(), 80, 40 );
+        mFreqLabel.setBounds (0.1*getWidth(), 0.65*getHeight(), 60, 60 );
+        mFreqSlider.setBounds (0.3*getWidth(), 0.65*getHeight(), 0.6*getWidth(), 60 );
+        mNoSliderLabel.setBounds (0.35*getWidth(), 0.7*getHeight(), 0.65*getWidth(), 80);
+        
+        mAmpToggleButton.setBounds (0.5*getWidth(), 0.8*getHeight(), 40, 30 );
+        mAttToggleButton.setBounds (0.65*getWidth(), 0.8*getHeight(), 40, 30) ;
     }
     
     void update()
@@ -127,6 +162,26 @@ public:
         
         
         updateSliderCursorPos(g_exerciseCentreFrequency);
+        
+        if(g_gainAmplification && g_gainAttenuation)
+        {
+            mAmpToggleButton.setVisible(true);
+            mAttToggleButton.setVisible(true);
+        }
+        else
+        {
+            mAmpToggleButton.setVisible(false);
+            mAttToggleButton.setVisible(false);
+        }
+        
+        if(mFreqBoost>0)
+        {
+            mAmpToggleButton.triggerClick();
+        }
+        else
+        {
+            mAttToggleButton.triggerClick();
+        }
     }
     
     void buttonClicked(Button* button) override
@@ -136,6 +191,8 @@ public:
            if(g_filterOn)
            {
                mFreqSlider.setVisible(false);
+               mAmpToggleButton.setVisible(false);
+               mAttToggleButton.setVisible(false);
                mNoSliderLabel.setVisible(true);
                mFreqAnsweredButton.setEnabled(false);
                mCorrectAnswerButton.setEnabled(false);
@@ -144,6 +201,13 @@ public:
             else
             {
                 mFreqSlider.setVisible(true);
+                
+                if(g_gainAmplification && g_gainAttenuation)
+                {
+                    mAmpToggleButton.setVisible(true);
+                    mAttToggleButton.setVisible(true);
+                }
+
                 mNoSliderLabel.setVisible(false);
                 mFreqAnsweredButton.setEnabled(true);
                 mCorrectAnswerButton.setEnabled(true);
@@ -160,6 +224,18 @@ public:
         if ( button == &mCorrectAnswerButton )
         {
             updateSliderCursorPos(mCorrectAnswer);
+        }
+        
+        
+        if ( button == &mAmpToggleButton )
+        {
+            g_gainFactor = fabs(mFreqBoost);
+        }
+        
+        if ( button == &mAttToggleButton )
+        {
+            g_gainFactor = -(fabs(mFreqBoost));
+
         }
     }
     
@@ -323,6 +399,10 @@ private:
     Slider mFreqSlider;
     Label mFreqLabel;
     Label mTestFreqTitleLabel;
+    
+    TextButton mAmpToggleButton;
+    TextButton mAttToggleButton;
+        
     
     //arbitrary default values
     float mFreqAnswered = 20000;

@@ -405,6 +405,7 @@ void MainContentComponent::filterCorrectionButtonClicked()
         g_filterCorrectionButton.setColour(TextButton::buttonColourId, Colours::blue);
         
         changeFilterSettings(g_centreFrequency, g_Q, g_gainFactor);
+        std::cout<<g_gainFactor<<std::endl;
     }
     else
     {

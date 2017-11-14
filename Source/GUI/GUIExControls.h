@@ -117,6 +117,7 @@ public:
             g_filterButton.setVisible(false);
             g_dummyFilterButton.setVisible(false);
             
+
             
             changePanelVisibility(false, false, true);
         }
