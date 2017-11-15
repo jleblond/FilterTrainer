@@ -31,17 +31,27 @@ public:
         addAndMakeVisible(mTitle);
         mTitle.setText("STATISTICS", dontSendNotification);
         mTitle.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
-        mTitle.setFont(18);
+        mTitle.setFont(Font("Arial", 18, Font::bold));
         
         addAndMakeVisible(mNbQuestions);
         mNbQuestions.setText("# of questions: 0", dontSendNotification);
         mNbQuestions.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
         mNbQuestions.setFont(14);
         
-        addAndMakeVisible(mScore);
-        mScore.setText("Score: []", dontSendNotification);
-        mScore.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
-        mScore.setFont(14);
+        addAndMakeVisible(mScoreTitleLabel);
+        mScoreTitleLabel.setText("SCORE: ", dontSendNotification);
+        mScoreTitleLabel.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
+        mScoreTitleLabel.setFont(14);
+        
+        addAndMakeVisible(mScoreLabel);
+        mScoreLabel.setText("[ ]", dontSendNotification);
+        mScoreLabel.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
+        mScoreLabel.setFont(Font("Arial", 36, Font::bold));
+        
+        addAndMakeVisible(mPercentScoreLabel);
+        mPercentScoreLabel.setText("", dontSendNotification);
+        mPercentScoreLabel.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
+        mPercentScoreLabel.setFont(14);
         
         addAndMakeVisible(mCountTitle);
         mCountTitle.setText("Count: ", dontSendNotification);
@@ -165,12 +175,15 @@ public:
     void resized() override
     {
         mTitle.setBounds(0.05*getWidth(), 0.1*getHeight(), 150, 30);
-        mNbQuestions.setBounds(0.05*getWidth(), 0.25*getHeight(), 150, 50);
-        mScore.setBounds(0.05*getWidth(), 0.4*getHeight(), 150, 50);
+        mNbQuestions.setBounds(0.05*getWidth(), 0.15*getHeight(), 150, 50);
         
-        mCountTitle.setBounds(0.2*getWidth(), 0.1*getHeight(), 70, 30);
-        mPercentTitle.setBounds(0.2*getWidth(), 0.47*getHeight(), 70, 30);
-        mFreqTitle.setBounds(0.2*getWidth(), 0.8*getHeight(), 70, 30);
+        mScoreTitleLabel.setBounds(0.08*getWidth(), 0.395*getHeight(), 130, 30);
+        mScoreLabel.setBounds(0.08*getWidth(), 0.4*getHeight(), 130, 75);
+        mPercentScoreLabel.setBounds(0.08*getWidth(), 0.6*getHeight(), 130, 75);
+        
+        mCountTitle.setBounds(0.3*getWidth(), 0.1*getHeight(), 70, 30);
+        mPercentTitle.setBounds(0.3*getWidth(), 0.47*getHeight(), 70, 30);
+        mFreqTitle.setBounds(0.3*getWidth(), 0.8*getHeight(), 70, 30);
         
        if(mVecBars.size() > 0)
        {
@@ -238,17 +251,32 @@ public:
             
             float answerDistance =
                 ExerciseGenerator::listexercises.back()-> getAnswerDistance();
-     
+            
+            int gainAnswered =
+            ExerciseGenerator::listexercises.back()-> getFreqBoostAnswered();
+            
+            bool gainCorrect = false;
+            if(gainAnswered == static_cast<int>(g_exerciseGainFactor) )
+            {
+                gainCorrect = true;
+            }
             
             if( s != nullptr )
             {
-                s->updateStats(centerFreq, centerFreqAnswered, answerDistance);
+                s->updateStats(centerFreq, centerFreqAnswered, answerDistance, gainCorrect);
                 
+                //Nb Questions Label
                 String nbQuestionsStr = static_cast<String>( s->getQuestionsCount() );
                 mNbQuestions.setText("# of questions: " + nbQuestionsStr, dontSendNotification);
                 
-                String scoreStr = s->getScoreText();
-                mScore.setText("Score: "+scoreStr, dontSendNotification);
+                
+                //Score Label
+                setScoreLabel();
+
+                
+                //Percent score label
+                String percentScoreStr = s->getScoreText();
+                mPercentScoreLabel.setText(percentScoreStr, dontSendNotification);
                 
                 
                 repaint();
@@ -260,6 +288,22 @@ public:
         }
         
         
+    }
+    
+    void setScoreLabel()
+    {
+        //Score Label
+        
+        int score = (int)( s->getScore());
+        int maxScore = (int)( s->getMaxScore() );
+        
+        String scoreStr = static_cast<String>(score) + " / " +
+        static_cast<String>(maxScore);
+        
+        if(score == -1 || s->getQuestionsCount() < s->getMinNbQuestions() )
+            scoreStr = "[ ]";
+        
+        mScoreLabel.setText(scoreStr, dontSendNotification);
     }
     
     void visibleBarsRange()
@@ -321,7 +365,10 @@ private:
     
     Label mTitle;
     
-    Label mScore;
+    Label mScoreTitleLabel;
+    Label mScoreLabel;
+    Label mPercentScoreLabel;
+    
     Label mNbQuestions;
     
     Label mCountTitle;
@@ -332,5 +379,5 @@ private:
     std::vector<Label*> mVecCountLabels;
     std::vector<StatsBar*> mVecBars;
     std::vector<double> vecStartXPos =
-        {0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75};
+        {0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85};
 };

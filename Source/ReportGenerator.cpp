@@ -137,7 +137,7 @@ bool ReportGenerator::generateReportFile(Report& report)
             juce::AlertWindow *alertFileSaved = new juce::AlertWindow ("Report Succesfully Generated!",
                                                                        "File saved as...\n" + reportFilePath, juce::AlertWindow::NoIcon );
             alertFileSaved->setColour(AlertWindow::backgroundColourId, Colours::black);
-            alertFileSaved->addButton ("OK",1,juce::KeyPress(),juce::KeyPress());
+            alertFileSaved->addButton ("OK",0,juce::KeyPress(),juce::KeyPress());
             alertFileSaved->setBounds(330,200,600,200);
             int returnValue = alertFileSaved->runModalLoop();
             delete alertFileSaved;

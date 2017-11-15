@@ -104,7 +104,7 @@ float ExerciseGenerator::configExerciseFreq(int range)
 
 
 
-void ExerciseGenerator::Answering(int answer)
+void ExerciseGenerator::Answering(int answer, int gainAnswer)
 {
     assert( listexercises.size() > 0 && answer > 0 && answer <= 10);
     
@@ -136,6 +136,6 @@ void ExerciseGenerator::Answering(int answer)
     
     std::cout<< "exercise generator answ: " << answ <<std::endl;
 
-    ( listexercises.back() )->AnswerExercise(answ);
+    ( listexercises.back() )->AnswerExercise(answ, gainAnswer);
 
 }

@@ -32,12 +32,18 @@ public:
     ~Exercise();
     
     
-    void AnswerExercise(float answer)
+    void AnswerExercise(float answer, int gainAnswer)
     {
-        this->mCenterFreqAnswered=answer;
         
-        if( mFreqBoost!=0 && mCenterFreq!=0 && mCenterFreqAnswered!=0 ) //checks if Exercise parameters were set properly
+        this->mCenterFreqAnswered=answer;
+        this->mFreqBoostAnswered = gainAnswer;
+        
+        
+        if( mFreqBoost!=0 && mCenterFreq!=0 && mCenterFreqAnswered!=0 && mFreqBoostAnswered!=0) //checks if Exercise parameters were set properly
         {
+            
+            //FREQ
+            
             if( mCenterFreq == mCenterFreqAnswered )
             {
                 mCorrectAnswer = true;
@@ -61,9 +67,18 @@ public:
                 mAnswerDistance=12;
             }
             
-            std::cout<<"answer distance: "<<mAnswerDistance<<std::endl;
+            std::cout<<"(exercise) answer distance: "<<mAnswerDistance<<std::endl;
+            
+    
             
         }
+        
+        std::cout<<"(exercise) freqboost answered: "<<mFreqBoostAnswered<<std::endl;
+        
+        
+        
+        
+        
     }
     
     bool SameSign(float a, float b)
@@ -92,6 +107,10 @@ public:
         return mAnswerDistance;
     }
     
+    const int getFreqBoostAnswered()
+    {
+        return mFreqBoostAnswered;
+    }
     
     
 protected:
@@ -101,6 +120,8 @@ protected:
     float mCenterFreqAnswered = 0;
     bool mCorrectAnswer = false;
     int mAnswerDistance = 0;
+    
+    int mFreqBoostAnswered = 0;
     
 };
 

@@ -135,6 +135,11 @@ public:
         return mQuestionsCount;
     }
     
+    int getMinNbQuestions()
+    {
+        return mMinQuestionsNeeded;
+    }
+    
     String getStrRange()
     {
         String s = "";
@@ -182,17 +187,17 @@ public:
     
     
     void updateStats(float centerFreq, float centerFreqAnswered,
-                     int answerDistance)   //update mSessionStats
+                     int answerDistance, bool gainCorrect)   //update mSessionStats
     {
         
         //Increase count of freq asked in the exercise (for all cases)
         mSessionStats.count[centerFreq] +=1;
         
-        if(centerFreq == centerFreqAnswered && answerDistance == 0)
+        if( centerFreq == centerFreqAnswered  &&  answerDistance == 0  && gainCorrect )
         {
             mSessionStats.correctans[centerFreq]  +=1;
         }
-        else if (answerDistance == 1)
+        else if ( answerDistance == 1  && gainCorrect )
         {
             mSessionStats.count[centerFreqAnswered] +=1;
             mSessionStats.correctans[centerFreq]  +=0.5;
@@ -303,7 +308,7 @@ public:
         if (mQuestionsCount >= mMinQuestionsNeeded)
         {
             float nearest = roundf( (mWeightedAverage*100) * 100) / 100;
-            mScoreTextGUIStats = static_cast<String>(nearest)+"%";
+            mScoreTextGUIStats = static_cast<String>(nearest)+"% at the present level";
         }
         return mScoreTextGUIStats;
     }
@@ -364,13 +369,13 @@ private:
     float mMaxScore = 100;
     float mWeightedAverage = 0; //user weighted average of bands
     
-    String mScoreTextGUIStats = "\n[Answer at least 50 questions]";
+    String mScoreTextGUIStats = "(Answer at least\n50 questions)";
     
     //Difficulty factors
     float mDiffFactor1 = (100.0/62.0);
     float mDiffFactor2 = (100.0/80.0);
     
-    int mMinQuestionsNeeded = 50;
+    int mMinQuestionsNeeded = 5;
     
     //Date date;
     //Time time;

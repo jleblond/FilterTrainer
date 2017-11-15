@@ -83,6 +83,7 @@ public:
     {
         mExcontrols.updateExCorrectionSlider();
         mStats.resetNbQuestionsLabelText();
+        mStats.setScoreLabel();
     }
     
 private:

@@ -45,6 +45,11 @@ public:
         mFreqBoostLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mFreqBoostLabel.setText("", dontSendNotification);
         
+        addAndMakeVisible(mFreqBoostAnsweredLabel);
+        mFreqBoostAnsweredLabel.setColour(juce::Label::textColourId, juce::Colours::white);
+        mFreqBoostAnsweredLabel.setText("", dontSendNotification);
+        mFreqBoostAnsweredLabel.setVisible(false);
+        
 
         //SLIDER REGION
         
@@ -86,10 +91,10 @@ public:
         mAmpToggleButton.setButtonText("+");
         mAmpToggleButton.setClickingTogglesState (true);
         mAmpToggleButton.setRadioGroupId (1);
-        mAmpToggleButton.setColour (TextButton::textColourOffId, Colours::white);
+        mAmpToggleButton.setColour (TextButton::textColourOffId, Colours::black);
         mAmpToggleButton.setColour (TextButton::textColourOnId, Colours::black);
-        mAmpToggleButton.setColour (TextButton::buttonColourId, getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-        mAmpToggleButton.setColour (TextButton::buttonOnColourId, (getLookAndFeel().findColour (ResizableWindow::backgroundColourId)).brighter());
+        mAmpToggleButton.setColour (TextButton::buttonColourId, Colours::white);
+        mAmpToggleButton.setColour (TextButton::buttonOnColourId, Colours::lightgrey);
         mAmpToggleButton.setToggleState (true, dontSendNotification);
         mAmpToggleButton.addListener(this);
         
@@ -97,10 +102,10 @@ public:
         mAttToggleButton.setButtonText("-");
         mAttToggleButton.setClickingTogglesState (true);
         mAttToggleButton.setRadioGroupId (1);
-        mAttToggleButton.setColour (TextButton::textColourOffId, Colours::white);
+        mAttToggleButton.setColour (TextButton::textColourOffId, Colours::black);
         mAttToggleButton.setColour (TextButton::textColourOnId, Colours::black);
-        mAttToggleButton.setColour (TextButton::buttonColourId, getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-        mAttToggleButton.setColour (TextButton::buttonOnColourId, (getLookAndFeel().findColour (ResizableWindow::backgroundColourId)).brighter());
+        mAttToggleButton.setColour (TextButton::buttonColourId, Colours::white);
+        mAttToggleButton.setColour (TextButton::buttonOnColourId, Colours::lightgrey);
         mAttToggleButton.setToggleState (false, dontSendNotification);
         mAttToggleButton.addListener(this);
         
@@ -129,24 +134,24 @@ public:
     {
         mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
 
-        mFreqAnsweredLabel.setBounds ( 0.05*getWidth(), 0.2*getHeight(), 80, 40 );
-        mFreqAnsweredButton.setBounds(0.1*getWidth(), 0.3*getHeight(), 60, 30 );
+        mFreqAnsweredLabel.setBounds ( 0.05*getWidth(), 0.15*getHeight(), 80, 40 );
+        mFreqAnsweredButton.setBounds(0.1*getWidth(), 0.25*getHeight(), 60, 30 );
         
-        mCorrectAnswerLabel.setBounds (0.35*getWidth(), 0.2*getHeight(), 90, 40 );
-        mCorrectAnswerButton.setBounds(0.4*getWidth(), 0.3*getHeight(), 60, 30);
+        mCorrectAnswerLabel.setBounds (0.35*getWidth(), 0.15*getHeight(), 90, 40 );
+        mCorrectAnswerButton.setBounds(0.4*getWidth(), 0.25*getHeight(), 60, 30);
         
-        mFreqBoostLabel.setBounds (0.7*getWidth(), 0.2*getHeight(), 80, 60 );
+        mFreqBoostLabel.setBounds (0.7*getWidth(), 0.15*getHeight(), 80, 60 );
+        mFreqBoostAnsweredLabel.setBounds (0.7*getWidth(), 0.3*getHeight(), 80, 60 );
         
+        mTestFreqTitleLabel.setBounds(0.15*getWidth(), 0.53*getHeight(), 0.4*getWidth(), 70);
+        g_filterCorrectionButton.setBounds (0.6*getWidth(), 0.58*getHeight(), 80, 40 );
+        mFreqLabel.setBounds (0.1*getWidth(), 0.68*getHeight(), 65, 60 );
+        mFreqSlider.setBounds (0.35*getWidth(), 0.68*getHeight(), 0.6*getWidth(), 60 );
+        mNoSliderLabel.setBounds (0.35*getWidth(), 0.73*getHeight(), 0.65*getWidth(), 80);
         
-        mTestFreqTitleLabel.setBounds(0.15*getWidth(), 0.45*getHeight(), 0.4*getWidth(), 70);
-        g_filterCorrectionButton.setBounds (0.55*getWidth(), 0.55*getHeight(), 80, 40 );
-        mFreqLabel.setBounds (0.1*getWidth(), 0.65*getHeight(), 65, 60 );
-        mFreqSlider.setBounds (0.35*getWidth(), 0.65*getHeight(), 0.6*getWidth(), 60 );
-        mNoSliderLabel.setBounds (0.35*getWidth(), 0.7*getHeight(), 0.65*getWidth(), 80);
-        
-        mAmpAttLabel.setBounds(0.1*getWidth(), 0.8*getHeight(), 65, 60);
-        mAmpToggleButton.setBounds (0.5*getWidth(), 0.8*getHeight(), 40, 30 );
-        mAttToggleButton.setBounds (0.65*getWidth(), 0.8*getHeight(), 40, 30) ;
+        mAmpAttLabel.setBounds(0.1*getWidth(), 0.78*getHeight(), 65, 60);
+        mAmpToggleButton.setBounds (0.5*getWidth(), 0.83*getHeight(), 40, 30 );
+        mAttToggleButton.setBounds (0.65*getWidth(), 0.83*getHeight(), 40, 30) ;
     }
     
     void update()
@@ -159,6 +164,8 @@ public:
             mFreqAnswered =  (ExerciseGenerator::listexercises.back() )-> getCenterFreqAnswered();
             
             mFreqBoost =  (ExerciseGenerator::listexercises.back() )-> getFreqBoost();
+            
+            mFreqBoostAnswered =  (ExerciseGenerator::listexercises.back() )-> getFreqBoostAnswered();
         }
         
         
@@ -175,17 +182,25 @@ public:
             static_cast<String> (mFreqBoost) + "dB",
                                 dontSendNotification );
         
+        mFreqBoostAnsweredLabel.setText( "Boost Amount Answered: " +
+                                        static_cast<String> (mFreqBoostAnswered) + "dB",
+                                        dontSendNotification );
+        
         
         updateSliderCursorPos(g_exerciseCentreFrequency);
         
         if(g_gainAmplification && g_gainAttenuation)
         {
+            mFreqBoostAnsweredLabel.setVisible(true);
+            
             mAmpToggleButton.setVisible(true);
             mAttToggleButton.setVisible(true);
             mAmpAttLabel.setVisible(true);
         }
         else
         {
+            mFreqBoostAnsweredLabel.setVisible(false);
+            
             mAmpToggleButton.setVisible(false);
             mAttToggleButton.setVisible(false);
             mAmpAttLabel.setVisible(false);
@@ -199,6 +214,8 @@ public:
         {
             mAttToggleButton.triggerClick();
         }
+        
+        
         
         
         
@@ -262,11 +279,15 @@ public:
         if ( button == &mAmpToggleButton )
         {
             g_gainFactor = fabs(mFreqBoost);
+            mAmpToggleButton.setEnabled(false);
+            mAttToggleButton.setEnabled(true);
         }
         
         if ( button == &mAttToggleButton )
         {
             g_gainFactor = -(fabs(mFreqBoost));
+            mAmpToggleButton.setEnabled(true);
+            mAttToggleButton.setEnabled(false);
 
         }
     }
@@ -341,7 +362,8 @@ public:
     {
         int currSliderValue = mFreqSlider.getValue();
         
-        if ( getFreqValue(mFreqAnswered, g_freqRangeValue) ==
+        if ( currSliderValue == getFreqValue(mFreqAnswered, g_freqRangeValue)
+            && getFreqValue(mFreqAnswered, g_freqRangeValue) ==
                 getFreqValue( mCorrectAnswer, g_freqRangeValue) )
         {
             mCorrectAnswerButton.setEnabled(false);
@@ -475,6 +497,7 @@ private:
     Label mCorrectAnswerLabel;
     TextButton mCorrectAnswerButton;
     Label mFreqBoostLabel;
+    Label mFreqBoostAnsweredLabel;
     Label mTitleLabel;
     Label mNoSliderLabel;
     
@@ -491,6 +514,7 @@ private:
     float mFreqAnswered = 20000;
     float mCorrectAnswer = 20000;
     float mFreqBoost = 12;
+    int mFreqBoostAnswered = 12;
     
 };
 

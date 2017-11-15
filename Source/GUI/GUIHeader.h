@@ -58,7 +58,7 @@ public:
         g.drawText (str_title, 0, getHeight()/2, getWidth(), getHeight()/2,
                     Justification::centred, true);
         
-        g.setFont (30.0f);
+        g.setFont (40.0f);
         g.drawText (str_subtitle, getLocalBounds(),
                     Justification::centred, true);
     }

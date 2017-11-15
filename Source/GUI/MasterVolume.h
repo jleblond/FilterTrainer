@@ -29,6 +29,7 @@ public:
         
         addAndMakeVisible(volumeLabel);
         volumeLabel.setText("MAIN VOLUME", dontSendNotification);
+        volumeLabel.setColour(juce::Label::textColourId, juce::Colours::white);
     }
     
     ~MasterVolume()
