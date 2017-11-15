@@ -33,6 +33,11 @@ public:
         mTitle.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
         mTitle.setFont(18);
         
+        addAndMakeVisible(mScore);
+        mScore.setText("Score: ", dontSendNotification);
+        mScore.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
+        mScore.setFont(14);
+        
         addAndMakeVisible(mCountTitle);
         mCountTitle.setText("Count: ", dontSendNotification);
         mCountTitle.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
@@ -155,6 +160,7 @@ public:
     void resized() override
     {
         mTitle.setBounds(0.05*getWidth(), 0.1*getHeight(), 150, 30);
+        mScore.setBounds(0.05*getWidth(), 0.3*getHeight(), 150, 30);
         
         mCountTitle.setBounds(0.2*getWidth(), 0.1*getHeight(), 70, 30);
         mPercentTitle.setBounds(0.2*getWidth(), 0.47*getHeight(), 70, 30);
@@ -232,6 +238,10 @@ public:
             {
                 s->updateStats(centerFreq, centerFreqAnswered, answerDistance);
                 
+                String scoreStr = s->getScoreText();
+                mScore.setText("Score: "+scoreStr, dontSendNotification);
+                
+                
                 repaint();
                 
                 s->printStats(); //console print
@@ -295,6 +305,9 @@ private:
     
     
     Label mTitle;
+    
+    Label mScore;
+    
     Label mCountTitle;
     Label mPercentTitle;
     Label mFreqTitle;

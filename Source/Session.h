@@ -14,7 +14,8 @@
 
 #include <vector>
 #include <ctime>
-#include <cmath>
+#include <cmath> //fabs
+#include <math.h> //roundf
 
 
 //gain factors only avail to ReportGenerator (due to global being above Session.h in the file hierarchy)
@@ -206,7 +207,7 @@ public:
         std::cout<<"mQuestionsCount: "<<mQuestionsCount<<std::endl;
         
         //in order to get a good measure total score
-        if(mQuestionsCount >= 50)
+        if(mQuestionsCount >= mMinQuestionsNeeded)
         {
             calculateScore();
         }
@@ -297,6 +298,16 @@ public:
 
     }
     
+    String getScoreText()
+    {
+        if (mQuestionsCount >= mMinQuestionsNeeded)
+        {
+            float nearest = roundf( (mWeightedAverage*100) * 100) / 100;
+            mScoreTextGUIStats = static_cast<String>(nearest)+"%";
+        }
+        return mScoreTextGUIStats;
+    }
+    
     void setDuration(double duration)
     {
         mDuration = static_cast<int>(duration);
@@ -353,10 +364,13 @@ private:
     float mMaxScore = 100;
     float mWeightedAverage = 0; //user weighted average of bands
     
+    String mScoreTextGUIStats = "\n[Answer at least 50 questions]";
+    
     //Difficulty factors
     float mDiffFactor1 = (100.0/62.0);
     float mDiffFactor2 = (100.0/80.0);
     
+    int mMinQuestionsNeeded = 50;
     
     //Date date;
     //Time time;
