@@ -59,7 +59,7 @@ extern double g_centreFrequency;
 extern double g_Q;
 extern float g_gainFactor;
 
-//Exercise settings for the filter
+//Exercise settings for the filter (settings for the question)
 extern double g_exerciseCentreFrequency;
 extern double g_exerciseQ;
 extern float g_exerciseGainFactor;

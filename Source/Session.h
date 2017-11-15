@@ -222,6 +222,7 @@ public:
     
     void calculateMaxScore()
     {
+        std::cout<<"\n\nCALCULATE MAX SCORE"<<std::endl;
         mMaxScore = 100;
         
         // A) # of bands
@@ -229,21 +230,24 @@ public:
         int freqRange = getRange();
         
         if (freqRange == 1)
-                mMaxScore *= mDiffFactor1;
+                mMaxScore *= (mDiffFactor1 * mDiffFactor2);
         else if (freqRange == 5)
-                mMaxScore *= mDiffFactor2;
+                mMaxScore *= mDiffFactor1;
         else //high, mid, low
                 mMaxScore *= 1;
 
+        std::cout<<"mMaxScore after freqRange: "<<mMaxScore<<std::endl;
         
         
         // B) Amplification/Attenuation
         if(mGainAmplification && mGainAttenuation)
-            mMaxScore *= mDiffFactor1;
+            mMaxScore *= (mDiffFactor1 * mDiffFactor2);
         else if(mGainAttenuation && !mGainAmplification)
-            mMaxScore *= mDiffFactor2;
+            mMaxScore *= mDiffFactor1;
         else //only amplification
             mMaxScore *= 1;
+        
+         std::cout<<"mMaxScore after ampatt: "<<mMaxScore<<std::endl;
         
         
         // C) dB Level
@@ -251,7 +255,7 @@ public:
         float absGain = std::fabs(mGainFactor);
         std::cout<<"absGain: "<<absGain<<std::endl;
         
-        if(absGain ==3)
+        if(absGain == 3)
         {
             mMaxScore *= (mDiffFactor1 * mDiffFactor2 * mDiffFactor2);
         }
@@ -268,7 +272,7 @@ public:
             mMaxScore *= 1;
         }
         
-        std::cout<<"Session - mMaxScore: "<<mMaxScore<<std::endl;
+        std::cout<<"Session - mMaxScore (after dBLevel): "<<mMaxScore<<std::endl;
         
     }
     
