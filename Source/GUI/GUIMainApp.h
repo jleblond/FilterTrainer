@@ -79,9 +79,10 @@ public:
         mExcontrols.changePanelVisibility(true, false, false);
     }
     
-    void updateExCorrectionSlider()
+    void update()
     {
         mExcontrols.updateExCorrectionSlider();
+        mStats.resetNbQuestionsLabelText();
     }
     
 private:

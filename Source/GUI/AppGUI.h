@@ -106,7 +106,7 @@ public:
             t1 = steady_clock::now();
             
             
-            mMainApp.updateExCorrectionSlider();
+            mMainApp.update();
 
         }
         
@@ -149,7 +149,7 @@ private:
     GUIStartSession mStartSession;
     GUIMainApp mMainApp;
                        
-    LookAndFeel *mLF = new LookAndFeel_V4( (LookAndFeel_V4::getGreyColourScheme() ) );
+    LookAndFeel *mLF = new LookAndFeel_V4( (LookAndFeel_V4::getLightColourScheme() ) );
   
     
     //GUI sections proportions

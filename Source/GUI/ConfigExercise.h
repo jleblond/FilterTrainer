@@ -64,7 +64,7 @@ public:
         
         attenuate.setButtonText("-");
         attenuate.setColour (TextButton::buttonColourId,
-                             Colours::darkgrey);
+                             Colours::white);
         attenuate.addListener(this);
         addAndMakeVisible(attenuate);
         
@@ -174,7 +174,7 @@ public:
         else
         {
             amplify.setColour (TextButton::buttonColourId,
-                               Colours::darkgrey);
+                               Colours::white);
         }
         
     }
@@ -193,7 +193,7 @@ public:
         else
         {
             attenuate.setColour (TextButton::buttonColourId,
-                                 Colours::darkgrey);
+                                 Colours::white);
         }
         
         mdBAmpValueLabel.setText( dBAmpCurrValue(), dontSendNotification);

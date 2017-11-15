@@ -20,17 +20,20 @@ public:
         menu1.setButtonText(str_menu1);
         menu1.addListener(this);
         addAndMakeVisible(menu1);
+        menu1.setColour(TextButton::buttonColourId, juce::Colours::white);
        // menu1.setEnabled(false);
         menu1.setVisible(false);
         
         menu2.setButtonText(str_menu2);
         menu2.addListener(this);
         addAndMakeVisible(menu2);
+        menu2.setColour(TextButton::buttonColourId, juce::Colours::white);
       //  menu2.setEnabled(false);
         
         g_EndSessionButton.setButtonText(str_menu3);
        // g_EndSessionButton.addListener(this);
         addAndMakeVisible(g_EndSessionButton);
+        g_EndSessionButton.setColour(TextButton::buttonColourId, juce::Colours::white);
         g_EndSessionButton.setVisible(false);
        // g_EndSessionButton.setEnabled(false);
         
@@ -124,44 +127,83 @@ public:
     
     void commentDialogBox()
     {
-#if JUCE_MODAL_LOOPS_PERMITTED
-        AlertWindow w ("Comments",
-                       "This will be added to your session report.",
-                       AlertWindow::NoIcon);
+        juce::AlertWindow *alert = new juce::AlertWindow ("Comments","Comments will be added to your session report.", juce::AlertWindow::NoIcon );
+        alert->setColour(AlertWindow::backgroundColourId, Colours::black);
         
-        w.addCustomComponent(mTextEditor);
-        mTextEditor->setSize(300,300);
+        alert->addCustomComponent(mTextEditor);
+        mTextEditor->setSize(350,300);
         mTextEditor->setMultiLine(true);
         mTextEditor->setReturnKeyStartsNewLine (true);
-       
         
-        w.addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
-        w.addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));
+        alert->addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
+        alert->addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));
         
+        alert->setBounds(430,200,425, 500);
         
-        if (w.runModalLoop() != 0) // is they picked 'ok'
+        int returnValue = alert->runModalLoop();
+        delete alert;
+        
+        if(returnValue)
         {
-            
             String commentText = mTextEditor->getText();
             (g_User.getLastSession())->addComment(commentText);
             (g_User.getLastSession())->printAllComments();
-            mTextEditor->clear();
-            
-
-            
         }
-#endif
+        
+        mTextEditor->clear();
+        
+        
+//#if JUCE_MODAL_LOOPS_PERMITTED
+//        AlertWindow w ("Comments",
+//                       "This will be added to your session report.",
+//                       AlertWindow::NoIcon);
+//
+//        w.addCustomComponent(mTextEditor);
+//        mTextEditor->setSize(300,300);
+//        mTextEditor->setMultiLine(true);
+//        mTextEditor->setReturnKeyStartsNewLine (true);
+//
+//
+//        w.addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
+//        w.addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));
+//
+//
+//        if (w.runModalLoop() != 0) // is they picked 'ok'
+//        {
+//
+//            String commentText = mTextEditor->getText();
+//            (g_User.getLastSession())->addComment(commentText);
+//            (g_User.getLastSession())->printAllComments();
+//            mTextEditor->clear();
+//
+//
+//
+//        }
+//#endif
+        
     }
     
     void infoDialogBox()
     {
-        AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
-        String creditsStr = String(CharPointer_UTF8 ("Ear Training software implemented by Jasmine Leblond-Chartrand\nfor Concordia's Music Department, Montreal (2017)\n\nThe Inner Ear Project is supervised by Dr. Eldad Tsabary at Concordia University\nin collaboration with Dr. David Ogborn at McMaster University\nand Dr. Andrea Szigetvári at Liszt Academy of Music."));
-       
-        AlertWindow::showMessageBoxAsync (icon,
-                                          "Inner Ear [filter module] 1.1 (MacOSX version)",
-                                          creditsStr,
-                                          "OK");
+        String creditsStr = String(CharPointer_UTF8 (
+            "Ear Training software implemented by Jasmine Leblond-Chartrand\nfor Concordia's Music Department, Montreal (2017)\n\nThe Inner Ear Project is supervised by Dr. Eldad Tsabary at Concordia University\nin collaboration with Dr. David Ogborn at McMaster University\nand Dr. Andrea Szigetvári at Liszt Academy of Music.")
+                                                    );
+        
+//        AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
+//        setColour(AlertWindow::backgroundColourId, Colours::black);
+
+//
+//        AlertWindow::showMessageBoxAsync (icon,
+//                                          "Inner Ear [filter module] 1.1 (MacOSX version)",
+//                                          creditsStr,
+//                                          "OK");
+        
+        juce::AlertWindow *alert = new juce::AlertWindow ("About",creditsStr, juce::AlertWindow::InfoIcon );
+        alert->addButton ("OK",1,juce::KeyPress(),juce::KeyPress());
+        alert->setColour(AlertWindow::backgroundColourId, Colours::black);
+        alert->setBounds(300,150,700,250);
+        int returnValue = alert->runModalLoop();
+        delete alert;
     }
     
 
@@ -175,7 +217,7 @@ private:
     String str_menu1="Add Comment";
     
     TextButton menu2;
-    String str_menu2="INFO";
+    String str_menu2="ABOUT";
     
     //string for g_EndSessionButton
     String str_menu3="END SESSION";

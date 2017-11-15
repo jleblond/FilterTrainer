@@ -60,6 +60,7 @@ public:
        // g.fillAll(Colour::Colour(191, 92, 0) ); //dark red
         g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
         g.fillAll(Colours::black);
+        g.setColour(Colours::white);
 
     }
     
@@ -104,6 +105,7 @@ public:
             
             g_filterButton.setVisible(true);
             g_filterButton.setEnabled(true);
+            g_filterButton.setColour(TextButton::buttonColourId, Colours::white);
                 
         }
         

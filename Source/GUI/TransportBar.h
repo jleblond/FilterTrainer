@@ -33,8 +33,11 @@ public:
         addAndMakeVisible (g_loopingButton);
         g_loopingButton.setButtonText ("Looping");
         g_loopingButton.setColour (TextButton::buttonColourId,
-                                   getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+                                   Colours::darkgrey);
         g_loopingButton.setEnabled (false);
+        
+        //while looping function is not working...
+        g_loopingButton.setVisible(false);
         
         
         
@@ -42,14 +45,14 @@ public:
         addAndMakeVisible (g_dummyFilterButton);
         g_dummyFilterButton.setButtonText ("Filter is OFF");
         g_dummyFilterButton.setColour (TextButton::buttonColourId,
-                                  getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+                                  Colours::darkgrey);
         g_dummyFilterButton.setEnabled (false);
         
         
         addAndMakeVisible (g_filterButton);
         g_filterButton.setButtonText ("Filter is OFF");
         g_filterButton.setColour (TextButton::buttonColourId,
-                                  getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+                                  Colours::darkgrey);
         g_filterButton.setEnabled (false);
         
         

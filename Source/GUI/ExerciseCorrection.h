@@ -22,9 +22,11 @@ public:
     ExerciseCorrection()
     {
         addAndMakeVisible(mTitleLabel);
+        mTitleLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mTitleLabel.setText("EXERCISE FEEDBACK", dontSendNotification);
         
         addAndMakeVisible(mFreqAnsweredLabel);
+        mFreqAnsweredLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mFreqAnsweredLabel.setText("", dontSendNotification);
         
         addAndMakeVisible(mFreqAnsweredButton);
@@ -32,6 +34,7 @@ public:
         mFreqAnsweredButton.addListener(this);
         
         addAndMakeVisible(mCorrectAnswerLabel);
+        mCorrectAnswerLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mCorrectAnswerLabel.setText("", dontSendNotification);
         
         addAndMakeVisible(mCorrectAnswerButton);
@@ -39,18 +42,20 @@ public:
         mCorrectAnswerButton.addListener(this);
         
         addAndMakeVisible(mFreqBoostLabel);
+        mFreqBoostLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mFreqBoostLabel.setText("", dontSendNotification);
         
 
         //SLIDER REGION
         
         addAndMakeVisible(mTestFreqTitleLabel);
+        mTestFreqTitleLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mTestFreqTitleLabel.setText("Try out other frequencies: ", dontSendNotification);
         
         addAndMakeVisible (g_filterCorrectionButton);
         g_filterCorrectionButton.setButtonText ("Filter is OFF");
         g_filterCorrectionButton.setColour (TextButton::buttonColourId,
-                                  getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+                                            Colours::white);
         g_filterCorrectionButton.addListener(this);
         
         
@@ -62,15 +67,18 @@ public:
         mFreqSlider.addListener(this);
         
         addAndMakeVisible(mFreqLabel);
+        mFreqLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mFreqLabel.setText("Hz ", dontSendNotification);
         
         addAndMakeVisible(mNoSliderLabel);
+        mNoSliderLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mNoSliderLabel.setText("(bypass the filter to modify the parameters)", dontSendNotification);
         mNoSliderLabel.setVisible(false);
  
         
         //Amplification Atttenuation Toggle Text Buttons Section
         addAndMakeVisible(mAmpAttLabel);
+        mAmpAttLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mAmpAttLabel.setText("[Amplify / Attenuate]", dontSendNotification);
         mAmpAttLabel.setVisible(false);
         
@@ -114,6 +122,7 @@ public:
         //g.fillAll(Colours::darkred);
         // g.fillAll(Colour::Colour(191, 92, 0) ); //dark red
         //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        
     }
     
     void resized() override
@@ -190,6 +199,20 @@ public:
         {
             mAttToggleButton.triggerClick();
         }
+        
+        
+        
+        if ( mFreqAnswered == mCorrectAnswer )
+        {
+           
+            mFreqAnsweredButton.setEnabled(false);
+            mCorrectAnswerButton.setEnabled(false);
+            
+            
+           // setButtonColour(false, false);
+        }
+        
+        
     }
     
     void buttonClicked(Button* button) override
@@ -226,12 +249,13 @@ public:
         if ( button == &mFreqAnsweredButton)
         {
             updateSliderCursorPos(mFreqAnswered);
-            
+           // setFreqAnsweredButtonColour(true);
         }
         
         if ( button == &mCorrectAnswerButton )
         {
             updateSliderCursorPos(mCorrectAnswer);
+           // setCorrectAnswerButtonColour(true);
         }
         
         
@@ -260,6 +284,8 @@ public:
                     mFreqLabel.setText(freqStr, dontSendNotification);
                     
                     buttonValueSameSliderValue();
+                    
+                    
                 }
         
     }
@@ -320,21 +346,29 @@ public:
         {
             mCorrectAnswerButton.setEnabled(false);
             mFreqAnsweredButton.setEnabled(false);
+            
+            //setButtonColour(false, false);
         }
-        if( currSliderValue == getFreqValue(mFreqAnswered, g_freqRangeValue))
+        else if( currSliderValue == getFreqValue(mFreqAnswered, g_freqRangeValue))
         {
             mCorrectAnswerButton.setEnabled(true);
             mFreqAnsweredButton.setEnabled(false);
+            
+            //setButtonColour(true, false);
         }
         else if (currSliderValue == getFreqValue( mCorrectAnswer, g_freqRangeValue) )
         {
             mCorrectAnswerButton.setEnabled(false);
             mFreqAnsweredButton.setEnabled(true);
+            
+            //setButtonColour(false, true);
         }
         else
         {
             mCorrectAnswerButton.setEnabled(true);
             mFreqAnsweredButton.setEnabled(true);
+            
+            //setButtonColour(true, true);
         }
     }
     
@@ -393,6 +427,46 @@ public:
         
         //in case end reached (should not be the case)
         return 1;
+    }
+    
+    void setButtonColour(bool button1isWhite, bool button2isWhite)
+    {
+        setFreqAnsweredButtonColour(button1isWhite);
+        setCorrectAnswerButtonColour(button2isWhite);
+    }
+    
+    void setFreqAnsweredButtonColour(bool isWhite)
+    {
+        if(isWhite)
+        {
+            mFreqAnsweredButton.setColour(TextButton::buttonColourId, juce::Colours::white);
+            mFreqAnsweredButton.setColour(TextButton::textColourOnId, juce::Colours::black);
+            mFreqAnsweredButton.setColour(TextButton::textColourOffId, juce::Colours::black);
+        }
+        else
+        {
+            mFreqAnsweredButton.setColour(TextButton::buttonColourId, juce::Colours::black);
+            mFreqAnsweredButton.setColour(TextButton::textColourOnId, juce::Colours::white);
+            mFreqAnsweredButton.setColour(TextButton::textColourOffId, juce::Colours::white);
+        }
+
+    }
+    
+    void setCorrectAnswerButtonColour(bool isWhite)
+    {
+        if (isWhite)
+        {
+            mCorrectAnswerButton.setColour(TextButton::buttonColourId, juce::Colours::white);
+            mCorrectAnswerButton.setColour(TextButton::textColourOnId, juce::Colours::black);
+            mCorrectAnswerButton.setColour(TextButton::textColourOffId, juce::Colours::black);
+        }
+        else
+        {
+            mCorrectAnswerButton.setColour(TextButton::buttonColourId, juce::Colours::black);
+            mCorrectAnswerButton.setColour(TextButton::textColourOnId, juce::Colours::white);
+            mCorrectAnswerButton.setColour(TextButton::textColourOffId, juce::Colours::white);
+        }
+
     }
     
 private:

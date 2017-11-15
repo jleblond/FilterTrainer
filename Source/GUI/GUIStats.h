@@ -33,8 +33,13 @@ public:
         mTitle.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
         mTitle.setFont(18);
         
+        addAndMakeVisible(mNbQuestions);
+        mNbQuestions.setText("# of questions: 0", dontSendNotification);
+        mNbQuestions.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
+        mNbQuestions.setFont(14);
+        
         addAndMakeVisible(mScore);
-        mScore.setText("Score: ", dontSendNotification);
+        mScore.setText("Score: []", dontSendNotification);
         mScore.setColour(juce::Label::textColourId, juce::Colour(0.0f, 0.0f, 0.0f));
         mScore.setFont(14);
         
@@ -160,7 +165,8 @@ public:
     void resized() override
     {
         mTitle.setBounds(0.05*getWidth(), 0.1*getHeight(), 150, 30);
-        mScore.setBounds(0.05*getWidth(), 0.3*getHeight(), 150, 30);
+        mNbQuestions.setBounds(0.05*getWidth(), 0.25*getHeight(), 150, 50);
+        mScore.setBounds(0.05*getWidth(), 0.4*getHeight(), 150, 50);
         
         mCountTitle.setBounds(0.2*getWidth(), 0.1*getHeight(), 70, 30);
         mPercentTitle.setBounds(0.2*getWidth(), 0.47*getHeight(), 70, 30);
@@ -238,6 +244,9 @@ public:
             {
                 s->updateStats(centerFreq, centerFreqAnswered, answerDistance);
                 
+                String nbQuestionsStr = static_cast<String>( s->getQuestionsCount() );
+                mNbQuestions.setText("# of questions: " + nbQuestionsStr, dontSendNotification);
+                
                 String scoreStr = s->getScoreText();
                 mScore.setText("Score: "+scoreStr, dontSendNotification);
                 
@@ -299,6 +308,12 @@ public:
         mVecBars[index]->setVisible(visibility);
     }
     
+    
+    void resetNbQuestionsLabelText()
+    {
+        mNbQuestions.setText("# of questions: 0", dontSendNotification);
+    }
+    
 private:
     Session* s = new Session(0, 3, true, false);
     float mBarSize = 35; //0.05*getWidth(); //width
@@ -307,6 +322,7 @@ private:
     Label mTitle;
     
     Label mScore;
+    Label mNbQuestions;
     
     Label mCountTitle;
     Label mPercentTitle;

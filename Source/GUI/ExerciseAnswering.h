@@ -21,6 +21,7 @@ public:
     ExerciseAnswering()
     {
         addAndMakeVisible(mTitleLabel);
+        mTitleLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mTitleLabel.setText("ANSWER SECTION", dontSendNotification);
         
         addAndMakeVisible(freqrange);
@@ -35,6 +36,7 @@ public:
         freqrange.setEnabled(false);
         
         addAndMakeVisible(mFreqRangeListLabel);
+        mFreqRangeListLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mFreqRangeListLabel.setText( listFreqInRange(g_AllRange) , dontSendNotification); //g_AllRange arbitrary default
         
         
@@ -47,11 +49,13 @@ public:
         mAnswerSlider.addListener(this);
         
         addAndMakeVisible(mAnswerLabel);
+        mAnswerLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mAnswerLabel.setText("Freq", dontSendNotification);
         mAnswerLabel.attachToComponent(&mAnswerSlider, true);
         
         
         addAndMakeVisible(mCurrFreqLabel);
+        mCurrFreqLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         mCurrFreqLabel.setText("", dontSendNotification);
         
         
@@ -68,6 +72,7 @@ public:
         //g.fillAll(Colours::darkred);
         // g.fillAll(Colour::Colour(191, 92, 0) ); //dark red
         //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+        
     }
     
     void resized() override

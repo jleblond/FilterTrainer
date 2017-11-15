@@ -77,15 +77,25 @@ public:
     void zoomWaveform(double scaleZoom)
     {
         if(scaleZoom <= 1)
+        {
             g_ZoomOutButton.setEnabled(false);
+            g_ZoomOutButton.setColour(TextButton::buttonColourId, Colours::darkgrey);
+        }
         else
+        {
             g_ZoomOutButton.setEnabled(true);
-        
+            g_ZoomOutButton.setColour(TextButton::buttonColourId, Colours::white);
+        }
         if(scaleZoom >=  g_srcDurationInSec/5 )
+        {
             g_ZoomInButton.setEnabled(false);
+            g_ZoomInButton.setColour(TextButton::buttonColourId, Colours::darkgrey);
+        }
         else
+        {
             g_ZoomInButton.setEnabled(true);
-        
+            g_ZoomInButton.setColour(TextButton::buttonColourId, Colours::white);
+        }
         
         thumbnailComp.centreWithSize( scaleZoom *  mThumbnailCompWidth,
                                      thumbnailComp.getHeight() );
