@@ -94,6 +94,9 @@ Report ReportGenerator::createReport(Session session, User& user)
     r.gainFactor = setGainFactors(session);
     r.audioFiles = session.getAudioFileNames();
     r.nbQuestions = session.getQuestionsCount();
+    r.score = session.getScore();
+    r.maxScore = session.getMaxScore();
+    r.percentScore = (r.score/r.maxScore)*100;
     r.comments = session.getComments();
     r.freqstats = session.mSessionStats;
     
@@ -253,12 +256,29 @@ String ReportGenerator::reportTxtContent(Report& report)
     s+="\n";
     s+="\n";
     s+="\n";
+    s+="\n";
+    s+="\n";
     s+="\t***GRAPH***\n";
     s+="\n";
     s+="center\     #times  \n";
     s+="freq        involved         score (%)\n";
     s+="————————————————————————--------------\n";
     s+=freqChartStr(report);
+ 
+    if(report.nbQuestions >= 50)
+    {
+        s+="\n";
+        s+="Your score ["+ static_cast<String>(report.percentScore) +"%]\n";
+        s+="\n";
+        s+="\n";
+        s+="Session Difficulty Score ["+ static_cast<String>(report.maxScore) +"] / 1024\n\n";
+        s+="Global Progress Score ["+ static_cast<String>(report.score/1024*100) +"%]\n";
+        s+="(based on your score and the difficulty of your exercises)\n";
+    }
+    else
+    {
+        s+="\n\nYour score: [Answer at least 50 questions in order to calculate your score]\n";
+    }
     s+="\n";
     s+="\n";
     s+="\n";

@@ -14,6 +14,7 @@
 
 #include <vector>
 #include <ctime>
+#include <cmath>
 
 
 //gain factors only avail to ReportGenerator (due to global being above Session.h in the file hierarchy)
@@ -23,7 +24,7 @@ class Session
 public:
     FreqStats mSessionStats;
     
-    Session(int range)
+    Session(int range, float gainFactor, bool gainAmplification, bool gainAttenuation)
     {
         switch(range)
         {
@@ -44,8 +45,11 @@ public:
                 break;
         }
         
-        
      //   mGainFactor = g_gainFactor;
+        
+        mGainFactor = gainFactor;
+        mGainAmplification = gainAmplification;
+        mGainAttenuation = gainAttenuation;
         
     }
     
@@ -164,6 +168,18 @@ public:
         return mVecComments;
     }
     
+    float getScore()
+    {
+        return mScore;
+    }
+    
+    
+    float getMaxScore()
+    {
+        return mMaxScore;
+    }
+    
+    
     void updateStats(float centerFreq, float centerFreqAnswered,
                      int answerDistance)   //update mSessionStats
     {
@@ -186,8 +202,99 @@ public:
         }
         
         
-        mQuestionsCount++;
+        mQuestionsCount +=1;
+        std::cout<<"mQuestionsCount: "<<mQuestionsCount<<std::endl;
         
+        //in order to get a good measure total score
+        if(mQuestionsCount >= 50)
+        {
+            calculateScore();
+        }
+        
+    }
+    
+    
+    void calculateMaxScore()
+    {
+        mMaxScore = 100;
+        
+        // A) # of bands
+        
+        int freqRange = getRange();
+        
+        if (freqRange == 1)
+                mMaxScore *= mDiffFactor1;
+        else if (freqRange == 5)
+                mMaxScore *= mDiffFactor2;
+        else //high, mid, low
+                mMaxScore *= 1;
+
+        
+        
+        // B) Amplification/Attenuation
+        if(mGainAmplification && mGainAttenuation)
+            mMaxScore *= mDiffFactor1;
+        else if(mGainAttenuation && !mGainAmplification)
+            mMaxScore *= mDiffFactor2;
+        else //only amplification
+            mMaxScore *= 1;
+        
+        
+        // C) dB Level
+        
+        float absGain = std::fabs(mGainFactor);
+        std::cout<<"absGain: "<<absGain<<std::endl;
+        
+        if(absGain ==3)
+        {
+            mMaxScore *= (mDiffFactor1 * mDiffFactor2 * mDiffFactor2);
+        }
+        else if (absGain == 6)
+        {
+            mMaxScore *= (mDiffFactor2 * mDiffFactor2);
+        }
+        else if (absGain == 9)
+        {
+            mMaxScore *= mDiffFactor2;
+        }
+        else //absGain == 12
+        {
+            mMaxScore *= 1;
+        }
+        
+        std::cout<<"Session - mMaxScore: "<<mMaxScore<<std::endl;
+        
+    }
+    
+    void calculateWeightedAverage()
+    {
+        mWeightedAverage = 0;
+        
+        for (int j=0 ; j< 10 ; j++)
+        {
+            float freqScore = mSessionStats.correctans[mAllRange[j]] / mSessionStats.count[mAllRange[j]] ;
+            std::cout<<freqScore<<"(freqscore)  -  (freqweight) ";
+            float freqWeight = mSessionStats.count[mAllRange[j]] / mQuestionsCount;
+            std::cout<<freqWeight<<std::endl;
+            
+            //required otherwise freq for which freqWeight == 0 will result in NaN
+            if(freqWeight != 0)
+                mWeightedAverage += freqScore * freqWeight;
+        }
+        
+        std::cout<<"Session - mWeightedAverage: "<<mWeightedAverage<<std::endl;
+        
+    }
+    
+    void calculateScore()
+    {
+        calculateMaxScore();
+        calculateWeightedAverage();
+        
+        mScore = mWeightedAverage * mMaxScore;
+        
+        std::cout<<"Session - mScore: "<<mScore<<std::endl;
+
     }
     
     void setDuration(double duration)
@@ -236,8 +343,25 @@ private:
     Range mRange = all;
    // float mGainFactor = 0;
     
+    float mGainFactor = 3;
+    bool mGainAmplification = true;
+    bool mGainAttenuation = false;
+    
+    //default score values
+    float mScore= -1; //mScore = mWeightedAverage (%) * mMaxScore ;
+    float mPercentTotalScore = 0;
+    float mMaxScore = 100;
+    float mWeightedAverage = 0; //user weighted average of bands
+    
+    //Difficulty factors
+    float mDiffFactor1 = (100.0/62.0);
+    float mDiffFactor2 = (100.0/80.0);
+    
+    
     //Date date;
     //Time time;
     
     int mDuration = 0;
+    
+    std::vector<float> mAllRange {31.25, 62.5, 125, 250, 500, 1000, 2000, 4000, 8000, 16000};
 };

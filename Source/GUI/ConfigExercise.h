@@ -85,17 +85,17 @@ public:
     
     void resized() override
     {
-        mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
+        mTitleLabel.setBounds(0.4*getWidth(), 0, 0.6*getWidth(), 80);
         
-        mdBAmpLabel.setBounds(0.15*getWidth(), 0.25*getHeight(), 100, 30);
-        dBAmpSlider.setBounds (0.2*getWidth(), 0.35*getHeight(), 30, 135);
-        mdBAmpValueLabel.setBounds (0.3*getWidth(), 0.45*getHeight(), 60, 30);
-        amplify.setBounds (0.15*getWidth(), 0.85*getHeight(), 30, 30);
-        attenuate.setBounds (0.27*getWidth(), 0.85*getHeight(), 30, 30);
+        mdBAmpLabel.setBounds(0.25*getWidth(), 0.25*getHeight(), 100, 30);
+        dBAmpSlider.setBounds (0.3*getWidth(), 0.35*getHeight(), 30, 135);
+        mdBAmpValueLabel.setBounds (0.35*getWidth(), 0.45*getHeight(), 60, 30);
+        amplify.setBounds (0.27*getWidth(), 0.75*getHeight(), 30, 30);
+        attenuate.setBounds (0.31*getWidth(), 0.75*getHeight(), 30, 30);
         
-        mFreqRangeLabel.setBounds (0.5*getWidth(), 0.35*getHeight(), 100, 30);
-        freqrange->setBounds (0.5*getWidth(), 0.5*getHeight(), 100, 30);
-        mFreqRangeListLabel.setBounds(0.5*getWidth(), 0.6*getHeight(), 150, 100);
+        mFreqRangeLabel.setBounds (0.55*getWidth(), 0.35*getHeight(), 100, 30);
+        freqrange->setBounds (0.55*getWidth(), 0.5*getHeight(), 100, 30);
+        mFreqRangeListLabel.setBounds(0.55*getWidth(), 0.6*getHeight(), 150, 100);
         
     }
     

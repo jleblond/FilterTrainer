@@ -290,7 +290,7 @@ public:
     }
     
 private:
-    Session* s = new Session(0);
+    Session* s = new Session(0, 3, true, false);
     float mBarSize = 35; //0.05*getWidth(); //width
     
     

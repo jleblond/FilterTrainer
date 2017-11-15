@@ -35,9 +35,9 @@ public:
         this->mUsername = name;
     }
     
-    void createSession(int range)
+    void createSession(int range, float gainFactor, bool gainAmplification, bool gainAttenuation)
     {
-        mVecSessions.push_back( new Session(range) );
+        mVecSessions.push_back( new Session(range, gainFactor, gainAmplification, gainAttenuation) );
         mLastNbSessions++;
     }
     
@@ -70,6 +70,7 @@ public:
         {
             for (int j=0 ; j< 10 ; j++)
             {
+                //is this valid?
                 mGlobalStats.count[j] +=
                 mVecSessions[i]->mSessionStats.count[j];
                 

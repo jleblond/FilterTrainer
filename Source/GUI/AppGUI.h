@@ -90,7 +90,7 @@ public:
             //IMPORTANT: SESSION IS ONLY CREATED AT THIS POINT
             //everything before the audioapp regular display panel can't use any SESSION stuff
             
-            g_User.createSession(g_freqRangeValue);
+            g_User.createSession(g_freqRangeValue, g_gainFactor, g_gainAmplification, g_gainAttenuation);
             bool isset = mMainApp.setSession( g_User.getLastSession() );
             
             if(isset)

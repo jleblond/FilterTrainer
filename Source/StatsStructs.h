@@ -17,7 +17,7 @@
 struct FreqStats
 {
 
-    
+    //all sessions have the 10 freq values avail but if they do not really use the 10 bands, they count will be 0 anyways
     std::map<float, float> count =
     {
         {31.25, 0}, {62.5, 0}, {125, 0}, {250, 0}, {500, 0},
