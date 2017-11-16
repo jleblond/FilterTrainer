@@ -29,6 +29,8 @@ private:
     
     ~ReportGenerator(){}
     
+    int mMinNbQuestionsforScore = 50;
+    
     static ReportGenerator reportgenerator;
     
     std::vector<int> setGainFactors(Session& session);
@@ -48,5 +50,6 @@ private:
     String freqChartStr(Report& report);
     
     String reportTxtContent(Report& report);
+
     
 };

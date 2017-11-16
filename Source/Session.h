@@ -182,6 +182,7 @@ public:
     
     float getMaxScore()
     {
+        calculateMaxScore();
         return mMaxScore;
     }
     
@@ -379,7 +380,7 @@ private:
     float mDiffFactor1 = (100.0/62.0);
     float mDiffFactor2 = (100.0/80.0);
     
-    int mMinQuestionsNeeded = 5;
+    int mMinQuestionsNeeded = 50;
     
     //Date date;
     //Time time;

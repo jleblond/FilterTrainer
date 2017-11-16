@@ -94,8 +94,11 @@ Report ReportGenerator::createReport(Session session, User& user)
     r.gainFactor = setGainFactors(session);
     r.audioFiles = session.getAudioFileNames();
     r.nbQuestions = session.getQuestionsCount();
-    r.score = session.getScore();
-    r.maxScore = session.getMaxScore();
+    r.score = static_cast<int>(session.getScore());
+    if(r.score == -1)
+        r.score = 0;
+    
+    r.maxScore = static_cast<int>(session.getMaxScore());
     r.percentScore = (r.score/r.maxScore)*100;
     r.comments = session.getComments();
     r.freqstats = session.mSessionStats;
@@ -313,13 +316,18 @@ String ReportGenerator::reportTxtContent(Report& report)
     s+="————————————————————————--------------\n";
     s+=freqChartStr(report);
  
-    if(report.nbQuestions >= 50)
+    if(report.nbQuestions >= mMinNbQuestionsforScore )
     {
         s+="\n";
-        s+="Your score ["+ static_cast<String>(report.percentScore) +"%]\n";
+        s+="Your score at the present level ["+ static_cast<String>(report.percentScore) +"%]\n";
         s+="\n";
         s+="\n";
-        s+="Session Difficulty Score ["+ static_cast<String>(report.maxScore) +"] / 1024\n\n";
+    }
+        s+="Maximum score (Exercises Difficulty) ["+ static_cast<String>(report.maxScore) +"] / 1024\n\n";
+    
+    if(report.nbQuestions >= mMinNbQuestionsforScore )
+    {
+        s+="Your score ["+ static_cast<String>(report.score) +"] / " + static_cast<String>(report.maxScore) +"\n\n";
         s+="Global Progress Score ["+ static_cast<String>(report.score/1024*100) +"%]\n";
         s+="(based on your score and the difficulty of your exercises)\n";
     }

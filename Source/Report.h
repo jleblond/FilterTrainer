@@ -21,8 +21,8 @@ struct Report
         std::vector<int> gainFactor; //** to print
         std::vector<String> audioFiles;
         int nbQuestions = 0;
-        float score = 0;
-        float maxScore = 100;
+        int score = 0;
+        int maxScore = 100;
         int percentScore = 0;
         std::vector<Comment> comments;
         FreqStats freqstats;  //** to print
