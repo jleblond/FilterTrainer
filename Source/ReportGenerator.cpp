@@ -99,7 +99,7 @@ Report ReportGenerator::createReport(Session session, User& user)
         r.score = 0;
     
     r.maxScore = static_cast<int>(session.getMaxScore());
-    r.percentScore = (r.score/r.maxScore)*100;
+    r.percentScore = (r.score/r.maxScore)*100;  //percent score is X (%)
     r.comments = session.getComments();
     r.freqstats = session.mSessionStats;
     
@@ -328,7 +328,7 @@ String ReportGenerator::reportTxtContent(Report& report)
     if(report.nbQuestions >= mMinNbQuestionsforScore )
     {
         s+="Your score ["+ static_cast<String>(report.score) +"] / " + static_cast<String>(report.maxScore) +"\n\n";
-        s+="Global Progress Score ["+ static_cast<String>(report.score/1024*100) +"%]\n";
+        s+="Global Progress Score ["+ static_cast<String>(report.score/1024.0*100.0) +"%]\n";
         s+="(based on your score and the difficulty of your exercises)\n";
     }
     else

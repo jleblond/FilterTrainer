@@ -280,12 +280,18 @@ public:
     void calculateWeightedAverage()
     {
         mWeightedAverage = 0;
+        mCountInvolvedFreqs = 0;
         
         for (int j=0 ; j< 10 ; j++)
         {
-            float freqScore = mSessionStats.correctans[mAllRange[j]] / mSessionStats.count[mAllRange[j]] ;
+            mCountInvolvedFreqs += mSessionStats.count[mAllRange[j]] ;
+        }
+        
+        for (int j=0 ; j< 10 ; j++)
+        {
+            float freqScore = mSessionStats.correctans[mAllRange[j]]*100 / mSessionStats.count[mAllRange[j]] ;
             std::cout<<freqScore<<"(freqscore)  -  (freqweight) ";
-            float freqWeight = mSessionStats.count[mAllRange[j]] / mQuestionsCount;
+            float freqWeight = mSessionStats.count[mAllRange[j]] / mCountInvolvedFreqs;
             std::cout<<freqWeight<<std::endl;
             
             //required otherwise freq for which freqWeight == 0 will result in NaN
@@ -293,6 +299,8 @@ public:
                 mWeightedAverage += freqScore * freqWeight;
         }
         
+        mWeightedAverage /= mCountInvolvedFreqs;
+       // mWeightedAverage /= 100;
         std::cout<<"Session - mWeightedAverage: "<<mWeightedAverage<<std::endl;
         
     }
@@ -373,6 +381,7 @@ private:
     float mPercentTotalScore = 0;
     float mMaxScore = 100;
     float mWeightedAverage = 0; //user weighted average of bands
+    int mCountInvolvedFreqs = 0;
     
     String mScoreTextGUIStats = "(Answer at least\n50 questions)";
     
@@ -380,7 +389,7 @@ private:
     float mDiffFactor1 = (100.0/62.0);
     float mDiffFactor2 = (100.0/80.0);
     
-    int mMinQuestionsNeeded = 50;
+    int mMinQuestionsNeeded = 5;
     
     //Date date;
     //Time time;

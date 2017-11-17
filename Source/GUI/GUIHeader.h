@@ -41,6 +41,16 @@ public:
         addAndMakeVisible(mUserLabel);
         mUserLabel.setJustificationType(juce::Justification::right);
        // mTitleLabel.setText("ANSWER SECTION", dontSendNotification);
+        
+        
+        String filePath = File::getCurrentWorkingDirectory().getFullPathName();
+        std::cout<<filePath<<std::endl;
+        File f(filePath + "/logo.png");
+        
+        mLogo = ImageFileFormat::loadFrom(f);
+        if (mLogo.isValid())
+            mLogoImageComponent.setImage(mLogo);
+        addAndMakeVisible(&mLogoImageComponent);
     }
     
     ~GUIHeader()
@@ -55,12 +65,12 @@ public:
         g.setColour (Colours::white);
         
         g.setFont (16.0f);
-        g.drawText (str_title, 0, getHeight()/2, getWidth(), getHeight()/2,
-                    Justification::centred, true);
+        g.drawText (str_title, 0.45*getWidth()+15, getHeight()/2+10, getWidth(), getHeight()/2,
+                    Justification::left, true);
         
-        g.setFont (40.0f);
-        g.drawText (str_subtitle, getLocalBounds(),
-                    Justification::centred, true);
+//        g.setFont (40.0f);
+//        g.drawText (str_subtitle, getLocalBounds(),
+//                    Justification::centred, true);
     }
     
     void resized() override
@@ -70,6 +80,8 @@ public:
         float elementwidth=getWidth()/12;
         
         Rectangle<int> area = getLocalBounds();
+        
+        mLogoImageComponent.setBounds(0.44*getWidth(), 0*getHeight()-20, 120, 120);
         
         //INFO
         menu2.setBounds(0, 0, elementwidth, elementheight);
@@ -210,7 +222,7 @@ public:
     
 private:
     
-    String str_title="[filter module] ";
+    String str_title=" filter module ";
     String str_subtitle="INNER EAR";
     
     TextButton menu1;
@@ -227,5 +239,7 @@ private:
 
     
     TextEditor* mTextEditor = new TextEditor("Enter your comment here: ");
-    
+
+Image mLogo;
+ImageComponent mLogoImageComponent;
 };
