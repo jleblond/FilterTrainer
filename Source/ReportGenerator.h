@@ -29,7 +29,7 @@ private:
     
     ~ReportGenerator(){}
     
-    int mMinNbQuestionsforScore = 5;
+    int mMinNbQuestionsforScore = 50;
     
     static ReportGenerator reportgenerator;
     

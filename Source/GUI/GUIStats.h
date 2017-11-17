@@ -178,7 +178,7 @@ public:
         mNbQuestions.setBounds(0.05*getWidth(), 0.15*getHeight(), 150, 50);
         
         mScoreTitleLabel.setBounds(0.08*getWidth(), 0.395*getHeight(), 130, 30);
-        mScoreLabel.setBounds(0.08*getWidth(), 0.4*getHeight(), 130, 75);
+        mScoreLabel.setBounds(0.08*getWidth(), 0.42*getHeight(), 150, 60);
         mPercentScoreLabel.setBounds(0.08*getWidth(), 0.6*getHeight(), 130, 75);
         
         mCountTitle.setBounds(0.3*getWidth(), 0.1*getHeight(), 70, 30);
@@ -294,10 +294,19 @@ public:
     {
         //Score Label
         
-        int score = (int)( s->getScore());
+      
+        float score = ( s->getScore());
+        //float nearestScore = roundf( score * 100) / 100; //2 decimals
+        float nearestScore = floor( (score) * 5 + 0.5) / 5;
+        
         int maxScore = (int)( s->getMaxScore() );
         
-        String scoreStr = static_cast<String>(score) + " / " +
+        //in case score value to be displayed is > maxScore due to rounding 'errors'
+        if(nearestScore > maxScore)
+            nearestScore = maxScore;
+        
+        
+        String scoreStr = static_cast<String>(nearestScore) + " / " +
         static_cast<String>(maxScore);
         
         if(score == -1 || s->getQuestionsCount() < s->getMinNbQuestions() )

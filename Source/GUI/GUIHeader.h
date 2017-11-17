@@ -43,9 +43,9 @@ public:
        // mTitleLabel.setText("ANSWER SECTION", dontSendNotification);
         
         
-        String filePath = File::getCurrentWorkingDirectory().getFullPathName();
-        std::cout<<filePath<<std::endl;
-        File f(filePath + "/logo.png");
+        //String filePath = File::getCurrentWorkingDirectory().getFullPathName()+"/logo.png";
+        String filePath = "/Users/macbookpro/Documents/Code/FilterTrainer/Source/GUI/img/logo.png";
+        File f(filePath);
         
         mLogo = ImageFileFormat::loadFrom(f);
         if (mLogo.isValid())

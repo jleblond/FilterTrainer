@@ -11,6 +11,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <math.h>       /* floor */
 
 
 ReportGenerator ReportGenerator::reportgenerator = ReportGenerator();
@@ -95,11 +96,13 @@ Report ReportGenerator::createReport(Session session, User& user)
     r.audioFiles = session.getAudioFileNames();
     r.nbQuestions = session.getQuestionsCount();
     r.score = static_cast<int>(session.getScore());
+    
     if(r.score == -1)
         r.score = 0;
     
     r.maxScore = static_cast<int>(session.getMaxScore());
-    r.percentScore = (r.score/r.maxScore)*100;  //percent score is X (%)
+   // r.percentScore = (r.score/r.maxScore)*100;  //percent score is X (%)
+    
     r.comments = session.getComments();
     r.freqstats = session.mSessionStats;
     
@@ -151,10 +154,9 @@ bool ReportGenerator::generateReportFile(Report& report)
             
         }
         
-        return false;
     }
     
-    
+    return false;
     
 
 //    AlertWindow alert ("**Report Generator**",
@@ -201,7 +203,12 @@ String ReportGenerator::gainStr(Report& report)
     String s="";
     for(int i=0;i<(report.gainFactor).size();i++)
     {
-        s += static_cast<String>(report.gainFactor[i])+" ";
+        int gain = report.gainFactor[i];
+        String gainStr = static_cast<String>(report.gainFactor[i]);
+        if(gain > 0)
+            gainStr = "+" + static_cast<String>(report.gainFactor[i]);
+        
+        s += gainStr+" ";
         std::cout<<report.gainFactor[i]<<std::endl;
     }
     return s;
@@ -319,7 +326,7 @@ String ReportGenerator::reportTxtContent(Report& report)
     if(report.nbQuestions >= mMinNbQuestionsforScore )
     {
         s+="\n";
-        s+="Your score at the present level ["+ static_cast<String>(report.percentScore) +"%]\n";
+        s+="Your score at the present level ["+ static_cast<String>((int)(100 * report.score/report.maxScore)) +"%]\n";
         s+="\n";
         s+="\n";
     }
@@ -327,8 +334,14 @@ String ReportGenerator::reportTxtContent(Report& report)
     
     if(report.nbQuestions >= mMinNbQuestionsforScore )
     {
-        s+="Your score ["+ static_cast<String>(report.score) +"] / " + static_cast<String>(report.maxScore) +"\n\n";
-        s+="Global Progress Score ["+ static_cast<String>(report.score/1024.0*100.0) +"%]\n";
+        s+="Your score ["+ static_cast<String>((int)report.score) +"] / " + static_cast<String>(report.maxScore) +"\n\n";
+        
+        float globalProgScore = report.score / 1024 * 100 ;
+        std::cout<<"globalProgScore "<<globalProgScore<<std::endl;
+        globalProgScore = std::floor( (globalProgScore) * 5 + 0.5) / 5;
+        std::cout<<"globalProgScore floor .5"<<globalProgScore<<std::endl;
+        
+        s+="Global Progress Score ["+ static_cast<String>( globalProgScore) +"%]\n";
         s+="(based on your score and the difficulty of your exercises)\n";
     }
     else

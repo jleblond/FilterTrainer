@@ -287,11 +287,13 @@ public:
             mCountInvolvedFreqs += mSessionStats.count[mAllRange[j]] ;
         }
         
+        std::cout<<"mCOUNTINVOLVEDFREQS: ::::"<<mCountInvolvedFreqs<<std::endl;
+        
         for (int j=0 ; j< 10 ; j++)
         {
-            float freqScore = mSessionStats.correctans[mAllRange[j]]*100 / mSessionStats.count[mAllRange[j]] ;
+            float freqScore = mSessionStats.correctans[mAllRange[j]] / mSessionStats.count[mAllRange[j]];
             std::cout<<freqScore<<"(freqscore)  -  (freqweight) ";
-            float freqWeight = mSessionStats.count[mAllRange[j]] / mCountInvolvedFreqs;
+            float freqWeight = mSessionStats.count[mAllRange[j]] / mCountInvolvedFreqs ;
             std::cout<<freqWeight<<std::endl;
             
             //required otherwise freq for which freqWeight == 0 will result in NaN
@@ -299,8 +301,8 @@ public:
                 mWeightedAverage += freqScore * freqWeight;
         }
         
-        mWeightedAverage /= mCountInvolvedFreqs;
-       // mWeightedAverage /= 100;
+     //   mWeightedAverage = mWeightedAverage / mCountInvolvedFreqs;
+    
         std::cout<<"Session - mWeightedAverage: "<<mWeightedAverage<<std::endl;
         
     }
@@ -320,7 +322,8 @@ public:
     {
         if (mQuestionsCount >= mMinQuestionsNeeded)
         {
-            float nearest = roundf( (mWeightedAverage*100) * 100) / 100;
+            //float nearest = floor( (mScore/mMaxScore*100) * 5 + 0.5) / 5;
+            float nearest = (int) (mScore/mMaxScore*100);
             mScoreTextGUIStats = static_cast<String>(nearest)+"% at the present level";
         }
         return mScoreTextGUIStats;
@@ -389,7 +392,7 @@ private:
     float mDiffFactor1 = (100.0/62.0);
     float mDiffFactor2 = (100.0/80.0);
     
-    int mMinQuestionsNeeded = 5;
+    int mMinQuestionsNeeded = 50;
     
     //Date date;
     //Time time;

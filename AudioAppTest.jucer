@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="f5NIlT" name="InnerEar" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark" projectType="guiapp" version="1.1.0"
-              bundleIdentifier="com.jleblondc.FilterTrainer" includeBinaryInAppConfig="1"
+<JUCERPROJECT id="f5NIlT" name="Inner Ear" displaySplashScreen="1" reportAppUsage="1"
+              splashScreenColour="Light" projectType="guiapp" version="1.0"
+              bundleIdentifier="com.jleblondc.InnerEar" includeBinaryInAppConfig="1"
               jucerVersion="5.1.2" cppLanguageStandard="11">
-  <MAINGROUP id="Ou4Fp1" name="InnerEar">
+  <MAINGROUP id="Ou4Fp1" name="Inner Ear">
     <GROUP id="{2FBB8473-082C-4AAA-4C05-36CACAAC1C17}" name="DspFilters">
       <GROUP id="{18A016FB-0364-B53D-1DAD-7F0D62CB3CE6}" name="DspFilters">
         <FILE id="QT0Fqc" name="Bessel.h" compile="0" resource="0" file="DspFilters/DspFilters/Bessel.h"/>
@@ -79,6 +79,9 @@
       <FILE id="XguPW1" name="LoopingAudioTransportSource.h" compile="0"
             resource="0" file="Source/LoopingAudioTransportSource.h"/>
       <GROUP id="{61C864F3-5253-1971-8825-96BC225D917D}" name="GUI">
+        <GROUP id="{1B16304B-ECEE-3EE6-6BCC-1CA6179D119E}" name="img">
+          <FILE id="Ot1vCl" name="logo.png" compile="0" resource="1" file="Source/GUI/img/logo.png"/>
+        </GROUP>
         <FILE id="yFrZj9" name="AppGUI.h" compile="0" resource="0" file="Source/GUI/AppGUI.h"/>
         <FILE id="bxP5Zz" name="GUIHeader.h" compile="0" resource="0" file="Source/GUI/GUIHeader.h"/>
         <GROUP id="{E86BD910-12CB-DB04-20FB-85AA61C99DD6}" name="StartSession">
