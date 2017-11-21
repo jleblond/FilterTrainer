@@ -25,6 +25,10 @@ extern TextButton g_questionButton;
 extern TextButton g_answerButton;
 extern TextButton g_correctionButton;
 
+extern TextButton g_answerAmpButton;
+extern TextButton g_answerAttButton;
+
+
 extern TextButton g_filterCorrectionButton;
 
 extern TextButton g_openButton;

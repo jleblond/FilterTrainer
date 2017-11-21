@@ -191,22 +191,34 @@ public:
                      int answerDistance, bool gainCorrect)   //update mSessionStats
     {
         
-        //Increase count of freq asked in the exercise (for all cases)
+        //Increase count of freq asked in the exercise (FOR ALL CASES)
         mSessionStats.count[centerFreq] +=1;
         
+        
+        //CASE: Everything is perfect (exact same Freq, Gain correct)
         if( centerFreq == centerFreqAnswered  &&  answerDistance == 0  && gainCorrect )
         {
             mSessionStats.correctans[centerFreq]  +=1;
         }
+        //CASE: Exact same frequency, but the Gain is correct. 0 point.
+        else if (centerFreq == centerFreqAnswered  &&  answerDistance == 0  && !gainCorrect)
+        {
+            //do nothing (do not increase centerFreqAnswered count, because the freq count would double)
+            ;
+        }
+        //CASE: Answered freq is only 1 freq away from the correct one, Gain is correct
         else if ( answerDistance == 1  && gainCorrect )
         {
             mSessionStats.count[centerFreqAnswered] +=1;
             mSessionStats.correctans[centerFreq]  +=0.5;
         }
+        //CASE: Incorrect Freq (distance > 1 freq away), Incorrect Gain
         else
         {
+            //different centerFreqAnswered and centerFreq, so the count of each will be increased
             mSessionStats.count[centerFreqAnswered] +=1;
         }
+
         
         
         mQuestionsCount +=1;

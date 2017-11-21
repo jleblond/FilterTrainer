@@ -211,9 +211,9 @@ public:
 //                                          "OK");
         
         juce::AlertWindow *alert = new juce::AlertWindow ("About",creditsStr, juce::AlertWindow::InfoIcon );
-        alert->addButton ("OK",1,juce::KeyPress(),juce::KeyPress());
         alert->setColour(AlertWindow::backgroundColourId, Colours::black);
         alert->setBounds(300,150,700,250);
+        alert->addButton ("OK",1,juce::KeyPress(),juce::KeyPress());
         int returnValue = alert->runModalLoop();
         delete alert;
     }

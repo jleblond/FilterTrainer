@@ -22,6 +22,10 @@ TextButton g_questionButton;
 TextButton g_answerButton;
 TextButton g_correctionButton;
 
+TextButton g_answerAmpButton;
+TextButton g_answerAttButton;
+
+
 TextButton g_filterCorrectionButton;
 
 TextButton g_openButton;
