@@ -143,14 +143,16 @@ bool ReportGenerator::generateReportFile(Report& report)
             juce::AlertWindow *alertFileSaved = new juce::AlertWindow ("Report Succesfully Generated!",
                                                                        "File saved as...\n" + reportFilePath, juce::AlertWindow::NoIcon );
             alertFileSaved->setColour(AlertWindow::backgroundColourId, Colours::black);
-            alertFileSaved->addButton ("OK",0,juce::KeyPress(),juce::KeyPress());
             alertFileSaved->setBounds(330,200,600,200);
+            alertFileSaved->addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
             int returnValue = alertFileSaved->runModalLoop();
             delete alertFileSaved;
             
             reportFile.revealToUser();
             
             return true;
+            
+            
             
         }
         
@@ -346,7 +348,7 @@ String ReportGenerator::reportTxtContent(Report& report)
     }
     else
     {
-        s+="\n\nYour score: [Answer at least 50 questions in order to calculate your score]\n";
+        s+="\n\nYour score: [Answer at least "+ static_cast<String>(mMinNbQuestionsforScore) +" questions in order to calculate your score]\n";
     }
     s+="\n";
     s+="\n";

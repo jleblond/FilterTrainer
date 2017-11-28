@@ -84,7 +84,7 @@ public:
         //Amplification Atttenuation Toggle Text Buttons Section
         addAndMakeVisible(mAmpAttLabel);
         mAmpAttLabel.setColour(juce::Label::textColourId, juce::Colours::white);
-        mAmpAttLabel.setText("[Amplify / Attenuate]", dontSendNotification);
+        mAmpAttLabel.setText("[Boost / Cut]", dontSendNotification);
         mAmpAttLabel.setVisible(false);
         
         addAndMakeVisible(mAmpToggleButton);

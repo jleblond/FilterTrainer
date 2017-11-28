@@ -43,14 +43,11 @@ public:
        // mTitleLabel.setText("ANSWER SECTION", dontSendNotification);
         
         
-        //String filePath = File::getCurrentWorkingDirectory().getFullPathName()+"/logo.png";
-        String filePath = "/Users/macbookpro/Documents/Code/FilterTrainer/Source/GUI/img/logo.png";
-        File f(filePath);
-        
-        mLogo = ImageFileFormat::loadFrom(f);
+        mLogo = ImageFileFormat::loadFrom(BinaryData::logo_png, (size_t) BinaryData::logo_pngSize);
         if (mLogo.isValid())
             mLogoImageComponent.setImage(mLogo);
         addAndMakeVisible(&mLogoImageComponent);
+        
     }
     
     ~GUIHeader()
@@ -198,7 +195,7 @@ public:
     void infoDialogBox()
     {
         String creditsStr = String(CharPointer_UTF8 (
-            "Ear Training software implemented by Jasmine Leblond-Chartrand\nfor Concordia's Music Department, Montreal (2017)\n\nThe Inner Ear Project is supervised by Dr. Eldad Tsabary at Concordia University\nin collaboration with Dr. David Ogborn at McMaster University\nand Dr. Andrea Szigetvári at Liszt Academy of Music.")
+                                                     "Ear Training software implemented by Jasmine Leblond-Chartrand     \nfor Concordia's Music Department, Montreal, 2017  \n\nThe Inner Ear Project is supervised by:\n  Dr. Eldad Tsabary at Concordia University\n\nin collaboration with:\n  Dr. David Ogborn at McMaster University\n  Dr. Andrea Szigetvári at Liszt Academy of Music  \n")
                                                     );
         
 //        AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
@@ -212,7 +209,7 @@ public:
         
         juce::AlertWindow *alert = new juce::AlertWindow ("About",creditsStr, juce::AlertWindow::InfoIcon );
         alert->setColour(AlertWindow::backgroundColourId, Colours::black);
-        alert->setBounds(300,150,700,250);
+       // alert->setBounds(300,150,700,250);
         alert->addButton ("OK",1,juce::KeyPress(),juce::KeyPress());
         int returnValue = alert->runModalLoop();
         delete alert;

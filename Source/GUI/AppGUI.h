@@ -120,26 +120,67 @@ public:
             
             (g_User.getLastSession())->setDuration(timeInSeconds);
             
-            Report report = ( ReportGenerator::Instance().createReport(
-                                                               *(g_User.getLastSession()),
-                                                                 g_User
-                                                                      )
-                             );
-            report.print();
             
             
-            if (ReportGenerator::Instance().generateReportFile(report) )
+            int sessionQcount = (g_User.getLastSession())->getQuestionsCount();
+            
+            
+            if( sessionQcount >= mNbQuestionsReportGen )
             {
-                mStartSession.setVisible(true);
-                mMainApp.setVisible(false);
-                mHeader.displayEndSessionButton(false);
-                mHeader.displayCommentButton(false);
                 
-                mMainApp.resetExControlsPanel();
+                Report report = ( ReportGenerator::Instance().createReport(
+                                                                           *(g_User.getLastSession()),
+                                                                           g_User
+                                                                           )
+                                 );
+                report.print();
+                
+                
+                if (ReportGenerator::Instance().generateReportFile(report) )
+                {
+                    endSession();
+                }
+                
+            }
+            else //nb of min questions asked required for report generation has not been reached
+            {
+                String creditsStr = String(CharPointer_UTF8 (
+                                                             "You need to answer at least 10 questions.\n\nDo you want to end this session without generating a report?     ")
+                                           );
+                
+                juce::AlertWindow *alert = new juce::AlertWindow ("Report was not generated",creditsStr, juce::AlertWindow::WarningIcon );
+                alert->setColour(AlertWindow::backgroundColourId, Colours::black);
+                //alert->setBounds(300,150,700,200);
+                
+                alert->addButton ("Yes",     1, KeyPress (KeyPress::returnKey, 0, 0));
+                alert->addButton ("No", 0, KeyPress (KeyPress::escapeKey, 0, 0));
+                
+                
+                int returnValue = alert->runModalLoop();
+                delete alert;
+                
+                if(returnValue)
+                {
+                    endSession();
+                }
+
+                
             }
             
-        }
+
+        } //button endSession listener
         
+    } //general button clicked listener function
+    
+    
+    void endSession()
+    {
+        mStartSession.setVisible(true);
+        mMainApp.setVisible(false);
+        mHeader.displayEndSessionButton(false);
+        mHeader.displayCommentButton(false);
+        
+        mMainApp.resetExControlsPanel();
     }
     
     
@@ -151,6 +192,7 @@ private:
                        
     LookAndFeel *mLF = new LookAndFeel_V4( (LookAndFeel_V4::getLightColourScheme() ) );
   
+    int mNbQuestionsReportGen = 10;
     
     //GUI sections proportions
     const float mHeaderHeight = 0.15;
