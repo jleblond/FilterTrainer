@@ -40,13 +40,27 @@ public:
         
         addAndMakeVisible(mUserLabel);
         mUserLabel.setJustificationType(juce::Justification::right);
-       // mTitleLabel.setText("ANSWER SECTION", dontSendNotification);
+        mUserLabel.setColour(juce::Label::textColourId, juce::Colours::white);
         
         
-        mLogo = ImageFileFormat::loadFrom(BinaryData::logo_png, (size_t) BinaryData::logo_pngSize);
-        if (mLogo.isValid())
-            mLogoImageComponent.setImage(mLogo);
-        addAndMakeVisible(&mLogoImageComponent);
+//        mLogo = ImageFileFormat::loadFrom(BinaryData::logo_png, (size_t) BinaryData::logo_pngSize);
+//        if (mLogo.isValid())
+//            mLogoImageComponent.setImage(mLogo);
+//        addAndMakeVisible(&mLogoImageComponent);
+        
+        
+        
+        Image logoImage = ImageCache::getFromMemory (BinaryData::logo_png, BinaryData::logo_pngSize);
+        
+        mLogoButton.setImages (true, true, true,
+                       logoImage, 0.7f, Colours::transparentBlack,
+                       logoImage, 1.0f, Colours::transparentBlack,
+                               logoImage, 1.0f, Colours::lightgrey.withAlpha (0.8f),
+                       0.5f);
+        
+        mLogoButton.setTooltip ("Information about the Inner Ear Project");
+        addAndMakeVisible(mLogoButton);
+        mLogoButton.addListener(this);
         
     }
     
@@ -61,8 +75,8 @@ public:
         
         g.setColour (Colours::white);
         
-        g.setFont (16.0f);
-        g.drawText (str_title, 0.45*getWidth()+15, getHeight()/2+10, getWidth(), getHeight()/2,
+        g.setFont (26.0f);
+        g.drawText (str_title, 0.4*getWidth()+15, getHeight()/2, getWidth(), getHeight()/2,
                     Justification::left, true);
         
 //        g.setFont (40.0f);
@@ -78,14 +92,16 @@ public:
         
         Rectangle<int> area = getLocalBounds();
         
-        mLogoImageComponent.setBounds(0.44*getWidth(), 0*getHeight()-20, 120, 120);
-        
-        //INFO
-        menu2.setBounds(0, 0, elementwidth, elementheight);
-        //ADD COMMENT
-        menu1.setBounds(elementwidth, 0, elementwidth, elementheight);
+        //mLogoImageComponent.setBounds(0.44*getWidth(), 0*getHeight()-20, 120, 120);
+        // mLogoImageComponent.setBounds(0.08*getWidth(), 0*getHeight()-20, 120, 140);
+         mLogoButton.setBounds(0.08*getWidth(), 0*getHeight()-20, 120, 140);
+
         //USERNAME
-        mUserLabel.setBounds(menuxoffset, 0, 2*elementwidth, elementheight);
+        mUserLabel.setBounds(menuxoffset-10, 3*elementheight, 3*elementwidth, elementheight);
+        //INFO
+       // menu2.setBounds(menuxoffset-45, 0, elementwidth, elementheight);
+        //ADD COMMENT
+        menu1.setBounds(menuxoffset+elementwidth-5, 0, elementwidth, elementheight);
         //END SESSION
         g_EndSessionButton.setBounds(menuxoffset+2*elementwidth, 0, elementwidth, elementheight);
         
@@ -95,7 +111,10 @@ public:
     
     void buttonClicked(Button* button) override
     {
-    
+        if(button == &mLogoButton)
+        {
+            infoDialogBox();
+        }
         
         if(button== &menu1)
         {
@@ -131,7 +150,12 @@ public:
     
     void setUserLabel(String user)
     {
-        mUserLabel.setText(user, dontSendNotification);
+        if( user.toStdString().size() == 0 )
+        {
+            mUserLabel.setText("user: [  ]     ", dontSendNotification);
+        }
+        else
+            mUserLabel.setText("user: "+user, dontSendNotification);
     }
     
     void commentDialogBox()
@@ -195,7 +219,7 @@ public:
     void infoDialogBox()
     {
         String creditsStr = String(CharPointer_UTF8 (
-                                                     "Ear Training software implemented by Jasmine Leblond-Chartrand     \nfor Concordia's Music Department, Montreal, 2017  \n\nThe Inner Ear Project is supervised by:\n  Dr. Eldad Tsabary at Concordia University\n\nin collaboration with:\n  Dr. David Ogborn at McMaster University\n  Dr. Andrea Szigetvári at Liszt Academy of Music  \n")
+                                                     "Ear Training software implemented by Jasmine Leblond-Chartrand     \nfor Concordia's Music Department, Montreal, 2017  \n\nThe Inner Ear Project is supervised by:\n  Dr. Eldad Tsabary at Concordia University\nin collaboration with:\n  Dr. David Ogborn at McMaster University\n  Dr. Andrea Szigetvári at Liszt Academy of Music  \n")
                                                     );
         
 //        AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
@@ -219,7 +243,7 @@ public:
     
 private:
     
-    String str_title=" filter module ";
+    String str_title=" FILTER MODULE ";
     String str_subtitle="INNER EAR";
     
     TextButton menu1;
@@ -237,6 +261,7 @@ private:
     
     TextEditor* mTextEditor = new TextEditor("Enter your comment here: ");
 
+    ImageButton mLogoButton;
 Image mLogo;
 ImageComponent mLogoImageComponent;
 };

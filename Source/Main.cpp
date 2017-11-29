@@ -70,6 +70,7 @@ public:
             setUsingNativeTitleBar (true);
             setContentOwned (new AppGUI, true);
             setResizable (true, true);
+            setResizeLimits (800, 600, 1600, 1200);
 
             centreWithSize (getWidth(), getHeight());
             setVisible (true);

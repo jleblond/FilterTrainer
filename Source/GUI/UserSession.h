@@ -30,7 +30,7 @@ public:
         mTextField.setColour(juce::TextEditor::outlineColourId, juce::Colour::fromRGB(0,0,0));
         mTextField.setColour(juce::TextEditor::backgroundColourId, juce::Colour::fromRGB(247, 249, 252));
         mTextField.setColour(juce::TextEditor::focusedOutlineColourId, juce::Colour::fromRGB(0,0,0));
-        mTextField.setText(" ");
+        mTextField.setText("");
         
     }
     

@@ -196,7 +196,7 @@ public:
                                        mBarSize, 0.6*getHeight() );
                
                mVecFreqLabels[i]->setBounds(vecStartXPos[i]*getWidth(),
-                                           0.75*getHeight(),
+                                           0.77*getHeight(),
                                            mBarSize*1.25, mBarSize*2);
                
            }

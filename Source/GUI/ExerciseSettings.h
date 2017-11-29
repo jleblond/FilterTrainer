@@ -22,7 +22,7 @@ public:
     {
         addAndMakeVisible(mTitleLabel);
         mTitleLabel.setColour(juce::Label::textColourId, juce::Colours::white);
-        mTitleLabel.setText("Generate new question", dontSendNotification);
+        mTitleLabel.setText("Ask a new question", dontSendNotification);
     
     }
     
@@ -33,16 +33,12 @@ public:
     
     void paint(Graphics& g) override
     {
-        //sidebar
-        //g.fillAll(Colours::darkred);
-        // g.fillAll(Colour::Colour(191, 92, 0) ); //dark red
-        //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
         
     }
     
     void resized() override
     {
-        mTitleLabel.setBounds(0.25*getWidth(), 0, 0.6*getWidth(), 80);
+        mTitleLabel.setBounds(0.25*getWidth()+10, 0.3*getHeight(), 0.6*getWidth(), 80);
         
     
     }
