@@ -14,6 +14,7 @@
 #include "../global.h"
 
 #include <math.h>       /* fabs */
+#include <assert.h>        /* assert */
 
 class ExerciseCorrection : public Component,
 public Button::Listener, Slider::Listener

@@ -86,6 +86,11 @@ public:
         mStats.setScoreLabel();
     }
     
+    void  setAmpAttButtonsVisibility(bool visible)
+    {
+        mExcontrols.setAmpAttButtonsVisibility(visible);
+    }
+    
 private:
     GUIExControls mExcontrols;
     GUIPlayer mPlayer;

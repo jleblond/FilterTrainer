@@ -180,6 +180,8 @@ public:
         mHeader.displayEndSessionButton(false);
         mHeader.displayCommentButton(false);
         
+        mMainApp.setAmpAttButtonsVisibility(false);
+        
         mMainApp.resetExControlsPanel();
     }
     
