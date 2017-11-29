@@ -112,92 +112,84 @@ Report ReportGenerator::createReport(Session session, User& user)
 
 bool ReportGenerator::generateReportFile(Report& report)
 {
-    juce::AlertWindow *alert = new juce::AlertWindow ("Report Generator","A report will be generated based on your session data. \n Please choose the directory where you want to save this report.", juce::AlertWindow::NoIcon );
-    alert->setColour(AlertWindow::backgroundColourId, Colours::black);
-    
-    alert->addButton ("Continue",     1, KeyPress (KeyPress::returnKey, 0, 0));
-    alert->addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));
-    
-    alert->setBounds(400,200,500, 200);
-    
-    int returnValue = alert->runModalLoop();
-    delete alert;
-    
-    if(returnValue)
-    {
-        FileChooser fc ("Save the report in folder..",
-                        File::getCurrentWorkingDirectory(),
-                        "*",
-                        true);
-        
-        if (fc.browseForDirectory())
-        {
-            File chosenDirectory = fc.getResult();
-            String reportFilePath =
-            chosenDirectory.getFullPathName()+"/report_"+getStrFormatCurrentTime()+".txt";
-            
-            File reportFile(reportFilePath);
-            reportFile.create();
-            reportFile.appendText( reportTxtContent(report) );
-            
-            juce::AlertWindow *alertFileSaved = new juce::AlertWindow ("Report Succesfully Generated!",
-                                                                       "File saved as...\n" + reportFilePath, juce::AlertWindow::NoIcon );
-            alertFileSaved->setColour(AlertWindow::backgroundColourId, Colours::black);
-            alertFileSaved->setBounds(330,200,600,200);
-            alertFileSaved->addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
-            int returnValue = alertFileSaved->runModalLoop();
-            delete alertFileSaved;
-            
-            reportFile.revealToUser();
-            
-            return true;
-            
-            
-            
-        }
-        
-    }
-    
-    return false;
-    
+	juce::AlertWindow *alert = new juce::AlertWindow("Report Generator", "A report will be generated based on your session data. \n Your report will be saved to your desktop.", juce::AlertWindow::NoIcon);
+	alert->setColour(AlertWindow::backgroundColourId, Colours::black);
 
-//    AlertWindow alert ("**Report Generator**",
-//                   "A report will be generated based on your session data. \n Please choose the directory where you want to save this report.",
-//                   AlertWindow::NoIcon);
-//
-//
-//    alert.addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
-//
-//    if (alert.runModalLoop() != 0) // is they picked 'ok'
-//    {
-//        FileChooser fc ("Save the report in folder..",
-//                        File::getCurrentWorkingDirectory(),
-//                        "*",
-//                        true);
-//
-//        if (fc.browseForDirectory())
-//        {
-//            File chosenDirectory = fc.getResult();
-//            String reportFilePath =
-//                chosenDirectory.getFullPathName()+"/report_"+getStrFormatCurrentTime()+".txt";
-//
-//            File reportFile(reportFilePath);
-//            reportFile.create();
-//            reportFile.appendText( reportTxtContent(report) );
-//
-//            alert.addTextBlock("File saved as...\n" + reportFilePath);
-//
-//            reportFile.revealToUser();
-//
-//            return true;
-//
-//        }
-//    }
-//
-//    return false;
-  
-   
+	alert->addButton("Continue", 1, KeyPress(KeyPress::returnKey, 0, 0));
+	alert->addButton("Cancel", 0, KeyPress(KeyPress::escapeKey, 0, 0));
+
+	alert->setBounds(400, 200, 500, 200);
+
+	int returnValue = alert->runModalLoop();
+	delete alert;
+
+	if (returnValue)
+	{
+
+
+		String reportFilePath =
+			File::getSpecialLocation(File::userDesktopDirectory).getFullPathName() + "/report_" + getStrFormatCurrentTime() + ".txt";
+
+		File reportFile(reportFilePath);
+		reportFile.create();
+		reportFile.appendText(reportTxtContent(report));
+
+		juce::AlertWindow *alertFileSaved = new juce::AlertWindow("Report Succesfully Generated!",
+			"File saved as...\n" + reportFilePath, juce::AlertWindow::NoIcon);
+		alertFileSaved->setColour(AlertWindow::backgroundColourId, Colours::black);
+		alertFileSaved->setBounds(330, 200, 600, 200);
+		alertFileSaved->addButton("OK", 1, KeyPress(KeyPress::returnKey, 0, 0));
+		int returnValue = alertFileSaved->runModalLoop();
+		delete alertFileSaved;
+
+
+		return true;
+
+
+
+	}
+
+	return false;
+
+
+	//    AlertWindow alert ("**Report Generator**",
+	//                   "A report will be generated based on your session data. \n Please choose the directory where you want to save this report.",
+	//                   AlertWindow::NoIcon);
+	//
+	//
+	//    alert.addButton ("OK",     1, KeyPress (KeyPress::returnKey, 0, 0));
+	//
+	//    if (alert.runModalLoop() != 0) // is they picked 'ok'
+	//    {
+	//        FileChooser fc ("Save the report in folder..",
+	//                        File::getCurrentWorkingDirectory(),
+	//                        "*",
+	//                        true);
+	//
+	//        if (fc.browseForDirectory())
+	//        {
+	//            File chosenDirectory = fc.getResult();
+	//            String reportFilePath =
+	//                chosenDirectory.getFullPathName()+"/report_"+getStrFormatCurrentTime()+".txt";
+	//
+	//            File reportFile(reportFilePath);
+	//            reportFile.create();
+	//            reportFile.appendText( reportTxtContent(report) );
+	//
+	//            alert.addTextBlock("File saved as...\n" + reportFilePath);
+	//
+	//            reportFile.revealToUser();
+	//
+	//            return true;
+	//
+	//        }
+	//    }
+	//
+	//    return false;
+
+
 }
+
 
 String ReportGenerator::gainStr(Report& report)
 {
