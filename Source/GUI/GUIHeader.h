@@ -222,21 +222,23 @@ public:
                                                      "Ear Training software implemented by Jasmine Leblond-Chartrand     \nfor Concordia's Music Department, Montreal, 2017  \n\nThe Inner Ear Project is supervised by:\n  Dr. Eldad Tsabary at Concordia University\nin collaboration with:\n  Dr. David Ogborn at McMaster University\n  Dr. Andrea Szigetvári at Liszt Academy of Music  \n")
                                                     );
         
-//        AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
-//        setColour(AlertWindow::backgroundColourId, Colours::black);
-
-//
-//        AlertWindow::showMessageBoxAsync (icon,
-//                                          "Inner Ear [filter module] 1.1 (MacOSX version)",
-//                                          creditsStr,
-//                                          "OK");
         
-        juce::AlertWindow *alert = new juce::AlertWindow ("About",creditsStr, juce::AlertWindow::InfoIcon );
-        alert->setColour(AlertWindow::backgroundColourId, Colours::black);
-       // alert->setBounds(300,150,700,250);
-        alert->addButton ("OK",1,juce::KeyPress(),juce::KeyPress());
-        int returnValue = alert->runModalLoop();
-        delete alert;
+        AlertWindow::AlertIconType icon = AlertWindow::InfoIcon;
+        setColour(AlertWindow::backgroundColourId, Colours::black);
+
+
+        AlertWindow::showMessageBoxAsync (icon,
+                                          "Inner Ear [filter module] 1.1 (MacOSX version)",
+                                          creditsStr,
+                                          "OK");
+        
+//        juce::AlertWindow *alert = new juce::AlertWindow ("About",creditsStr, juce::AlertWindow::InfoIcon );
+//        alert->setColour(AlertWindow::backgroundColourId, Colours::black);
+//       // alert->setBounds(300,150,700,250);
+//        alert->addButton ("OK",1,juce::KeyPress(),juce::KeyPress());
+//
+//        int returnValue = alert->runModalLoop();
+//        delete alert;
     }
     
 

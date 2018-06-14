@@ -145,7 +145,7 @@ public:
             else //nb of min questions asked required for report generation has not been reached
             {
                 String creditsStr = String(CharPointer_UTF8 (
-                                                             "You need to answer at least 10 questions.\n\nDo you want to end this session without generating a report?     ")
+                                                             "You need to answer at least 1 question.\n\nDo you want to end this session without generating a report?     ")
                                            );
                 
                 juce::AlertWindow *alert = new juce::AlertWindow ("Report was not generated",creditsStr, juce::AlertWindow::WarningIcon );
@@ -194,7 +194,7 @@ private:
                        
     LookAndFeel *mLF = new LookAndFeel_V4( (LookAndFeel_V4::getLightColourScheme() ) );
   
-    int mNbQuestionsReportGen = 10;
+    int mNbQuestionsReportGen = 1;
     
     //GUI sections proportions
     const float mHeaderHeight = 0.15;

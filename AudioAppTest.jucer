@@ -119,7 +119,7 @@
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="AudioAppTest"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="AudioAppTest"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Inner Ear"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="JuceLibraryCode/modules"/>
@@ -186,12 +186,14 @@
         <MODULEPATH id="juce_audio_utils" path="..\JUCE\modules"/>
       </MODULEPATHS>
     </VS2015>
-    <ANDROIDSTUDIO targetFolder="Builds/Android">
+    <ANDROIDSTUDIO targetFolder="Builds/Android" androidSDKPath="" androidNDKPath="/Users/macbookpro/Library/Android/sdk/ndk-bundle"
+                   androidMinimumSDK="23" smallIcon="Ot1vCl" bigIcon="Ot1vCl" androidScreenOrientation="landscape"
+                   androidExternalWriteNeeded="1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" androidArchitectures="armeabi x86" isDebug="1" optimisation="1"
-                       targetName="AudioAppTest"/>
+                       targetName="Inner Ear"/>
         <CONFIGURATION name="Release" androidArchitectures="" isDebug="0" optimisation="3"
-                       targetName="AudioAppTest"/>
+                       targetName="Inner Ear"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_video" path="JuceLibraryCode/modules"/>
