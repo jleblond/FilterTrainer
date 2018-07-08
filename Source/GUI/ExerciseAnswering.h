@@ -158,9 +158,17 @@ public:
         {
             int boostAns = (ExerciseGenerator::listexercises).back()->getFreqBoost();
             boostAns = std::fabs(boostAns);
-            
-            if( !mAmpButtonSelected )
+
+            // IN CASE Exercise is configured to both +/- possible answer choices,
+            // mAmpButton is not selected => user had pressed the attenuation button in their answer
+            // then we need to negate the int of their answer
+            if( mAmpButtonSelected == false )
                 boostAns = -boostAns;
+            
+            // IN CASE Exercise is only configured to '-' (attenuation)
+            if ( g_gainAmplification == false && g_gainAttenuation == true)
+                boostAns = -boostAns;
+            
             
             ( ExerciseGenerator::Instance() ) .Answering( mAnswerSlider.getValue(), boostAns );
         }
