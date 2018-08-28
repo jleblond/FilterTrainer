@@ -231,7 +231,7 @@ public:
 //                                          creditsStr,
 //                                          "OK");
         
-        juce::AlertWindow *alert = new juce::AlertWindow ("About",creditsStr, juce::AlertWindow::InfoIcon );
+        juce::AlertWindow *alert = new juce::AlertWindow ("Inner Ear Filter Module 1.3 (Windows x64 version)",creditsStr, juce::AlertWindow::InfoIcon );
         alert->setColour(AlertWindow::backgroundColourId, Colours::black);
        // alert->setBounds(300,150,700,250);
         alert->addButton ("OK",1,juce::KeyPress(),juce::KeyPress());
