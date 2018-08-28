@@ -398,8 +398,8 @@ private:
     float mWeightedAverage = 0; //user weighted average of bands
     int mCountInvolvedFreqs = 0;
     
-    int mMinQuestionsNeeded = 30;
-    String mScoreTextGUIStats = "(Answer at least\n"+ static_cast<String> (mMinQuestionsNeeded) +" questions)";
+    int mMinQuestionsNeeded = 1;
+    String mScoreTextGUIStats = "(Answer at least\n"+ static_cast<String> (mMinQuestionsNeeded) +" question)";
     
     //Difficulty factors
     float mDiffFactor1 = (100.0/62.0);

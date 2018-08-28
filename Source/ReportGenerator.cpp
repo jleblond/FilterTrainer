@@ -277,7 +277,7 @@ String ReportGenerator::reportTxtContent(Report& report)
     
     String s = "\n";
     s+= "\t\t \n";
-    s+="\t\t\tFILTER TRAINER\n";
+    s+="\t\t\tInner Ear: FILTER MODULE\n";
     s+="\t\t\tREPORT\n";
     s+="\t\t*********************************************\n";
     s+="\n";
