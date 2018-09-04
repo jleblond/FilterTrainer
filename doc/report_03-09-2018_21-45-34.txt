@@ -1,0 +1,71 @@
+
+		 
+			Inner Ear: FILTER MODULE
+			REPORT
+		*********************************************
+
+			User [JLC]
+			Date: Mon Sep  3 21:45:28 2018
+
+
+
+
+	***SESSION INFORMATION***
+
+
+Time practiced [4m32s]
+
+Exercise settings
+	Frequency range [Mid8]
+	Amplification or Attenuation (dB) [+12 -12 ]
+
+
+Name(s) of audio file(s) played
+	[Wolves.m4a]
+
+
+Total number of questions asked [4]
+
+
+
+
+
+	***GRAPH***
+
+center     #times  
+freq        involved         score (%)
+————————————————————————--------------
+ 62.5 Hz	[1]		|-------------------------------------------------- 100% 
+ 125  Hz	[0]		| 0% 
+ 250  Hz	[0]		| 0% 
+ 500  Hz	[1]		|-------------------------------------------------- 100% 
+ 1   kHz	[0]		| 0% 
+ 2   kHz	[0]		| 0% 
+ 4   kHz	[2]		|------------------------- 50% 
+ 8   kHz	[1]		|------------------------- 50% 
+
+Your score at the present level [69%]
+
+
+Maximum score (Exercises Difficulty) [325] / 1024
+
+Your score [227] / 325
+
+Global Progress Score [22.2%]
+(based on your score and the difficulty of your exercises)
+
+
+
+	***USER COMMENTS SECTION***
+
+[[Mon Sep  3 21:45:03 2018
+
+	[test test]
+
+
+[[Mon Sep  3 21:45:27 2018
+
+	[comment #2]
+
+
+
