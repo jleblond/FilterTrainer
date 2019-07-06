@@ -7,27 +7,27 @@ It was written as part of the Inner Ear research project at Concordia University
  
   
  
-# "Start a new session" screen
+# "Start a new session" 
 ![Screenshot](https://github.com/jleblond/FilterTrainer/blob/master/doc/screenshot1.png)
  
 
-# "Exercise settings" screen
+# "Exercise settings"
 ![Screenshot](https://github.com/jleblond/FilterTrainer/blob/master/doc/screenshot2.png)
  
 
-# Default view - Audio file has to be loaded
+# Default view - Load Audio File
 ![Screenshot](https://github.com/jleblond/FilterTrainer/blob/master/doc/screenshot3.png)
  
 
-# Play an audio file, answer the frequency value & cut/boost value
+# Play audio file, answer the frequency value & cut/boost value
 ![Screenshot](https://github.com/jleblond/FilterTrainer/blob/master/doc/screenshot4.png)
  
 
-# Getting some feedback on the exercise. Stats and scores are calculated
+# Get some feedback on your exercise. Stats and scores are calculated
 ![Screenshot](https://github.com/jleblond/FilterTrainer/blob/master/doc/screenshot5.png)
  
 
-# Progression report generated for each practise session
+# Progression report is generated for each practise session
 ![Screenshot](https://github.com/jleblond/FilterTrainer/blob/master/doc/screenshot6.png)
 
 
